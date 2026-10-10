@@ -47,3 +47,21 @@ def test_wrong_password_is_explained_without_leaking_it():
 def test_unreachable_postgres_raises_a_readable_error():
     with pytest.raises(DatabaseConnectionError, match="No se pudo conectar"):
         Store("postgresql://postgres:x@127.0.0.1:1/postgres")
+
+
+def test_password_variable_fills_the_supabase_template():
+    from nutricion.config import Settings
+
+    template = "postgresql://postgres.abc:[YOUR-PASSWORD]@aws-0-us-east-1.pooler.supabase.com:5432/postgres"
+    settings = Settings(_env_file=None, database_url=template, database_password="mi@clave#1")
+    assert settings.database == (
+        "postgresql://postgres.abc:mi%40clave%231@aws-0-us-east-1.pooler.supabase.com:5432/postgres"
+    )
+    assert database_url_problems(settings.database) == []
+
+
+def test_url_without_template_is_left_alone():
+    from nutricion.config import Settings
+
+    settings = Settings(_env_file=None, database_url=GOOD, database_password="otra")
+    assert settings.database == GOOD

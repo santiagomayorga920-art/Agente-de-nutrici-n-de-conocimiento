@@ -2,7 +2,9 @@
 
 import hashlib
 import os
+import re
 from functools import lru_cache
+from urllib.parse import quote
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -17,6 +19,9 @@ class Settings(BaseSettings):
     telegram_chat_id: str = ""
     # Postgres (Supabase) si está definida; si no, SQLite en database_path
     database_url: str = ""
+    # Opcional: la contraseña aparte. Así se puede pegar la URI de Supabase tal cual, con
+    # [YOUR-PASSWORD], y el código inserta la contraseña (codificada si tiene símbolos)
+    database_password: str = ""
     database_path: str = "data/nutricion.db"
     # Modo webhook (tiempo real): secreto que Telegram envía en cada petición
     telegram_webhook_secret: str = ""
@@ -29,7 +34,13 @@ class Settings(BaseSettings):
 
     @property
     def database(self) -> str:
-        return self.database_url or f"sqlite:///{self.database_path}"
+        url = self.database_url.strip()
+        if not url:
+            return f"sqlite:///{self.database_path}"
+        if self.database_password:
+            password = quote(self.database_password.strip(), safe="")
+            url = re.sub(r"\[YOUR-PASSWORD\]", password, url, flags=re.IGNORECASE)
+        return url
 
     @property
     def telegram_secret_token(self) -> str:

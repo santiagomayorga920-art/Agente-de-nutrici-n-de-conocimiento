@@ -81,6 +81,7 @@ def create_app(settings: Settings | None = None, agent_factory=build_agent) -> S
             database = str(exc)
         return {
             "base_de_datos": database,
+            "database_password": bool(settings.database_password),
             "gemini_api_key": bool(settings.gemini_api_key),
             "telegram_bot_token": bool(settings.telegram_bot_token),
             "telegram_chat_id": bool(settings.telegram_chat_id),

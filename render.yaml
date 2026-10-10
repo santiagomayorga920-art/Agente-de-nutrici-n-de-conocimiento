@@ -19,6 +19,9 @@ services:
         sync: false
       - key: DATABASE_URL
         sync: false
+      # Opcional: la contraseña de Supabase aparte (la URI puede llevar [YOUR-PASSWORD] tal cual)
+      - key: DATABASE_PASSWORD
+        sync: false
       - key: TIMEZONE
         sync: false
       # Clave para que cron-job.org dispare la píldora diaria; elígela tú (solo letras y números)

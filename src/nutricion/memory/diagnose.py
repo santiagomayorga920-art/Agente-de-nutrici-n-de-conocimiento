@@ -12,8 +12,8 @@ def database_url_problems(url: str) -> list[str]:
     problems = []
     if "[" in url or "]" in url or "YOUR-PASSWORD" in url.upper():
         problems.append(
-            "Contiene corchetes o el texto [YOUR-PASSWORD]: bórralo entero y escribe tu"
-            " contraseña en su lugar, sin corchetes."
+            "Contiene corchetes o el texto [YOUR-PASSWORD]. Lo más fácil: deja la URI tal cual"
+            " y crea la variable DATABASE_PASSWORD con tu contraseña; el bot la inserta sola."
         )
     if url.count("@") > 1:
         problems.append(

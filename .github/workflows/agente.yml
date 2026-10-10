@@ -49,6 +49,7 @@ jobs:
         continue-on-error: true
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
         run: |
           if [ -n "$DATABASE_URL" ]; then nutricion migrar data/nutricion.db; fi
 
@@ -59,6 +60,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           # Opcional: con Supabase el progreso vive allí; sin él, en la caché de Actions (SQLite)
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           TIMEZONE: ${{ vars.TIMEZONE || 'UTC' }}
           ENVIAR_PILDORA: ${{ inputs.enviar_pildora }}
         run: |
