@@ -20,32 +20,6 @@
       "source_location": "L12"
     },
     {
-      "id": "src_nutricion_llm_gemini_geminiclient",
-      "label": "GeminiClient",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Settings",
-      "file_type": "code",
-      "norm_label": "geminiclient",
-      "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L15"
-    },
-    {
-      "id": "src_nutricion_llm_init_missingapikey",
-      "label": "MissingAPIKey",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Settings",
-      "file_type": "code",
-      "norm_label": "missingapikey",
-      "source_file": "src/nutricion/llm/__init__.py",
-      "source_location": "L22"
-    },
-    {
       "id": "src_nutricion_sources_catalog_category",
       "label": "Category",
       "_callable": true,
@@ -98,6 +72,19 @@
       "source_location": "L33"
     },
     {
+      "id": "src_nutricion_domain_progress_profile",
+      "label": "Profile",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "Score",
+      "file_type": "code",
+      "norm_label": "profile",
+      "source_file": "src/nutricion/domain/progress.py",
+      "source_location": "L45"
+    },
+    {
       "id": "src_nutricion_domain_progress_score",
       "label": "Score",
       "_callable": true,
@@ -117,7 +104,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "_pilldraft",
       "source_file": "src/nutricion/agents/researcher.py",
@@ -130,7 +117,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "evaluation",
       "source_file": "src/nutricion/agents/tutor.py",
@@ -143,24 +130,24 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "pill",
       "source_file": "src/nutricion/domain/lesson.py",
       "source_location": "L34"
     },
     {
-      "id": "src_nutricion_domain_progress_profile",
-      "label": "Profile",
+      "id": "src_nutricion_llm_gemini_geminiclient",
+      "label": "GeminiClient",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
-      "norm_label": "profile",
-      "source_file": "src/nutricion/domain/progress.py",
-      "source_location": "L45"
+      "norm_label": "geminiclient",
+      "source_file": "src/nutricion/llm/gemini.py",
+      "source_location": "L15"
     },
     {
       "id": "src_nutricion_llm_init_llmclient",
@@ -169,11 +156,24 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "llmclient",
       "source_file": "src/nutricion/llm/__init__.py",
       "source_location": "L12"
+    },
+    {
+      "id": "src_nutricion_llm_init_missingapikey",
+      "label": "MissingAPIKey",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "missingapikey",
+      "source_file": "src/nutricion/llm/__init__.py",
+      "source_location": "L22"
     },
     {
       "id": "src_nutricion_memory_store_databaseconnectionerror",
@@ -418,54 +418,6 @@
       "source_location": "L10"
     },
     {
-      "id": "src_nutricion_llm_gemini_geminiclient_call",
-      "label": "._call()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Settings",
-      "file_type": "code",
-      "norm_label": "._call()",
-      "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L31"
-    },
-    {
-      "id": "src_nutricion_llm_gemini_geminiclient_generate",
-      "label": ".generate()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Settings",
-      "file_type": "code",
-      "norm_label": ".generate()",
-      "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L20"
-    },
-    {
-      "id": "src_nutricion_llm_gemini_geminiclient_generate_structured",
-      "label": ".generate_structured()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Settings",
-      "file_type": "code",
-      "norm_label": ".generate_structured()",
-      "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L23"
-    },
-    {
-      "id": "src_nutricion_llm_gemini_geminiclient_init",
-      "label": ".__init__()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Settings",
-      "file_type": "code",
-      "norm_label": ".__init__()",
-      "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L16"
-    },
-    {
       "id": "src_nutricion_llm_init_get_llm",
       "label": "get_llm()",
       "_callable": true,
@@ -572,6 +524,18 @@
       "norm_label": "_run_tick()",
       "source_file": "src/nutricion/main.py",
       "source_location": "L95"
+    },
+    {
+      "id": "tests_test_diagnose_test_unreachable_postgres_raises_a_readable_error",
+      "label": "test_unreachable_postgres_raises_a_readable_error()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "Settings",
+      "file_type": "code",
+      "norm_label": "test_unreachable_postgres_raises_a_readable_error()",
+      "source_file": "tests/test_diagnose.py",
+      "source_location": "L47"
     },
     {
       "id": "tests_test_llm_test_gemini_is_selected_when_key_present",
@@ -742,18 +706,6 @@
       "source_location": "L17"
     },
     {
-      "id": "tests_test_app_test_same_story_from_another_source_is_not_repeated_same_story",
-      "label": "same_story()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "feeds.py",
-      "file_type": "code",
-      "norm_label": "same_story()",
-      "source_file": "tests/test_app.py",
-      "source_location": "L217"
-    },
-    {
       "id": "tests_test_sources_client",
       "label": "_client()",
       "_callable": true,
@@ -850,6 +802,126 @@
       "source_location": "L17"
     },
     {
+      "id": "src_nutricion_channels_formatting_bar",
+      "label": "_bar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "Score",
+      "file_type": "code",
+      "norm_label": "_bar()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L82"
+    },
+    {
+      "id": "src_nutricion_channels_formatting_choice_reaction",
+      "label": "choice_reaction()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "Score",
+      "file_type": "code",
+      "norm_label": "choice_reaction()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L36"
+    },
+    {
+      "id": "src_nutricion_channels_formatting_days",
+      "label": "_days()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "Score",
+      "file_type": "code",
+      "norm_label": "_days()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L87"
+    },
+    {
+      "id": "src_nutricion_channels_formatting_feedback",
+      "label": "feedback()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "Score",
+      "file_type": "code",
+      "norm_label": "feedback()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L43"
+    },
+    {
+      "id": "src_nutricion_channels_formatting_pill_body",
+      "label": "pill_body()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "Score",
+      "file_type": "code",
+      "norm_label": "pill_body()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L17"
+    },
+    {
+      "id": "src_nutricion_channels_formatting_pill_header",
+      "label": "pill_header()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "Score",
+      "file_type": "code",
+      "norm_label": "pill_header()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L11"
+    },
+    {
+      "id": "src_nutricion_channels_formatting_plain",
+      "label": "plain()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "Score",
+      "file_type": "code",
+      "norm_label": "plain()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L91"
+    },
+    {
+      "id": "src_nutricion_channels_formatting_profile_card",
+      "label": "profile_card()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "Score",
+      "file_type": "code",
+      "norm_label": "profile_card()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L57"
+    },
+    {
+      "id": "src_nutricion_channels_formatting_progress_line",
+      "label": "progress_line()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "Score",
+      "file_type": "code",
+      "norm_label": "progress_line()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L50"
+    },
+    {
+      "id": "src_nutricion_channels_formatting_reminder",
+      "label": "reminder()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "Score",
+      "file_type": "code",
+      "norm_label": "reminder()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L31"
+    },
+    {
       "id": "src_nutricion_domain_progress_build_profile",
       "label": "build_profile()",
       "_callable": true,
@@ -884,6 +956,30 @@
       "norm_label": "_clamp()",
       "source_file": "src/nutricion/domain/progress.py",
       "source_location": "L17"
+    },
+    {
+      "id": "src_nutricion_domain_progress_profile_average",
+      "label": ".average()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "Score",
+      "file_type": "code",
+      "norm_label": ".average()",
+      "source_file": "src/nutricion/domain/progress.py",
+      "source_location": "L57"
+    },
+    {
+      "id": "src_nutricion_domain_progress_profile_weakest",
+      "label": ".weakest()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "Score",
+      "file_type": "code",
+      "norm_label": ".weakest()",
+      "source_file": "src/nutricion/domain/progress.py",
+      "source_location": "L61"
     },
     {
       "id": "src_nutricion_domain_progress_score_line",
@@ -1011,7 +1107,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "create_pill()",
       "source_file": "src/nutricion/agents/researcher.py",
@@ -1023,7 +1119,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "load_skill()",
       "source_file": "src/nutricion/agents/skills.py",
@@ -1035,7 +1131,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "evaluate()",
       "source_file": "src/nutricion/agents/tutor.py",
@@ -1047,155 +1143,59 @@
       "_callable": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "react_to_choice()",
       "source_file": "src/nutricion/agents/tutor.py",
       "source_location": "L22"
     },
     {
-      "id": "src_nutricion_channels_formatting_bar",
-      "label": "_bar()",
+      "id": "src_nutricion_llm_gemini_geminiclient_call",
+      "label": "._call()",
       "_callable": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
-      "norm_label": "_bar()",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L82"
-    },
-    {
-      "id": "src_nutricion_channels_formatting_choice_reaction",
-      "label": "choice_reaction()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "formatting.py",
-      "file_type": "code",
-      "norm_label": "choice_reaction()",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L36"
-    },
-    {
-      "id": "src_nutricion_channels_formatting_days",
-      "label": "_days()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "formatting.py",
-      "file_type": "code",
-      "norm_label": "_days()",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L87"
-    },
-    {
-      "id": "src_nutricion_channels_formatting_feedback",
-      "label": "feedback()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "formatting.py",
-      "file_type": "code",
-      "norm_label": "feedback()",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L43"
-    },
-    {
-      "id": "src_nutricion_channels_formatting_pill_body",
-      "label": "pill_body()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "formatting.py",
-      "file_type": "code",
-      "norm_label": "pill_body()",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L17"
-    },
-    {
-      "id": "src_nutricion_channels_formatting_pill_header",
-      "label": "pill_header()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "formatting.py",
-      "file_type": "code",
-      "norm_label": "pill_header()",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L11"
-    },
-    {
-      "id": "src_nutricion_channels_formatting_plain",
-      "label": "plain()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "formatting.py",
-      "file_type": "code",
-      "norm_label": "plain()",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L91"
-    },
-    {
-      "id": "src_nutricion_channels_formatting_profile_card",
-      "label": "profile_card()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "formatting.py",
-      "file_type": "code",
-      "norm_label": "profile_card()",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L57"
-    },
-    {
-      "id": "src_nutricion_channels_formatting_progress_line",
-      "label": "progress_line()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "formatting.py",
-      "file_type": "code",
-      "norm_label": "progress_line()",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L50"
-    },
-    {
-      "id": "src_nutricion_channels_formatting_reminder",
-      "label": "reminder()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "formatting.py",
-      "file_type": "code",
-      "norm_label": "reminder()",
-      "source_file": "src/nutricion/channels/formatting.py",
+      "norm_label": "._call()",
+      "source_file": "src/nutricion/llm/gemini.py",
       "source_location": "L31"
     },
     {
-      "id": "src_nutricion_domain_progress_profile_average",
-      "label": ".average()",
+      "id": "src_nutricion_llm_gemini_geminiclient_generate",
+      "label": ".generate()",
       "_callable": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
-      "norm_label": ".average()",
-      "source_file": "src/nutricion/domain/progress.py",
-      "source_location": "L57"
+      "norm_label": ".generate()",
+      "source_file": "src/nutricion/llm/gemini.py",
+      "source_location": "L20"
     },
     {
-      "id": "src_nutricion_domain_progress_profile_weakest",
-      "label": ".weakest()",
+      "id": "src_nutricion_llm_gemini_geminiclient_generate_structured",
+      "label": ".generate_structured()",
       "_callable": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
-      "norm_label": ".weakest()",
-      "source_file": "src/nutricion/domain/progress.py",
-      "source_location": "L61"
+      "norm_label": ".generate_structured()",
+      "source_file": "src/nutricion/llm/gemini.py",
+      "source_location": "L23"
+    },
+    {
+      "id": "src_nutricion_llm_gemini_geminiclient_init",
+      "label": ".__init__()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": ".__init__()",
+      "source_file": "src/nutricion/llm/gemini.py",
+      "source_location": "L16"
     },
     {
       "id": "src_nutricion_llm_init_llmclient_generate",
@@ -1203,7 +1203,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": ".generate()",
       "source_file": "src/nutricion/llm/__init__.py",
@@ -1215,7 +1215,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": ".generate_structured()",
       "source_file": "src/nutricion/llm/__init__.py",
@@ -1227,7 +1227,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": ".generate_structured()",
       "source_file": "tests/test_app.py",
@@ -1239,7 +1239,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "test_skills_load_without_frontmatter()",
       "source_file": "tests/test_skills.py",
@@ -1762,6 +1762,18 @@
       "source_location": "L212"
     },
     {
+      "id": "tests_test_app_test_same_story_from_another_source_is_not_repeated_same_story",
+      "label": "same_story()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "Agent",
+      "file_type": "code",
+      "norm_label": "same_story()",
+      "source_file": "tests/test_app.py",
+      "source_location": "L217"
+    },
+    {
       "id": "src_nutricion_memory_diagnose_connection_summary",
       "label": "connection_summary()",
       "_callable": true,
@@ -1771,7 +1783,7 @@
       "file_type": "code",
       "norm_label": "connection_summary()",
       "source_file": "src/nutricion/memory/diagnose.py",
-      "source_location": "L46"
+      "source_location": "L53"
     },
     {
       "id": "src_nutricion_memory_diagnose_database_url_problems",
@@ -1795,7 +1807,7 @@
       "file_type": "code",
       "norm_label": "explain_connection_error()",
       "source_file": "src/nutricion/memory/diagnose.py",
-      "source_location": "L71"
+      "source_location": "L78"
     },
     {
       "id": "src_nutricion_memory_diagnose_sanitized",
@@ -1807,7 +1819,7 @@
       "file_type": "code",
       "norm_label": "_sanitized()",
       "source_file": "src/nutricion/memory/diagnose.py",
-      "source_location": "L60"
+      "source_location": "L67"
     },
     {
       "id": "tests_test_diagnose_test_common_mistakes_are_explained",
@@ -1858,6 +1870,18 @@
       "source_location": "L52"
     },
     {
+      "id": "tests_test_diagnose_test_placeholder_project_id_is_detected",
+      "label": "test_placeholder_project_id_is_detected()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "test_diagnose.py",
+      "file_type": "code",
+      "norm_label": "test_placeholder_project_id_is_detected()",
+      "source_file": "tests/test_diagnose.py",
+      "source_location": "L87"
+    },
+    {
       "id": "tests_test_diagnose_test_technical_detail_never_includes_the_password",
       "label": "test_technical_detail_never_includes_the_password()",
       "_callable": true,
@@ -1870,16 +1894,16 @@
       "source_location": "L70"
     },
     {
-      "id": "tests_test_diagnose_test_unreachable_postgres_raises_a_readable_error",
-      "label": "test_unreachable_postgres_raises_a_readable_error()",
+      "id": "tests_test_diagnose_test_unknown_tenant_error_is_explained",
+      "label": "test_unknown_tenant_error_is_explained()",
       "_callable": true,
       "_origin": "ast",
       "community": 5,
       "community_name": "test_diagnose.py",
       "file_type": "code",
-      "norm_label": "test_unreachable_postgres_raises_a_readable_error()",
+      "norm_label": "test_unknown_tenant_error_is_explained()",
       "source_file": "tests/test_diagnose.py",
-      "source_location": "L47"
+      "source_location": "L94"
     },
     {
       "id": "tests_test_diagnose_test_url_without_template_is_left_alone",
@@ -2865,17 +2889,6 @@
       "source_location": ""
     },
     {
-      "id": "generatecontentconfig",
-      "label": "GenerateContentConfig",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Settings",
-      "file_type": "code",
-      "norm_label": "generatecontentconfig",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
       "id": "src_nutricion_config",
       "label": "config.py",
       "_origin": "ast",
@@ -2907,50 +2920,6 @@
       "norm_label": "nutricion/__init__.py",
       "source_file": "src/nutricion/__init__.py",
       "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_llm_gemini",
-      "label": "gemini.py",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Settings",
-      "file_type": "code",
-      "norm_label": "gemini.py",
-      "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_llm_gemini_py_t",
-      "label": "T",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Settings",
-      "file_type": "code",
-      "norm_label": "t",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "src_nutricion_llm_init",
-      "label": "llm/__init__.py",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Settings",
-      "file_type": "code",
-      "norm_label": "llm/__init__.py",
-      "source_file": "src/nutricion/llm/__init__.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_llm_init_py_exception",
-      "label": "Exception",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Settings",
-      "file_type": "code",
-      "norm_label": "exception",
-      "source_file": "",
-      "source_location": ""
     },
     {
       "id": "src_nutricion_main",
@@ -3016,28 +2985,6 @@
       "file_type": "rationale",
       "norm_label": "agente de nutricion de conocimiento sobre ia y negocios.",
       "source_file": "src/nutricion/__init__.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_llm_gemini_rationale_1",
-      "label": "Implementaci\u00f3n de LLMClient con la capa gratuita de Gemini (Google AI Studio).",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Settings",
-      "file_type": "rationale",
-      "norm_label": "implementacion de llmclient con la capa gratuita de gemini (google ai studio).",
-      "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_llm_init_rationale_1",
-      "label": "Cerebro del agente tras una interfaz com\u00fan: se cambia de proveedor sin tocar el\u2026",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Settings",
-      "file_type": "rationale",
-      "norm_label": "cerebro del agente tras una interfaz comun: se cambia de proveedor sin tocar el...",
-      "source_file": "src/nutricion/llm/__init__.py",
       "source_location": "L1"
     },
     {
@@ -3319,6 +3266,17 @@
       "source_location": ""
     },
     {
+      "id": "src_nutricion_channels_formatting",
+      "label": "formatting.py",
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "Score",
+      "file_type": "code",
+      "norm_label": "formatting.py",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L1"
+    },
+    {
       "id": "src_nutricion_domain_progress",
       "label": "progress.py",
       "_origin": "ast",
@@ -3374,6 +3332,17 @@
       "source_location": "L18"
     },
     {
+      "id": "src_nutricion_channels_formatting_rationale_1",
+      "label": "Formato HTML de Telegram para p\u00edldoras y feedback (todo el texto del LLM se\u2026",
+      "_origin": "ast",
+      "community": 13,
+      "community_name": "Score",
+      "file_type": "rationale",
+      "norm_label": "formato html de telegram para pildoras y feedback (todo el texto del llm se...",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L1"
+    },
+    {
       "id": "src_nutricion_domain_progress_rationale_1",
       "label": "Gamificaci\u00f3n: notas, promedios, racha de d\u00edas y nivel del estudiante (sin\u2026",
       "_origin": "ast",
@@ -3426,11 +3395,22 @@
       "source_location": "L1"
     },
     {
+      "id": "generatecontentconfig",
+      "label": "GenerateContentConfig",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "generatecontentconfig",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
       "id": "src_nutricion_agents_researcher",
       "label": "researcher.py",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "researcher.py",
       "source_file": "src/nutricion/agents/researcher.py",
@@ -3441,7 +3421,7 @@
       "label": "BaseModel",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "basemodel",
       "source_file": "",
@@ -3452,7 +3432,7 @@
       "label": "skills.py",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "skills.py",
       "source_file": "src/nutricion/agents/skills.py",
@@ -3463,7 +3443,7 @@
       "label": "tutor.py",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "tutor.py",
       "source_file": "src/nutricion/agents/tutor.py",
@@ -3474,29 +3454,62 @@
       "label": "BaseModel",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "basemodel",
       "source_file": "",
       "source_location": ""
     },
     {
-      "id": "src_nutricion_channels_formatting",
-      "label": "formatting.py",
+      "id": "src_nutricion_llm_gemini",
+      "label": "gemini.py",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
-      "norm_label": "formatting.py",
-      "source_file": "src/nutricion/channels/formatting.py",
+      "norm_label": "gemini.py",
+      "source_file": "src/nutricion/llm/gemini.py",
       "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_llm_gemini_py_t",
+      "label": "T",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "t",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "src_nutricion_llm_init",
+      "label": "llm/__init__.py",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "llm/__init__.py",
+      "source_file": "src/nutricion/llm/__init__.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_llm_init_py_exception",
+      "label": "Exception",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "exception",
+      "source_file": "",
+      "source_location": ""
     },
     {
       "id": "src_nutricion_llm_init_py_protocol",
       "label": "Protocol",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "protocol",
       "source_file": "",
@@ -3507,7 +3520,7 @@
       "label": "T",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "t",
       "source_file": "",
@@ -3518,7 +3531,7 @@
       "label": "test_skills.py",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "test_skills.py",
       "source_file": "tests/test_skills.py",
@@ -3529,7 +3542,7 @@
       "label": "CLAUDE.md",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "document",
       "node_kind": "page",
       "norm_label": "claude.md",
@@ -3541,7 +3554,7 @@
       "label": "Agente de nutrici\u00f3n de conocimiento",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "agente de nutricion de conocimiento",
@@ -3553,7 +3566,7 @@
       "label": "graphify",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "document",
       "node_kind": "heading",
       "norm_label": "graphify",
@@ -3565,7 +3578,7 @@
       "label": "Investigador: elige la noticia m\u00e1s relevante entre todas las fuentes y escribe\u2026",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "rationale",
       "norm_label": "investigador: elige la noticia mas relevante entre todas las fuentes y escribe...",
       "source_file": "src/nutricion/agents/researcher.py",
@@ -3576,7 +3589,7 @@
       "label": "Devuelve la p\u00edldora y la candidata original elegida (para marcarla como le\u00edda).",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "rationale",
       "norm_label": "devuelve la pildora y la candidata original elegida (para marcarla como leida).",
       "source_file": "src/nutricion/agents/researcher.py",
@@ -3587,7 +3600,7 @@
       "label": "Carga las instrucciones de `skills/<nombre>/SKILL.md` para usarlas como prompt\u2026",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "rationale",
       "norm_label": "carga las instrucciones de `skills/<nombre>/skill.md` para usarlas como prompt...",
       "source_file": "src/nutricion/agents/skills.py",
@@ -3598,21 +3611,32 @@
       "label": "Tutor: reacciona a la postura elegida con un bot\u00f3n y eval\u00faa la respuesta\u2026",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "rationale",
       "norm_label": "tutor: reacciona a la postura elegida con un boton y evalua la respuesta...",
       "source_file": "src/nutricion/agents/tutor.py",
       "source_location": "L1"
     },
     {
-      "id": "src_nutricion_channels_formatting_rationale_1",
-      "label": "Formato HTML de Telegram para p\u00edldoras y feedback (todo el texto del LLM se\u2026",
+      "id": "src_nutricion_llm_gemini_rationale_1",
+      "label": "Implementaci\u00f3n de LLMClient con la capa gratuita de Gemini (Google AI Studio).",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "rationale",
-      "norm_label": "formato html de telegram para pildoras y feedback (todo el texto del llm se...",
-      "source_file": "src/nutricion/channels/formatting.py",
+      "norm_label": "implementacion de llmclient con la capa gratuita de gemini (google ai studio).",
+      "source_file": "src/nutricion/llm/gemini.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_llm_init_rationale_1",
+      "label": "Cerebro del agente tras una interfaz com\u00fan: se cambia de proveedor sin tocar el\u2026",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "rationale",
+      "norm_label": "cerebro del agente tras una interfaz comun: se cambia de proveedor sin tocar el...",
+      "source_file": "src/nutricion/llm/__init__.py",
       "source_location": "L1"
     },
     {
@@ -3620,7 +3644,7 @@
       "label": "Devuelve texto libre.",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "rationale",
       "norm_label": "devuelve texto libre.",
       "source_file": "src/nutricion/llm/__init__.py",
@@ -3631,7 +3655,7 @@
       "label": "Devuelve una instancia de `schema` validada (p. ej. la nota de una evaluaci\u00f3n).",
       "_origin": "ast",
       "community": 15,
-      "community_name": "formatting.py",
+      "community_name": "researcher.py",
       "file_type": "rationale",
       "norm_label": "devuelve una instancia de `schema` validada (p. ej. la nota de una evaluacion).",
       "source_file": "src/nutricion/llm/__init__.py",
@@ -4053,7 +4077,7 @@
       "source_location": "L1"
     },
     {
-      "id": "src_nutricion_memory_diagnose_rationale_47",
+      "id": "src_nutricion_memory_diagnose_rationale_54",
       "label": "Destino de la conexi\u00f3n sin la contrase\u00f1a, para poder revisarlo a simple vista.",
       "_origin": "ast",
       "community": 5,
@@ -4061,7 +4085,7 @@
       "file_type": "rationale",
       "norm_label": "destino de la conexion sin la contrasena, para poder revisarlo a simple vista.",
       "source_file": "src/nutricion/memory/diagnose.py",
-      "source_location": "L47"
+      "source_location": "L54"
     },
     {
       "id": "src_nutricion_memory_diagnose_rationale_9",
@@ -4427,28 +4451,6 @@
       "type": "external"
     },
     {
-      "id": "google",
-      "label": "google",
-      "community": 0,
-      "community_name": "Settings",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "google",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "google_genai",
-      "label": "google_genai",
-      "community": 0,
-      "community_name": "Settings",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "google_genai",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "hashlib",
       "label": "hashlib",
       "community": 0,
@@ -4471,17 +4473,6 @@
       "type": "external"
     },
     {
-      "id": "pydantic",
-      "label": "pydantic",
-      "community": 0,
-      "community_name": "Settings",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "pydantic",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "pydantic_settings",
       "label": "pydantic_settings",
       "community": 0,
@@ -4493,6 +4484,17 @@
       "type": "external"
     },
     {
+      "id": "pytest",
+      "label": "pytest",
+      "community": 0,
+      "community_name": "Settings",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "pytest",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "sys",
       "label": "sys",
       "community": 0,
@@ -4500,17 +4502,6 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "sys",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "typing",
-      "label": "typing",
-      "community": 0,
-      "community_name": "Settings",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "typing",
       "source_file": "",
       "type": "external"
     },
@@ -4614,13 +4605,46 @@
       "type": "external"
     },
     {
-      "id": "zoneinfo",
-      "label": "zoneinfo",
-      "community": 13,
-      "community_name": "Score",
+      "id": "google",
+      "label": "google",
+      "community": 15,
+      "community_name": "researcher.py",
       "external": true,
       "file_type": "concept",
-      "norm_label": "zoneinfo",
+      "norm_label": "google",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "google_genai",
+      "label": "google_genai",
+      "community": 15,
+      "community_name": "researcher.py",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "google_genai",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "pydantic",
+      "label": "pydantic",
+      "community": 15,
+      "community_name": "researcher.py",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "pydantic",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "typing",
+      "label": "typing",
+      "community": 15,
+      "community_name": "researcher.py",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "typing",
       "source_file": "",
       "type": "external"
     },
@@ -4746,17 +4770,6 @@
       "type": "external"
     },
     {
-      "id": "pytest",
-      "label": "pytest",
-      "community": 5,
-      "community_name": "test_diagnose.py",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "pytest",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "urllib_parse",
       "label": "urllib_parse",
       "community": 5,
@@ -4786,6 +4799,17 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "datetime",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "zoneinfo",
+      "label": "zoneinfo",
+      "community": 8,
+      "community_name": "app.py",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "zoneinfo",
       "source_file": "",
       "type": "external"
     },
@@ -5817,7 +5841,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/memory/diagnose.py",
-      "source_location": "L72",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
@@ -5829,7 +5853,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/memory/diagnose.py",
-      "source_location": "L88",
+      "source_location": "L95",
       "weight": 1.0
     },
     {
@@ -6937,6 +6961,18 @@
       "weight": 1.0
     },
     {
+      "source": "tests_test_diagnose_test_placeholder_project_id_is_detected",
+      "target": "src_nutricion_memory_diagnose_database_url_problems",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "tests/test_diagnose.py",
+      "source_location": "L90",
+      "weight": 1.0
+    },
+    {
       "source": "tests_test_diagnose_test_technical_detail_never_includes_the_password",
       "target": "src_nutricion_memory_diagnose_explain_connection_error",
       "relation": "calls",
@@ -6946,6 +6982,18 @@
       "context": "call",
       "source_file": "tests/test_diagnose.py",
       "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_diagnose_test_unknown_tenant_error_is_explained",
+      "target": "src_nutricion_memory_diagnose_explain_connection_error",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "tests/test_diagnose.py",
+      "source_location": "L95",
       "weight": 1.0
     },
     {
@@ -10173,7 +10221,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "src/nutricion/memory/diagnose.py",
-      "source_location": "L71",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
@@ -10185,7 +10233,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "src/nutricion/memory/diagnose.py",
-      "source_location": "L60",
+      "source_location": "L67",
       "weight": 1.0
     },
     {
@@ -11279,7 +11327,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/memory/diagnose.py",
-      "source_location": "L46",
+      "source_location": "L53",
       "weight": 1.0
     },
     {
@@ -11290,7 +11338,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/memory/diagnose.py",
-      "source_location": "L60",
+      "source_location": "L67",
       "weight": 1.0
     },
     {
@@ -11301,7 +11349,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/memory/diagnose.py",
-      "source_location": "L71",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
@@ -11878,6 +11926,17 @@
     },
     {
       "source": "tests_test_diagnose",
+      "target": "tests_test_diagnose_test_placeholder_project_id_is_detected",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/test_diagnose.py",
+      "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_diagnose",
       "target": "tests_test_diagnose_test_correct_session_pooler_uri_has_no_problems",
       "relation": "contains",
       "_origin": "ast",
@@ -11885,6 +11944,17 @@
       "confidence_score": 1.0,
       "source_file": "tests/test_diagnose.py",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_diagnose",
+      "target": "tests_test_diagnose_test_unknown_tenant_error_is_explained",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/test_diagnose.py",
+      "source_location": "L94",
       "weight": 1.0
     },
     {
@@ -13703,14 +13773,14 @@
       "weight": 1.0
     },
     {
-      "source": "src_nutricion_memory_diagnose_rationale_47",
+      "source": "src_nutricion_memory_diagnose_rationale_54",
       "target": "src_nutricion_memory_diagnose_connection_summary",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/memory/diagnose.py",
-      "source_location": "L47",
+      "source_location": "L54",
       "weight": 1.0
     },
     {
@@ -15340,5 +15410,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "593ed1c16c8e3f91e7debcffc3965f0bc6d34ec0"
+  "built_at_commit": "46d94ea13d54f24c09c66682f4d6ba0bb2cb228b"
 }

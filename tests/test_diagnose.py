@@ -82,3 +82,17 @@ def test_connection_summary_hides_password():
     summary = connection_summary(GOOD)
     assert summary["servidor"] == "aws-0-us-east-1.pooler.supabase.com"
     assert summary["usuario"] == "postgres.abcdefghij" and "Clave123" not in str(summary)
+
+
+def test_placeholder_project_id_is_detected():
+    url = "postgresql://postgres.xxxx:[YOUR-PASSWORD]@aws-0-us-east-1.pooler.supabase.com:5432/postgres"
+    assert any(
+        "texto de ejemplo" in p for p in database_url_problems(url.replace("[YOUR-PASSWORD]", "c1"))
+    )
+
+
+def test_unknown_tenant_error_is_explained():
+    message = explain_connection_error(
+        GOOD, Exception("FATAL: (ENOTFOUND) tenant/user x not found")
+    )
+    assert "no encuentra el proyecto" in message

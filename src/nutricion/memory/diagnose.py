@@ -27,6 +27,13 @@ def database_url_problems(url: str) -> list[str]:
         return [*problems, "La URI está mal formada (¿la contraseña tiene # / ? o %?)."]
     if parts.fragment or parts.query.count("?"):
         problems.append("La contraseña parece contener # o ?: usa solo letras y números.")
+    ref = user.partition(".")[2].lower()
+    if ref and (set(ref) <= {"x"} or ref in {"abc", "abcdefghij", "abcdefghijklmnop", "tuid"}):
+        problems.append(
+            f"El usuario «{user}» es un texto de ejemplo, no el de tu proyecto. Copia la URI real"
+            " desde Supabase → Connect → Session pooler: lleva el id de tu proyecto (unas 20"
+            " letras) después de «postgres.»."
+        )
     if host.endswith(POOLER_HOST) and "." not in user:
         problems.append(
             f"El usuario es «{user}» pero el pooler de Supabase exige «{user}.<id-del-proyecto>"
@@ -76,7 +83,7 @@ def explain_connection_error(url: str, error: Exception) -> str:
             "Supabase rechazó la contraseña. Restablécela en Project Settings → Database"
             " (solo letras y números) y vuelve a copiar la URI del Session pooler."
         )
-    if not problems and "tenant or user not found" in message:
+    if not problems and ("tenant or user not found" in message or "tenant/user" in message):
         problems.append("Supabase no encuentra el proyecto: revisa el usuario postgres.<id>.")
     if not problems and ("timeout" in message or "timed out" in message):
         problems.append(
