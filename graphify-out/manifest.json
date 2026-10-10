@@ -246,9 +246,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/memory/diagnose.py": {
-    "mtime": 1791665003.653719,
-    "seen": 1791665006.0386295,
-    "ast_hash": "43cc19d81601c29c29392caba13847a4",
+    "mtime": 1791665015.9444652,
+    "seen": 1791665023.5540497,
+    "ast_hash": "8fa5671b2d50604d816eeacc8eafeece",
     "semantic_hash": ""
   },
   "tests/test_diagnose.py": {

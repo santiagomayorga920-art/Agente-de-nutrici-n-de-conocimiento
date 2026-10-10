@@ -28,7 +28,7 @@ def database_url_problems(url: str) -> list[str]:
     if parts.fragment or parts.query.count("?"):
         problems.append("La contraseña parece contener # o ?: usa solo letras y números.")
     ref = user.partition(".")[2].lower()
-    if ref and (set(ref) <= {"x"} or ref in {"abc", "abcdefghij", "abcdefghijklmnop", "tuid"}):
+    if ref and (set(ref) <= {"x"} or ref == "abcdefghijklmnop"):
         problems.append(
             f"El usuario «{user}» es un texto de ejemplo, no el de tu proyecto. Copia la URI real"
             " desde Supabase → Connect → Session pooler: lleva el id de tu proyecto (unas 20"
