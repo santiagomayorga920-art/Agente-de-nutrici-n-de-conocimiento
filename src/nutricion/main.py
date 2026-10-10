@@ -1,4 +1,4 @@
-"""Punto de entrada: `nutricion [revisar|ping|tick [--enviar-pildora]]`."""
+"""Punto de entrada: `nutricion [revisar|ping|fuentes|tick [--enviar-pildora]]`."""
 
 import argparse
 import sys
@@ -15,6 +15,7 @@ def main() -> None:
     sub = parser.add_subparsers(dest="command")
     sub.add_parser("revisar", help="comprueba la configuración (por defecto)")
     sub.add_parser("ping", help="prueba real contra Gemini")
+    sub.add_parser("fuentes", help="diagnóstico: cuántas noticias devuelve cada fuente")
     tick = sub.add_parser("tick", help="procesa mensajes de Telegram y envía la píldora si toca")
     tick.add_argument("--enviar-pildora", action="store_true", help="enviar la píldora diaria")
     args = parser.parse_args()
@@ -23,6 +24,11 @@ def main() -> None:
     if args.command == "ping":
         reply = get_llm(settings).generate("Responde en una sola palabra.", "Di 'hola' en español.")
         print(f"Gemini responde: {reply.strip()}")
+    elif args.command == "fuentes":
+        from nutricion.sources.feeds import source_health
+
+        for name, result in source_health():
+            print(f"{name:<36} {result}")
     elif args.command == "tick":
         _require(settings)
         _run_tick(settings, args.enviar_pildora)

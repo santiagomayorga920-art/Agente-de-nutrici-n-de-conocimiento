@@ -1,6 +1,8 @@
 """Almacén SQLite de lecciones y pequeños valores de control (p. ej. el offset de Telegram)."""
 
+import json
 import sqlite3
+from dataclasses import replace
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -26,6 +28,15 @@ CREATE TABLE IF NOT EXISTS kv (
 );
 """
 
+# Columnas añadidas después de la primera versión: se agregan a bases de datos ya existentes
+_MIGRATIONS = {
+    "source_name": "TEXT NOT NULL DEFAULT ''",
+    "category": "TEXT NOT NULL DEFAULT ''",
+    "image_url": "TEXT NOT NULL DEFAULT ''",
+    "options": "TEXT NOT NULL DEFAULT '[]'",
+    "choice": "TEXT NOT NULL DEFAULT ''",
+}
+
 _OPEN_STATES = (LessonState.PENDING, LessonState.AWAITING_ANSWER, LessonState.EVALUATING)
 
 
@@ -36,12 +47,21 @@ class Store:
         self._db = sqlite3.connect(path)
         self._db.row_factory = sqlite3.Row
         self._db.executescript(_SCHEMA)
+        self._migrate()
+
+    def _migrate(self) -> None:
+        existing = {row["name"] for row in self._db.execute("PRAGMA table_info(lessons)")}
+        with self._db:
+            for column, definition in _MIGRATIONS.items():
+                if column not in existing:
+                    self._db.execute(f"ALTER TABLE lessons ADD COLUMN {column} {definition}")
 
     def add_lesson(self, pill: Pill) -> Lesson:
         with self._db:
             cur = self._db.execute(
                 "INSERT INTO lessons (created_at, headline, what_happened, why_it_matters,"
-                " source_url, challenge, state) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                " source_url, challenge, state, source_name, category, image_url, options)"
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 (
                     datetime.now(UTC).isoformat(),
                     pill.headline,
@@ -50,6 +70,10 @@ class Store:
                     pill.source_url,
                     pill.challenge,
                     LessonState.PENDING,
+                    pill.source_name,
+                    pill.category,
+                    pill.image_url,
+                    json.dumps(list(pill.options), ensure_ascii=False),
                 ),
             )
         return Lesson(id=cur.lastrowid, pill=pill, state=LessonState.PENDING)
@@ -63,11 +87,19 @@ class Store:
         ).fetchone()
         return _to_lesson(row) if row else None
 
+    def count_lessons(self) -> int:
+        return self._db.execute("SELECT COUNT(*) FROM lessons").fetchone()[0]
+
     def move(self, lesson: Lesson, target: LessonState) -> Lesson:
         new_state = transition(lesson.state, target)
         with self._db:
             self._db.execute("UPDATE lessons SET state = ? WHERE id = ?", (new_state, lesson.id))
-        return Lesson(id=lesson.id, pill=lesson.pill, state=new_state)
+        return replace(lesson, state=new_state)
+
+    def save_choice(self, lesson: Lesson, choice: str) -> Lesson:
+        with self._db:
+            self._db.execute("UPDATE lessons SET choice = ? WHERE id = ?", (choice, lesson.id))
+        return replace(lesson, choice=choice)
 
     def save_answer(self, lesson: Lesson, answer: str) -> None:
         with self._db:
@@ -103,5 +135,9 @@ def _to_lesson(row: sqlite3.Row) -> Lesson:
         why_it_matters=row["why_it_matters"],
         source_url=row["source_url"],
         challenge=row["challenge"],
+        source_name=row["source_name"],
+        category=row["category"],
+        image_url=row["image_url"],
+        options=tuple(json.loads(row["options"])),
     )
-    return Lesson(id=row["id"], pill=pill, state=LessonState(row["state"]))
+    return Lesson(id=row["id"], pill=pill, state=LessonState(row["state"]), choice=row["choice"])

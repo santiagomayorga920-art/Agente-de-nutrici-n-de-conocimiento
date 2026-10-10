@@ -2,7 +2,15 @@
 
 import httpx
 
-_MAX_LEN = 4096
+MAX_TEXT = 4096
+MAX_CAPTION = 1024
+
+# Una fila por botón: [(texto, callback_data), ...]
+Buttons = list[tuple[str, str]]
+
+
+class TelegramError(Exception):
+    pass
 
 
 class TelegramClient:
@@ -11,17 +19,66 @@ class TelegramClient:
         self._http = http or httpx.Client(timeout=30)
 
     def get_updates(self, offset: int) -> list[dict]:
-        response = self._http.get(
-            f"{self._base}/getUpdates",
-            params={"offset": offset, "timeout": 0, "allowed_updates": '["message"]'},
+        return self._call(
+            "getUpdates",
+            {"offset": offset, "timeout": 0, "allowed_updates": ["message", "callback_query"]},
         )
-        response.raise_for_status()
-        return response.json()["result"]
 
-    def send_message(self, chat_id: str, text: str) -> None:
-        for start in range(0, len(text), _MAX_LEN):
-            response = self._http.post(
-                f"{self._base}/sendMessage",
-                json={"chat_id": chat_id, "text": text[start : start + _MAX_LEN]},
+    def send_message(self, chat_id: str, text: str, buttons: Buttons | None = None) -> None:
+        self._call(
+            "sendMessage",
+            {
+                "chat_id": chat_id,
+                "text": text[:MAX_TEXT],
+                "parse_mode": "HTML",
+                "link_preview_options": {"is_disabled": True},
+                **_keyboard(buttons),
+            },
+        )
+
+    def send_photo(
+        self, chat_id: str, photo_url: str, caption: str, buttons: Buttons | None = None
+    ) -> None:
+        self._call(
+            "sendPhoto",
+            {
+                "chat_id": chat_id,
+                "photo": photo_url,
+                "caption": caption[:MAX_CAPTION],
+                "parse_mode": "HTML",
+                **_keyboard(buttons),
+            },
+        )
+
+    def answer_callback(self, callback_id: str, text: str = "") -> None:
+        try:
+            self._call("answerCallbackQuery", {"callback_query_id": callback_id, "text": text})
+        except TelegramError:
+            pass  # pasado un rato Telegram da el botón por caducado; no es un error real
+
+    def remove_buttons(self, chat_id: str, message_id: int) -> None:
+        try:
+            self._call(
+                "editMessageReplyMarkup",
+                {
+                    "chat_id": chat_id,
+                    "message_id": message_id,
+                    "reply_markup": {"inline_keyboard": []},
+                },
             )
-            response.raise_for_status()
+        except TelegramError:
+            pass  # el mensaje ya no tenía botones
+
+    def _call(self, method: str, payload: dict):
+        response = self._http.post(f"{self._base}/{method}", json=payload)
+        data = response.json()
+        if not data.get("ok"):
+            raise TelegramError(f"{method}: {data.get('description', response.status_code)}")
+        return data["result"]
+
+
+def _keyboard(buttons: Buttons | None) -> dict:
+    if not buttons:
+        return {}
+    rows = [[{"text": text, "callback_data": data}] for text, data in buttons]
+    return {"reply_markup": {"inline_keyboard": rows}}

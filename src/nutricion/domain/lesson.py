@@ -37,6 +37,11 @@ class Pill:
     why_it_matters: str
     source_url: str
     challenge: str
+    source_name: str = ""
+    category: str = ""
+    image_url: str = ""
+    # Posturas de respuesta rápida que se muestran como botones
+    options: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -44,3 +49,4 @@ class Lesson:
     id: int
     pill: Pill
     state: LessonState
+    choice: str = ""  # opción elegida con un botón, si la hubo

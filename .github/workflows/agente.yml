@@ -6,8 +6,9 @@ on:
     # (horario de invierno), 09:00 en Argentina, 14:00 en España (verano). Si la cambias, cambia
     # también el mismo texto en DAILY_CRON más abajo.
     - cron: "0 12 * * *"
-    # Revisa tus respuestas en Telegram cada hora (minuto 17 para evitar la congestión de las :00)
-    - cron: "17 * * * *"
+    # Revisa tus respuestas y botones cada 10 minutos (GitHub puede retrasarlo unos minutos más).
+    # Al ser un repositorio público, los minutos de Actions son gratuitos.
+    - cron: "*/10 * * * *"
   workflow_dispatch:
     inputs:
       enviar_pildora:
