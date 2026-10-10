@@ -6,22 +6,23 @@
 - Unclassified: 3 file(s) not represented in the graph (top: (none) 2, .example 1)
 
 ## Summary
-- 82 nodes · 104 edges · 14 communities (6 shown, 8 thin omitted)
+- 83 nodes · 104 edges · 15 communities (6 shown, 9 thin omitted)
 - Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 9 edges (avg confidence: 0.95)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `df0cce15`
+- Built from commit: `7ff3b01f`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
+- config.py
 - llm/__init__.py
-- gemini.py
 - Agente de nutrición de conocimiento
 - Desafiar y evaluar
 - Investigar IA y negocios
 - lesson.py
+- get_llm
 - nutricion
 - LLMClient
 - session-start.sh
@@ -30,13 +31,13 @@
 1. `get_llm()` - 9 edges
 2. `Settings` - 7 edges
 3. `GeminiClient` - 7 edges
-4. `LessonState` - 6 edges
-5. `transition()` - 6 edges
-6. `LLMClient` - 6 edges
-7. `test_cannot_skip_waiting_for_answer()` - 5 edges
-8. `Agente de nutrición de conocimiento` - 5 edges
+4. `LLMClient` - 6 edges
+5. `LessonState` - 6 edges
+6. `transition()` - 6 edges
+7. `Agente de nutrición de conocimiento` - 5 edges
+8. `test_cannot_skip_waiting_for_answer()` - 5 edges
 9. `get_settings()` - 4 edges
-10. `InvalidTransition` - 4 edges
+10. `test_missing_key_is_reported()` - 4 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Agente de nutrición de conocimiento` --references--> `LLMClient`  [INFERRED]
@@ -47,17 +48,13 @@
   tests/test_llm.py → src/nutricion/config.py
 - `test_missing_key_is_reported()` --uses--> `Settings`  [INFERRED]
   tests/test_llm.py → src/nutricion/config.py
-- `test_cannot_skip_waiting_for_answer()` --uses--> `LessonState`  [INFERRED]
+- `test_cannot_skip_waiting_for_answer()` --uses--> `InvalidTransition`  [INFERRED]
   tests/test_lesson.py → src/nutricion/domain/lesson.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (14 total, 8 thin omitted)
-
-### Community 0 - "llm/__init__.py"
-Cohesion: 0.19
-Nodes (7): get_settings(), Settings, get_llm(), MissingAPIKey, main(), test_gemini_is_selected_when_key_present(), test_missing_key_is_reported()
+## Communities (15 total, 9 thin omitted)
 
 ### Community 2 - "Agente de nutrición de conocimiento"
 Cohesion: 0.33
@@ -72,8 +69,12 @@ Cohesion: 0.40
 Nodes (4): Criterios de selección, Formato de la píldora, Investigar IA y negocios, Objetivo
 
 ### Community 5 - "lesson.py"
-Cohesion: 0.28
+Cohesion: 0.30
 Nodes (6): InvalidTransition, LessonState, transition(), test_cannot_skip_waiting_for_answer(), test_failed_evaluation_returns_to_waiting(), test_happy_path()
+
+### Community 6 - "get_llm"
+Cohesion: 0.33
+Nodes (5): Settings, get_llm(), MissingAPIKey, test_gemini_is_selected_when_key_present(), test_missing_key_is_reported()
 
 ### Community 13 - "LLMClient"
 Cohesion: 0.20
@@ -81,19 +82,21 @@ Nodes (3): Agente de nutrición de conocimiento, graphify, LLMClient
 
 ## Knowledge Gaps
 - **1 isolated node(s):** `nutricion`
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 49 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 50 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `LLMClient` connect `LLMClient` to `llm/__init__.py`?**
-  _High betweenness centrality (0.134) - this node is a cross-community bridge._
+- **Why does `LLMClient` connect `LLMClient` to `llm/__init__.py`, `get_llm`?**
+  _High betweenness centrality (0.131) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `Settings` (e.g. with `get_llm()` and `test_gemini_is_selected_when_key_present()`) actually correct?**
   _`Settings` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `nutricion` to the rest of the system?**
   _1 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Why does `get_llm()` connect `llm/__init__.py` to `gemini.py`, `LLMClient`?**
-  _High betweenness centrality (0.094) - this node is a cross-community bridge._
+- **Why does `get_llm()` connect `get_llm` to `config.py`, `llm/__init__.py`, `LLMClient`?**
+  _High betweenness centrality (0.092) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `LessonState` (e.g. with `test_cannot_skip_waiting_for_answer()` and `test_failed_evaluation_returns_to_waiting()`) actually correct?**
   _`LessonState` has 3 INFERRED edges - model-reasoned connections that need verification._
+- **Why does `test_cannot_skip_waiting_for_answer()` connect `lesson.py` to `get_llm`?**
+  _High betweenness centrality (0.066) - this node is a cross-community bridge._
