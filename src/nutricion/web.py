@@ -20,6 +20,7 @@ from nutricion.app import COMMANDS, OFFSET_KEY
 from nutricion.channels.telegram import TelegramClient
 from nutricion.config import Settings, get_settings
 from nutricion.factory import build_agent
+from nutricion.memory.diagnose import connection_summary
 from nutricion.memory.store import DatabaseConnectionError, Store
 
 log = logging.getLogger("nutricion.web")
@@ -81,6 +82,7 @@ def create_app(settings: Settings | None = None, agent_factory=build_agent) -> S
             database = str(exc)
         return {
             "base_de_datos": database,
+            "conexion": connection_summary(settings.database) if settings.database_url else None,
             "database_password": bool(settings.database_password),
             "gemini_api_key": bool(settings.gemini_api_key),
             "telegram_bot_token": bool(settings.telegram_bot_token),

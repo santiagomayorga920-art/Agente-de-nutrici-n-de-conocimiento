@@ -1,17 +1,17 @@
 # Graph Report - Agente-de-nutrici-n-de-conocimiento  (2026-10-10)
 
 ## Corpus Check
-- 41 files · ~10,857 words
+- 41 files · ~11,050 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 2 file(s) not represented in the graph (top: .example 1, (none) 1)
 
 ## Summary
-- 405 nodes · 894 edges · 18 communities (12 shown, 6 thin omitted)
+- 410 nodes · 907 edges · 18 communities (12 shown, 6 thin omitted)
 - Extraction: 86% EXTRACTED · 14% INFERRED · 0% AMBIGUOUS · INFERRED: 124 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `aebc4848`
+- Built from commit: `593ed1c1`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -24,12 +24,12 @@
 - test_diagnose.py
 - test_app.py
 - TelegramClient
-- Messenger
+- app.py
 - Store
 - nutricion
 - Score
 - session-start.sh
-- app.py
+- formatting.py
 - web.py
 - Agent
 
@@ -38,8 +38,8 @@
 2. `Settings` - 28 edges
 3. `Agent` - 23 edges
 4. `TelegramClient` - 22 edges
-5. `Score` - 21 edges
-6. `create_app()` - 21 edges
+5. `create_app()` - 22 edges
+6. `Score` - 21 edges
 7. `make_agent()` - 20 edges
 8. `LessonState` - 16 edges
 9. `Pill` - 15 edges
@@ -83,8 +83,8 @@ Cohesion: 0.33
 Nodes (5): Criterios de selección, Formato de la píldora, Investigar IA y negocios, Objetivo, Rigor de las fuentes (de más a menos peso)
 
 ### Community 5 - "test_diagnose.py"
-Cohesion: 0.18
-Nodes (8): database_url_problems(), explain_connection_error(), test_common_mistakes_are_explained(), test_correct_session_pooler_uri_has_no_problems(), test_password_variable_fills_the_supabase_template(), test_unreachable_postgres_raises_a_readable_error(), test_url_without_template_is_left_alone(), test_wrong_password_is_explained_without_leaking_it()
+Cohesion: 0.14
+Nodes (12): connection_summary(), database_url_problems(), explain_connection_error(), _sanitized(), test_common_mistakes_are_explained(), test_connection_summary_hides_password(), test_correct_session_pooler_uri_has_no_problems(), test_password_variable_fills_the_supabase_template() (+4 more)
 
 ### Community 6 - "test_app.py"
 Cohesion: 0.12
@@ -95,16 +95,16 @@ Cohesion: 0.15
 Nodes (4): _keyboard(), TelegramClient, TelegramError, lifespan()
 
 ### Community 9 - "Store"
-Cohesion: 0.13
-Nodes (9): Lesson, _migrate(), _now(), Store, pill(), store(), test_import_from_sqlite_keeps_scores_and_skips_duplicates(), test_lesson_lifecycle_and_scores() (+1 more)
+Cohesion: 0.09
+Nodes (16): InvalidTransition, Lesson, LessonState, transition(), _migrate(), _now(), Store, _to_lesson() (+8 more)
 
 ### Community 13 - "Score"
-Cohesion: 0.10
-Nodes (19): _bar(), _days(), feedback(), pill_body(), pill_header(), profile_card(), progress_line(), reminder() (+11 more)
+Cohesion: 0.14
+Nodes (10): build_profile(), _clamp(), Score, _streak(), at(), test_averages_streak_and_level(), test_empty_profile(), test_scores_are_clamped() (+2 more)
 
-### Community 15 - "app.py"
-Cohesion: 0.06
-Nodes (18): Agente de nutrición de conocimiento, graphify, create_pill(), _PillDraft, load_skill(), evaluate(), Evaluation, react_to_choice() (+10 more)
+### Community 15 - "formatting.py"
+Cohesion: 0.08
+Nodes (20): Agente de nutrición de conocimiento, graphify, create_pill(), _PillDraft, load_skill(), evaluate(), Evaluation, react_to_choice() (+12 more)
 
 ### Community 16 - "web.py"
 Cohesion: 0.07
@@ -118,17 +118,17 @@ Nodes (24): DatabaseConnectionError, create_app(), cron_daily_pill(), diagnose()
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Store` connect `Store` to `Settings`, `feeds.py`, `test_diagnose.py`, `test_app.py`, `Score`, `app.py`, `web.py`, `Agent`?**
-  _High betweenness centrality (0.170) - this node is a cross-community bridge._
+- **Why does `Store` connect `Store` to `Settings`, `feeds.py`, `test_diagnose.py`, `test_app.py`, `app.py`, `Score`, `formatting.py`, `web.py`, `Agent`?**
+  _High betweenness centrality (0.168) - this node is a cross-community bridge._
 - **Are the 12 inferred relationships involving `Store` (e.g. with `Agent` and `Lesson`) actually correct?**
   _`Store` has 12 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `nutricion` to the rest of the system?**
   _1 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Settings` be split into smaller, more focused modules?**
-  _Cohesion score 0.06988120195667366 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07111756168359942 - nodes in this community are weakly interconnected._
 - **Why does `TelegramClient` connect `TelegramClient` to `Settings`, `web.py`?**
   _High betweenness centrality (0.061) - this node is a cross-community bridge._
 - **Are the 18 inferred relationships involving `Settings` (e.g. with `build_agent()` and `get_llm()`) actually correct?**
   _`Settings` has 18 INFERRED edges - model-reasoned connections that need verification._
 - **Should `feeds.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.08333333333333333 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08163265306122448 - nodes in this community are weakly interconnected._

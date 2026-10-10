@@ -216,9 +216,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/web.py": {
-    "mtime": 1791664547.3567736,
-    "seen": 1791664549.7746665,
-    "ast_hash": "a8c23a065c79ca9bcf959fe311371bb3",
+    "mtime": 1791664776.8093898,
+    "seen": 1791664779.45187,
+    "ast_hash": "874b5c042db9166e4c184684bbc808fb",
     "semantic_hash": ""
   },
   "tests/test_progress.py": {
@@ -246,15 +246,15 @@
     "semantic_hash": ""
   },
   "src/nutricion/memory/diagnose.py": {
-    "mtime": 1791664532.511527,
-    "seen": 1791664549.7746582,
-    "ast_hash": "2aa23dc05dde32795a972f4c269aa8fb",
+    "mtime": 1791664776.8089426,
+    "seen": 1791664779.451861,
+    "ast_hash": "6abcacb9e62f93546f666377c43864ea",
     "semantic_hash": ""
   },
   "tests/test_diagnose.py": {
-    "mtime": 1791664532.6060328,
-    "seen": 1791664549.7746694,
-    "ast_hash": "6bf7b7c9c5b64c62c645334f36f66c69",
+    "mtime": 1791664776.8620474,
+    "seen": 1791664779.451873,
+    "ast_hash": "7724a6d030b4a17b62cc17940627e8e1",
     "semantic_hash": ""
   },
   "src/nutricion/factory.py": {
@@ -264,9 +264,9 @@
     "semantic_hash": ""
   },
   ".github/diagnostico.txt": {
-    "mtime": 1791664480.83003,
-    "seen": 1791664549.7746806,
-    "ast_hash": "5f30b079e7edf539358650ed626f73bf",
+    "mtime": 1791664711.9260435,
+    "seen": 1791664779.451883,
+    "ast_hash": "8f9da8fa0221a06e22998988b5d7324f",
     "semantic_hash": ""
   },
   ".github/workflows/diagnostico.yml": {

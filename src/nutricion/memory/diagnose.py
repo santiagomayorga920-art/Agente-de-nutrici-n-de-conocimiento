@@ -43,6 +43,31 @@ def database_url_problems(url: str) -> list[str]:
     return problems
 
 
+def connection_summary(url: str) -> dict:
+    """Destino de la conexión sin la contraseña, para poder revisarlo a simple vista."""
+    try:
+        parts = urlsplit(url)
+        return {
+            "servidor": parts.hostname or "",
+            "puerto": parts.port,
+            "usuario": parts.username or "",
+            "base": parts.path.lstrip("/"),
+        }
+    except ValueError:
+        return {"error": "URI mal formada"}
+
+
+def _sanitized(url: str, error: Exception) -> str:
+    text = " ".join(str(error).split())
+    try:
+        password = urlsplit(url).password
+    except ValueError:
+        password = None
+    if password:
+        text = text.replace(password, "***")
+    return text[:400]
+
+
 def explain_connection_error(url: str, error: Exception) -> str:
     problems = database_url_problems(url)
     message = str(error).lower()
@@ -53,6 +78,12 @@ def explain_connection_error(url: str, error: Exception) -> str:
         )
     if not problems and "tenant or user not found" in message:
         problems.append("Supabase no encuentra el proyecto: revisa el usuario postgres.<id>.")
+    if not problems and ("timeout" in message or "timed out" in message):
+        problems.append(
+            "Supabase no respondió a tiempo. Revisa que el proyecto no esté en pausa (en el panel"
+            " de Supabase aparece «Paused» → Restore) y que la URI sea la del Session pooler."
+        )
     if not problems:
-        problems.append(f"Error de conexión: {error.__class__.__name__}.")
+        problems.append(f"Error de conexión ({error.__class__.__name__}).")
+    problems.append(f"Detalle técnico: {_sanitized(url, error)}")
     return "No se pudo conectar a la base de datos (DATABASE_URL):\n- " + "\n- ".join(problems)

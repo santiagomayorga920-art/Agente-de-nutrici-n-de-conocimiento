@@ -65,3 +65,20 @@ def test_url_without_template_is_left_alone():
 
     settings = Settings(_env_file=None, database_url=GOOD, database_password="otra")
     assert settings.database == GOOD
+
+
+def test_technical_detail_never_includes_the_password():
+    url = "postgresql://postgres.abc:Secreta99@aws-0-us-east-1.pooler.supabase.com:5432/postgres"
+    message = explain_connection_error(
+        url, Exception("could not connect Secreta99: timeout expired")
+    )
+    assert "Secreta99" not in message
+    assert "Detalle técnico" in message and "no respondió a tiempo" in message
+
+
+def test_connection_summary_hides_password():
+    from nutricion.memory.diagnose import connection_summary
+
+    summary = connection_summary(GOOD)
+    assert summary["servidor"] == "aws-0-us-east-1.pooler.supabase.com"
+    assert summary["usuario"] == "postgres.abcdefghij" and "Clave123" not in str(summary)
