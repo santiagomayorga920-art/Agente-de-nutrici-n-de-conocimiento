@@ -18,6 +18,7 @@ def main() -> None:
     sub.add_parser("ping", help="prueba real contra Gemini")
     sub.add_parser("fuentes", help="diagnóstico: cuántas noticias devuelve cada fuente")
     sub.add_parser("stats", help="muestra tu perfil en la terminal")
+    sub.add_parser("webhook", help="estado del webhook según Telegram (sin mostrar el token)")
     migrate = sub.add_parser("migrar", help="copia una base SQLite a la base configurada")
     migrate.add_argument("origen", help="ruta del archivo SQLite de origen")
     tick = sub.add_parser("tick", help="procesa mensajes de Telegram y envía la píldora si toca")
@@ -35,6 +36,8 @@ def main() -> None:
             print(f"{name:<36} {result}")
     elif args.command == "stats":
         _print_stats(settings)
+    elif args.command == "webhook":
+        _print_webhook(settings)
     elif args.command == "migrar":
         _migrate(settings, args.origen)
     elif args.command == "tick":
@@ -102,6 +105,21 @@ def _run_tick(settings: Settings, send_daily_pill: bool) -> None:
         agent.store.close()
     mode = "webhook activo, solo píldora diaria" if webhook else "sondeo"
     print(f"Tick completado ({mode}).")
+
+
+def _print_webhook(settings: Settings) -> None:
+    from datetime import UTC, datetime
+
+    from nutricion.channels.telegram import TelegramClient
+
+    info = TelegramClient(settings.telegram_bot_token).webhook_info()
+    print(f"URL registrada: {info.get('url') or '(ninguna: el bot funciona por sondeo)'}")
+    print(f"Mensajes pendientes de entregar: {info.get('pending_update_count', 0)}")
+    if info.get("last_error_date"):
+        when = datetime.fromtimestamp(info["last_error_date"], UTC).strftime("%Y-%m-%d %H:%M UTC")
+        print(f"Último error de entrega ({when}): {info.get('last_error_message')}")
+    else:
+        print("Último error de entrega: ninguno")
 
 
 def _print_stats(settings: Settings) -> None:

@@ -57,8 +57,11 @@ class TelegramClient:
         except TelegramError:
             pass
 
+    def webhook_info(self) -> dict:
+        return self._call("getWebhookInfo", {})
+
     def webhook_url(self) -> str:
-        return self._call("getWebhookInfo", {}).get("url", "")
+        return self.webhook_info().get("url", "")
 
     def set_webhook(self, url: str, secret: str) -> None:
         self._call(

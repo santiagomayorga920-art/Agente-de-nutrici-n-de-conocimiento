@@ -1,0 +1,34 @@
+name: Diagnóstico
+
+# Revisa el webhook de Telegram y el servidor de Render sin mostrar ningún secreto.
+on:
+  workflow_dispatch:
+  push:
+    paths: [".github/diagnostico.txt"]
+
+permissions:
+  contents: read
+
+jobs:
+  diagnostico:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e .
+      - name: Webhook según Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: nutricion webhook
+      - name: Servidor de Render (puede tardar ~1 min si está dormido)
+        env:
+          RENDER_URL: ${{ vars.RENDER_URL || 'https://nutricion-bot-50b8.onrender.com' }}
+        run: |
+          curl -sS --max-time 120 -w "\nHTTP %{http_code} en %{time_total}s\n" "$RENDER_URL/diagnostico" || true
+      - name: Webhook según Telegram (después de despertar el servidor)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: nutricion webhook
