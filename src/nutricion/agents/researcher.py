@@ -11,6 +11,15 @@ from nutricion.sources.feeds import Candidate
 MAX_OPTIONS = 4
 MAX_OPTION_LEN = 40
 MAX_FIGURE_LEN = 14
+MAX_LABEL_LEN = 60
+
+
+def _shorten(text: str, limit: int) -> str:
+    """Recorta en un límite de palabra (nunca a mitad de palabra)."""
+    text = " ".join(text.split())
+    if len(text) <= limit:
+        return text
+    return text[:limit].rsplit(" ", 1)[0].rstrip(",;:-") + "…"
 
 
 class _PillDraft(BaseModel):
@@ -49,7 +58,7 @@ def create_pill(
         " corta (máximo 14 caracteres, p. ej. «200 M USD», «-35 %», «3x»), en notación"
         " española: millones = «M» y miles de millones = «mil M» (p. ej. «100 mil M USD»);"
         " nunca «B», «bn» ni «billones». En"
-        " `key_figure_label` qué representa (máximo 40 caracteres). Si no hay una cifra clara,"
+        " `key_figure_label` qué representa (máximo 50 caracteres). Si no hay una cifra clara,"
         " deja ambos vacíos; no inventes números.\n\n" + listing
     )
     draft = llm.generate_structured(system, prompt, _PillDraft)
@@ -66,6 +75,6 @@ def create_pill(
         image_url=chosen.image_url,
         options=options[:MAX_OPTIONS],
         key_figure=draft.key_figure.strip()[:MAX_FIGURE_LEN],
-        key_figure_label=draft.key_figure_label.strip()[:MAX_OPTION_LEN],
+        key_figure_label=_shorten(draft.key_figure_label, MAX_LABEL_LEN),
     )
     return pill, chosen

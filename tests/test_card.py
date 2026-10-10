@@ -62,3 +62,12 @@ def test_background_download_rejects_non_images():
 def test_build_card_never_raises():
     assert build_card(pill(image_url=""), "America/Bogota") is not None
     assert build_card(pill(image_url=""), "Zona/Inexistente") is None  # error: sin tarjeta
+
+
+def test_label_is_shortened_on_a_word_boundary():
+    from nutricion.agents.researcher import _shorten
+
+    assert _shorten("Inversión máxima ligada a centros de datos de gran escala en EE. UU.", 40) == (
+        "Inversión máxima ligada a centros de…"
+    )
+    assert _shorten("corto", 40) == "corto"
