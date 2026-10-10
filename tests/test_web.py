@@ -57,7 +57,7 @@ def test_webhook_processes_update_with_valid_secret():
     response = client.post(
         "/telegram",
         json={"update_id": 7},
-        headers={"X-Telegram-Bot-Api-Secret-Token": SECRET},
+        headers={"X-Telegram-Bot-Api-Secret-Token": settings().telegram_secret_token},
     )
     assert response.status_code == 200
     assert agent.handled == [{"update_id": 7}]
@@ -96,3 +96,20 @@ def test_unreachable_database_warns_user(monkeypatch):
 
     process({"update_id": 1}, settings(), broken_factory)
     assert "base de datos" in sent[0]
+
+
+def test_secret_sent_to_telegram_uses_only_allowed_characters():
+    import re
+
+    base64_secret = "aB+c/d=="  # como los que genera Render
+    token = Settings(_env_file=None, telegram_webhook_secret=base64_secret).telegram_secret_token
+    assert re.fullmatch(r"[A-Za-z0-9_-]{1,256}", token)
+
+
+def test_raw_secret_is_not_accepted_as_header():
+    agent = FakeAgent()
+    client = TestClient(create_app(settings(), lambda s: agent))
+    response = client.post(
+        "/telegram", json={"update_id": 1}, headers={"X-Telegram-Bot-Api-Secret-Token": SECRET}
+    )
+    assert response.status_code == 401

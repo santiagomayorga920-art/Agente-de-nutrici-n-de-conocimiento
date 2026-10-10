@@ -1,5 +1,6 @@
 """Configuración central cargada desde variables de entorno o un archivo .env."""
 
+import hashlib
 import os
 from functools import lru_cache
 
@@ -27,6 +28,14 @@ class Settings(BaseSettings):
     @property
     def database(self) -> str:
         return self.database_url or f"sqlite:///{self.database_path}"
+
+    @property
+    def telegram_secret_token(self) -> str:
+        """Versión del secreto apta para Telegram, que solo admite [A-Za-z0-9_-] (Render lo
+        genera en base64, con + / =). Se usa igual al registrar el webhook y al validarlo."""
+        if not self.telegram_webhook_secret:
+            return ""
+        return hashlib.sha256(self.telegram_webhook_secret.encode()).hexdigest()
 
     @property
     def webhook_base_url(self) -> str:

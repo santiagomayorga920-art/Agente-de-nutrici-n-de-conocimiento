@@ -30,9 +30,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/config.py": {
-    "mtime": 1791642231.3825312,
-    "seen": 1791642336.0930357,
-    "ast_hash": "cfb17057b5a778f727543cfadde75172",
+    "mtime": 1791662398.1456168,
+    "seen": 1791662409.8727982,
+    "ast_hash": "7524a587d924d0b21b3d81d50e6db589",
     "semantic_hash": ""
   },
   "src/nutricion/domain/__init__.py": {
@@ -216,9 +216,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/web.py": {
-    "mtime": 1791660187.8736196,
-    "seen": 1791660210.833539,
-    "ast_hash": "44228506e162eb0518c0228c48368f90",
+    "mtime": 1791662398.1459887,
+    "seen": 1791662409.8728192,
+    "ast_hash": "a6bf94969cf18ecfd66677a33ae0fc51",
     "semantic_hash": ""
   },
   "tests/test_progress.py": {
@@ -234,9 +234,9 @@
     "semantic_hash": ""
   },
   "tests/test_web.py": {
-    "mtime": 1791659717.7353904,
-    "seen": 1791659740.5080233,
-    "ast_hash": "6b2385bb256e308ad3aec7d9e30bdcee",
+    "mtime": 1791662398.14627,
+    "seen": 1791662409.8728304,
+    "ast_hash": "5866e182859eb1f17b69ace16fae94a1",
     "semantic_hash": ""
   },
   "render.yaml": {

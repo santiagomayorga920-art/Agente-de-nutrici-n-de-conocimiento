@@ -81,8 +81,8 @@ def create_app(settings: Settings | None = None, agent_factory=build_agent) -> S
 
     async def telegram(request: Request) -> JSONResponse:
         secret = request.headers.get("x-telegram-bot-api-secret-token", "")
-        if not settings.telegram_webhook_secret or not hmac.compare_digest(
-            secret, settings.telegram_webhook_secret
+        if not settings.telegram_secret_token or not hmac.compare_digest(
+            secret, settings.telegram_secret_token
         ):
             return JSONResponse({"ok": False}, status_code=401)
         update = await request.json()
@@ -95,7 +95,7 @@ def create_app(settings: Settings | None = None, agent_factory=build_agent) -> S
         if base and settings.telegram_bot_token and settings.telegram_webhook_secret:
             client = TelegramClient(settings.telegram_bot_token)
             try:
-                client.set_webhook(base + WEBHOOK_PATH, settings.telegram_webhook_secret)
+                client.set_webhook(base + WEBHOOK_PATH, settings.telegram_secret_token)
                 client.set_commands(COMMANDS)
                 log.info("Webhook registrado en %s", base + WEBHOOK_PATH)
             except Exception:
