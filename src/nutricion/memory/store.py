@@ -13,6 +13,7 @@ from pathlib import Path
 
 from nutricion.domain.lesson import Lesson, LessonState, Pill, transition
 from nutricion.domain.progress import Score
+from nutricion.memory.diagnose import explain_connection_error
 
 _COLUMNS = """
     created_at TEXT NOT NULL,
@@ -51,13 +52,22 @@ _OPEN_STATES = (LessonState.PENDING, LessonState.AWAITING_ANSWER, LessonState.EV
 _SCORE_TEXT = re.compile(r"Comprensión (\d)/5 · Razonamiento (\d)/5 · Negocio (\d)/5")
 
 
+class DatabaseConnectionError(Exception):
+    """Fallo al conectar, con una explicación en español de la causa probable."""
+
+
 class Store:
     def __init__(self, url: str) -> None:
         if url.startswith(("postgres://", "postgresql://")):
             import psycopg
 
-            # prepare_threshold=None: compatible con el pooler de Supabase (pgbouncer)
-            self._db = psycopg.connect(url, autocommit=True, prepare_threshold=None)
+            try:
+                # prepare_threshold=None: compatible con el pooler de Supabase (pgbouncer)
+                self._db = psycopg.connect(
+                    url, autocommit=True, prepare_threshold=None, connect_timeout=15
+                )
+            except psycopg.Error as exc:
+                raise DatabaseConnectionError(explain_connection_error(url, exc)) from None
             self._dialect = "postgres"
         else:
             path = url.removeprefix("sqlite:///")

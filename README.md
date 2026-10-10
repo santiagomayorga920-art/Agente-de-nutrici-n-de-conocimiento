@@ -83,3 +83,10 @@ El primer arranque copia el historial de la caché de Actions a Supabase (`nutri
 
 Render duerme el servicio tras 15 min sin uso: el primer mensaje tras una pausa tarda ~1 min
 en despertarlo; después todo es inmediato.
+
+### Si algo falla
+
+- **GitHub Actions:** si `DATABASE_URL` está mal, el resumen de la ejecución muestra un aviso con
+  el motivo en español y el bot sigue funcionando con SQLite.
+- **Render:** abre `https://<tu-servicio>.onrender.com/diagnostico` para ver qué variables faltan
+  y si la base de datos conecta (nunca muestra claves).

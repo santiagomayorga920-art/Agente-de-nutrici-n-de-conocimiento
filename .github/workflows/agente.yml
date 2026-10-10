@@ -33,9 +33,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
@@ -54,6 +54,8 @@ jobs:
       # Una sola vez: al configurar Supabase se copia el historial guardado en la caché
       - name: Migrar historial a Supabase
         if: hashFiles('data/nutricion.db') != ''
+        # Si DATABASE_URL está mal, se avisa con el motivo y el agente sigue con SQLite
+        continue-on-error: true
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: |

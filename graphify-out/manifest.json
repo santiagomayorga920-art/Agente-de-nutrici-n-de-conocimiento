@@ -48,9 +48,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/main.py": {
-    "mtime": 1791642231.3861692,
-    "seen": 1791642336.093043,
-    "ast_hash": "e78b9ca0a4d2b52cc83af3a7ff3674d8",
+    "mtime": 1791659678.798347,
+    "seen": 1791659740.5079978,
+    "ast_hash": "283fa3f50137260eba4d0d141f25cfab",
     "semantic_hash": ""
   },
   "src/nutricion/memory/__init__.py": {
@@ -72,9 +72,9 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1791642334.0198977,
-    "seen": 1791642336.0930643,
-    "ast_hash": "b84adc5064632a800838e1bc32042786",
+    "mtime": 1791659739.3451166,
+    "seen": 1791659740.5080276,
+    "ast_hash": "e06abc0ce681c62eee2a89a773a0aa22",
     "semantic_hash": ""
   },
   "skills/evaluating-user/SKILL.md": {
@@ -144,9 +144,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/memory/store.py": {
-    "mtime": 1791642298.477465,
-    "seen": 1791642336.0930455,
-    "ast_hash": "579c85531c0aae8d501a96748645021f",
+    "mtime": 1791659653.9816704,
+    "seen": 1791659740.5080042,
+    "ast_hash": "315aa4a562f48fae434650f253f810e6",
     "semantic_hash": ""
   },
   "tests/test_app.py": {
@@ -162,15 +162,15 @@
     "semantic_hash": ""
   },
   ".github/workflows/agente.yml": {
-    "mtime": 1791642321.2857103,
-    "seen": 1791642336.093061,
-    "ast_hash": "959469335cee83d43223c079c4878042",
+    "mtime": 1791659717.7358313,
+    "seen": 1791659740.5080247,
+    "ast_hash": "df859377338bd0f6b29293cdabd3f6bf",
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "mtime": 1791642321.2863202,
-    "seen": 1791642336.093062,
-    "ast_hash": "a60df98c2b78ef9a4a66606b79f98206",
+    "mtime": 1791659717.736163,
+    "seen": 1791659740.5080256,
+    "ast_hash": "65e573d88fa366ce537ddd517f3b222c",
     "semantic_hash": ""
   },
   "src/nutricion/channels/formatting.py": {
@@ -216,9 +216,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/web.py": {
-    "mtime": 1791642231.3840487,
-    "seen": 1791642336.0930521,
-    "ast_hash": "7a95367585b570697f9bdd881ae02e3e",
+    "mtime": 1791659717.7348976,
+    "seen": 1791659740.508011,
+    "ast_hash": "dc59140ba29c5140d3957e6cbb5d1249",
     "semantic_hash": ""
   },
   "tests/test_progress.py": {
@@ -234,15 +234,27 @@
     "semantic_hash": ""
   },
   "tests/test_web.py": {
-    "mtime": 1791642270.7160058,
-    "seen": 1791642336.0930598,
-    "ast_hash": "9fdd67dc12f3f6f11088fc2cc144a393",
+    "mtime": 1791659717.7353904,
+    "seen": 1791659740.5080233,
+    "ast_hash": "6b2385bb256e308ad3aec7d9e30bdcee",
     "semantic_hash": ""
   },
   "render.yaml": {
     "mtime": 1791642321.2695088,
     "seen": 1791642336.093065,
     "ast_hash": "26b111095f58df01449fd3e16865b71b",
+    "semantic_hash": ""
+  },
+  "src/nutricion/memory/diagnose.py": {
+    "mtime": 1791659653.9640133,
+    "seen": 1791659740.5080023,
+    "ast_hash": "bbc26ab10e3558e8c2f20914bc5706eb",
+    "semantic_hash": ""
+  },
+  "tests/test_diagnose.py": {
+    "mtime": 1791659678.80405,
+    "seen": 1791659740.5080135,
+    "ast_hash": "42c62a07005b9a2d7995650232a23ea6",
     "semantic_hash": ""
   }
 }

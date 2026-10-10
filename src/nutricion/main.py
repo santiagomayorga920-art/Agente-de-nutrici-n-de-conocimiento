@@ -1,6 +1,7 @@
 """Punto de entrada: `nutricion [revisar|ping|fuentes|stats|migrar|tick [--enviar-pildora]]`."""
 
 import argparse
+import os
 import sys
 
 from nutricion import __version__
@@ -41,10 +42,21 @@ def main() -> None:
         _run_tick(settings, args.enviar_pildora)
     else:
         print(f"nutricion v{__version__} · modelo: {settings.gemini_model}")
-        backend = "Postgres" if settings.database_url else "SQLite"
-        print(f"Base de datos: {backend}")
+        print(f"Base de datos: {_database_status(settings)}")
         missing = [n.upper() for n in REQUIRED if not getattr(settings, n)]
         print("Faltan variables: " + ", ".join(missing) if missing else "Configuración completa.")
+
+
+def _database_status(settings: Settings) -> str:
+    from nutricion.memory.store import DatabaseConnectionError, Store
+
+    if not settings.database_url:
+        return "SQLite (local)"
+    try:
+        Store(settings.database).close()
+        return "Postgres (conexión correcta)"
+    except DatabaseConnectionError as exc:
+        return f"Postgres con ERROR\n{exc}"
 
 
 def _require(settings: Settings) -> None:
@@ -53,13 +65,37 @@ def _require(settings: Settings) -> None:
         sys.exit("Faltan variables: " + ", ".join(missing))
 
 
+def annotate(level: str, title: str, message: str) -> None:
+    """Muestra el mensaje en la terminal y como aviso en la página de la ejecución de GitHub."""
+    print(message)
+    if os.environ.get("GITHUB_ACTIONS"):
+        print(f"::{level} title={title}::" + message.replace("\n", "%0A"))
+
+
+def open_store(settings: Settings):
+    """La base configurada; si Postgres falla, SQLite local para que el bot no se detenga."""
+    from nutricion.memory.store import DatabaseConnectionError, Store
+
+    try:
+        return Store(settings.database)
+    except DatabaseConnectionError as exc:
+        if not settings.database_url:
+            raise
+        annotate(
+            "warning",
+            "Supabase no disponible: usando SQLite",
+            f"{exc}\nEl bot sigue funcionando con la base SQLite de la caché de Actions.",
+        )
+        return Store(f"sqlite:///{settings.database_path}")
+
+
 def _run_tick(settings: Settings, send_daily_pill: bool) -> None:
     from nutricion.channels.telegram import TelegramClient
     from nutricion.web import build_agent
 
     # Con un webhook activo Telegram no permite getUpdates: el servidor ya atiende los mensajes
     webhook = TelegramClient(settings.telegram_bot_token).webhook_url()
-    agent = build_agent(settings)
+    agent = build_agent(settings, open_store(settings))
     try:
         agent.tick(send_daily_pill, poll=not webhook)
     finally:
@@ -84,14 +120,19 @@ def _print_stats(settings: Settings) -> None:
 def _migrate(settings: Settings, source: str) -> None:
     from pathlib import Path
 
-    from nutricion.memory.store import Store
+    from nutricion.memory.store import DatabaseConnectionError, Store
 
     if not settings.database_url:
         sys.exit("DATABASE_URL no está definida: no hay a dónde migrar.")
     if not Path(source).exists():
         print(f"No existe {source}: nada que migrar.")
         return
-    target, origin = Store(settings.database), Store(f"sqlite:///{source}")
+    try:
+        target = Store(settings.database)
+    except DatabaseConnectionError as exc:
+        annotate("error", "Revisa el Secret DATABASE_URL", str(exc))
+        sys.exit(1)
+    origin = Store(f"sqlite:///{source}")
     if target.get("migrado_desde_sqlite"):
         print("La migración ya se hizo antes.")
     else:

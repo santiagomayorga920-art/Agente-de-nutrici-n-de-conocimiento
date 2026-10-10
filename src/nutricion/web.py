@@ -11,6 +11,7 @@ from contextlib import asynccontextmanager
 
 from starlette.applications import Starlette
 from starlette.background import BackgroundTask
+from starlette.concurrency import run_in_threadpool
 from starlette.requests import Request
 from starlette.responses import JSONResponse, PlainTextResponse
 from starlette.routing import Route
@@ -19,16 +20,16 @@ from nutricion.app import COMMANDS, OFFSET_KEY, Agent
 from nutricion.channels.telegram import TelegramClient
 from nutricion.config import Settings, get_settings
 from nutricion.llm import get_llm
-from nutricion.memory.store import Store
+from nutricion.memory.store import DatabaseConnectionError, Store
 
 log = logging.getLogger("nutricion.web")
 WEBHOOK_PATH = "/telegram"
 _lock = threading.Lock()
 
 
-def build_agent(settings: Settings) -> Agent:
+def build_agent(settings: Settings, store: Store | None = None) -> Agent:
     return Agent(
-        store=Store(settings.database),
+        store=store or Store(settings.database),
         llm=get_llm(settings),
         messenger=TelegramClient(settings.telegram_bot_token),
         chat_id=settings.telegram_chat_id,
@@ -38,7 +39,16 @@ def build_agent(settings: Settings) -> Agent:
 
 def process(update: dict, settings: Settings, agent_factory=build_agent) -> None:
     with _lock:
-        agent = agent_factory(settings)
+        try:
+            agent = agent_factory(settings)
+        except DatabaseConnectionError as exc:
+            log.error("%s", exc)
+            TelegramClient(settings.telegram_bot_token).send_message(
+                settings.telegram_chat_id,
+                "⚠️ El servidor no puede conectar con la base de datos. Revisa DATABASE_URL en"
+                " Render (abre /diagnostico en la URL del servidor para ver el motivo).",
+            )
+            return
         try:
             agent.handle_update(update)
         except Exception:
@@ -60,6 +70,25 @@ def create_app(settings: Settings | None = None, agent_factory=build_agent) -> S
     async def health(request: Request) -> PlainTextResponse:
         return PlainTextResponse("ok")
 
+    def diagnostics() -> dict:
+        """Estado de la configuración, sin revelar claves ni contraseñas."""
+        try:
+            Store(settings.database).close()
+            database = "ok" if settings.database_url else "SQLite local (falta DATABASE_URL)"
+        except DatabaseConnectionError as exc:
+            database = str(exc)
+        return {
+            "base_de_datos": database,
+            "gemini_api_key": bool(settings.gemini_api_key),
+            "telegram_bot_token": bool(settings.telegram_bot_token),
+            "telegram_chat_id": bool(settings.telegram_chat_id),
+            "telegram_webhook_secret": bool(settings.telegram_webhook_secret),
+            "url_publica": settings.webhook_base_url or "no detectada",
+        }
+
+    async def diagnose(request: Request) -> JSONResponse:
+        return JSONResponse(await run_in_threadpool(diagnostics))
+
     async def telegram(request: Request) -> JSONResponse:
         secret = request.headers.get("x-telegram-bot-api-secret-token", "")
         if not settings.telegram_webhook_secret or not hmac.compare_digest(
@@ -75,12 +104,20 @@ def create_app(settings: Settings | None = None, agent_factory=build_agent) -> S
         base = settings.webhook_base_url
         if base and settings.telegram_bot_token and settings.telegram_webhook_secret:
             client = TelegramClient(settings.telegram_bot_token)
-            client.set_webhook(base + WEBHOOK_PATH, settings.telegram_webhook_secret)
-            client.set_commands(COMMANDS)
-            log.info("Webhook registrado en %s", base + WEBHOOK_PATH)
+            try:
+                client.set_webhook(base + WEBHOOK_PATH, settings.telegram_webhook_secret)
+                client.set_commands(COMMANDS)
+                log.info("Webhook registrado en %s", base + WEBHOOK_PATH)
+            except Exception:
+                # Un token incorrecto no debe impedir que arranque /diagnostico
+                log.exception("No se pudo registrar el webhook en Telegram")
         yield
 
-    routes = [Route("/", health), Route(WEBHOOK_PATH, telegram, methods=["POST"])]
+    routes = [
+        Route("/", health),
+        Route("/diagnostico", diagnose),
+        Route(WEBHOOK_PATH, telegram, methods=["POST"]),
+    ]
     return Starlette(routes=routes, lifespan=lifespan)
 
 

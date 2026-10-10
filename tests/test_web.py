@@ -73,3 +73,26 @@ def test_failed_update_warns_user_and_is_not_retried_forever():
     process({"update_id": 9}, settings(), lambda s: agent)
     assert agent.store.kv["telegram_offset"] == "10"
     assert "Vuelve a enviarlo" in agent.messenger.sent[0]
+
+
+def test_diagnostics_reports_configuration_without_secrets():
+    client = TestClient(create_app(settings(), lambda s: FakeAgent()))
+    data = client.get("/diagnostico").json()
+    assert data["telegram_webhook_secret"] is True
+    assert data["gemini_api_key"] is False
+    assert SECRET not in str(data)
+
+
+def test_unreachable_database_warns_user(monkeypatch):
+    from nutricion.memory.store import DatabaseConnectionError
+
+    sent = []
+    monkeypatch.setattr(
+        "nutricion.web.TelegramClient.send_message", lambda self, chat, text: sent.append(text)
+    )
+
+    def broken_factory(s):
+        raise DatabaseConnectionError("mal")
+
+    process({"update_id": 1}, settings(), broken_factory)
+    assert "base de datos" in sent[0]
