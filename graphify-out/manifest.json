@@ -72,9 +72,9 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1791640151.3699367,
-    "seen": 1791640153.4326956,
-    "ast_hash": "cc78110c86317170f16da65d4e57355e",
+    "mtime": 1791641506.4311154,
+    "seen": 1791641507.1972902,
+    "ast_hash": "9e370bf672ecbb0d546936615fcfd203",
     "semantic_hash": ""
   },
   "skills/evaluating-user/SKILL.md": {
@@ -90,9 +90,9 @@
     "semantic_hash": ""
   },
   ".claude/hooks/session-start.sh": {
-    "mtime": 1791637906.9490957,
-    "seen": 1791638020.2067842,
-    "ast_hash": "5824c74278ee19644c070795a3f2ee06",
+    "mtime": 1791641506.4087,
+    "seen": 1791641507.1972497,
+    "ast_hash": "4a1702aa8bc14a08cf3eed256dce2980",
     "semantic_hash": ""
   },
   "src/nutricion/llm/__init__.py": {

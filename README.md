@@ -47,8 +47,7 @@ Tras cada `git pull`, ejecuta `graphify update .` para mantenerlo sincronizado.
 ## Sesiones en la nube (Claude Code)
 
 `.claude/hooks/session-start.sh` se ejecuta al abrir cada sesión: crea el entorno, instala
-dependencias, genera `.env` desde `.env.example`, actualiza el grafo e instala los hooks de git
-que lo regeneran tras cada commit. Las claves se configuran como variables del entorno de la
+dependencias, genera `.env` desde `.env.example` y actualiza el grafo. Las claves se configuran como variables del entorno de la
 nube (no en el chat): `GEMINI_API_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
 
 ## Ejecución automática (GitHub Actions)
