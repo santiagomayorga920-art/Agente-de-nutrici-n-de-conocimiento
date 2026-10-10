@@ -1,7 +1,9 @@
 """Descarga de feeds en paralelo con tiempo límite y extracción de candidatas."""
 
+import calendar
 import html
 import re
+import time
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 
@@ -11,6 +13,8 @@ import httpx
 from nutricion.sources.catalog import SOURCES, Category, Source
 
 PER_SOURCE = 5
+# Algunos feeds (p. ej. OpenAI) devuelven todo su archivo: solo interesa lo reciente
+MAX_AGE_DAYS = 7
 _TAG = re.compile(r"<[^>]+>")
 _IMG_SRC = re.compile(r"<img[^>]+src=[\"']([^\"']+)", re.IGNORECASE)
 _USER_AGENT = "Mozilla/5.0 (compatible; nutricion-bot/0.1; +https://github.com)"
@@ -37,7 +41,7 @@ def fetch_source(source: Source, http: httpx.Client) -> list[Candidate]:
     candidates = []
     for entry in feed.entries:
         url = entry.get("link", "")
-        if not url:
+        if not url or _too_old(entry):
             continue
         raw_summary = entry.get("summary", "")
         candidates.append(
@@ -89,6 +93,14 @@ def _safe_fetch(source: Source, http: httpx.Client) -> list[Candidate]:
     except Exception as exc:  # noqa: BLE001 - una fuente caída no debe tumbar el envío
         print(f"Fuente no disponible: {source.name} ({exc.__class__.__name__})")
         return []
+
+
+def _too_old(entry, now: float | None = None) -> bool:
+    published = entry.get("published_parsed") or entry.get("updated_parsed")
+    if not published:
+        return False  # sin fecha: se deja pasar y decide el LLM
+    age_days = ((now or time.time()) - calendar.timegm(published)) / 86_400
+    return age_days > MAX_AGE_DAYS
 
 
 def _clean(text: str) -> str:

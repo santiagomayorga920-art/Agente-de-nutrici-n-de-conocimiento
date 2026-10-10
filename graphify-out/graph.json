@@ -82,7 +82,7 @@
       "file_type": "code",
       "norm_label": "candidate",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L20"
+      "source_location": "L24"
     },
     {
       "id": "src_nutricion_sources_feeds_nonewsfound",
@@ -95,7 +95,7 @@
       "file_type": "code",
       "norm_label": "nonewsfound",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L29"
+      "source_location": "L33"
     },
     {
       "id": "src_nutricion_agents_researcher_pilldraft",
@@ -103,7 +103,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "_pilldraft",
@@ -116,7 +116,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "evaluation",
@@ -124,12 +124,25 @@
       "source_location": "L10"
     },
     {
+      "id": "src_nutricion_domain_lesson_pill",
+      "label": "Pill",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "pill",
+      "source_file": "src/nutricion/domain/lesson.py",
+      "source_location": "L34"
+    },
+    {
       "id": "src_nutricion_llm_init_llmclient",
       "label": "LLMClient",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "llmclient",
@@ -143,24 +156,11 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "file_type": "code",
       "norm_label": "invalidtransition",
       "source_file": "src/nutricion/domain/lesson.py",
       "source_location": "L23"
-    },
-    {
-      "id": "src_nutricion_domain_lesson_lesson",
-      "label": "Lesson",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "lesson",
-      "source_file": "src/nutricion/domain/lesson.py",
-      "source_location": "L48"
     },
     {
       "id": "src_nutricion_domain_lesson_lessonstate",
@@ -169,37 +169,11 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "file_type": "code",
       "norm_label": "lessonstate",
       "source_file": "src/nutricion/domain/lesson.py",
       "source_location": "L7"
-    },
-    {
-      "id": "src_nutricion_domain_lesson_pill",
-      "label": "Pill",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "pill",
-      "source_file": "src/nutricion/domain/lesson.py",
-      "source_location": "L34"
-    },
-    {
-      "id": "src_nutricion_memory_store_store",
-      "label": "Store",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "store",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L43"
     },
     {
       "id": "tests_test_app_fakellm",
@@ -273,11 +247,37 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "Agent",
+      "community_name": "Store",
       "file_type": "code",
       "norm_label": "agent",
       "source_file": "src/nutricion/app.py",
       "source_location": "L53"
+    },
+    {
+      "id": "src_nutricion_domain_lesson_lesson",
+      "label": "Lesson",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Store",
+      "file_type": "code",
+      "norm_label": "lesson",
+      "source_file": "src/nutricion/domain/lesson.py",
+      "source_location": "L48"
+    },
+    {
+      "id": "src_nutricion_memory_store_store",
+      "label": "Store",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Store",
+      "file_type": "code",
+      "norm_label": "store",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L43"
     },
     {
       "id": "src_nutricion_config_get_settings",
@@ -388,6 +388,18 @@
       "source_location": "L47"
     },
     {
+      "id": "src_nutricion_sources_feeds_source_health",
+      "label": "source_health()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "main.py",
+      "file_type": "code",
+      "norm_label": "source_health()",
+      "source_file": "src/nutricion/sources/feeds.py",
+      "source_location": "L76"
+    },
+    {
       "id": "tests_test_llm_test_gemini_is_selected_when_key_present",
       "label": "test_gemini_is_selected_when_key_present()",
       "_callable": true,
@@ -421,7 +433,7 @@
       "file_type": "code",
       "norm_label": "category_of_the_day()",
       "source_file": "src/nutricion/sources/catalog.py",
-      "source_location": "L90"
+      "source_location": "L101"
     },
     {
       "id": "src_nutricion_sources_catalog_google_news",
@@ -445,7 +457,7 @@
       "file_type": "code",
       "norm_label": "_clean()",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L94"
+      "source_location": "L106"
     },
     {
       "id": "src_nutricion_sources_feeds_entry_image",
@@ -457,7 +469,7 @@
       "file_type": "code",
       "norm_label": "_entry_image()",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L104"
+      "source_location": "L116"
     },
     {
       "id": "src_nutricion_sources_feeds_fetch_candidates",
@@ -469,7 +481,7 @@
       "file_type": "code",
       "norm_label": "fetch_candidates()",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L56"
+      "source_location": "L60"
     },
     {
       "id": "src_nutricion_sources_feeds_fetch_source",
@@ -481,7 +493,7 @@
       "file_type": "code",
       "norm_label": "fetch_source()",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L33"
+      "source_location": "L37"
     },
     {
       "id": "src_nutricion_sources_feeds_publisher",
@@ -493,7 +505,7 @@
       "file_type": "code",
       "norm_label": "_publisher()",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L98"
+      "source_location": "L110"
     },
     {
       "id": "src_nutricion_sources_feeds_safe_fetch",
@@ -505,19 +517,19 @@
       "file_type": "code",
       "norm_label": "_safe_fetch()",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L86"
+      "source_location": "L90"
     },
     {
-      "id": "src_nutricion_sources_feeds_source_health",
-      "label": "source_health()",
+      "id": "src_nutricion_sources_feeds_too_old",
+      "label": "_too_old()",
       "_callable": true,
       "_origin": "ast",
       "community": 1,
       "community_name": "feeds.py",
       "file_type": "code",
-      "norm_label": "source_health()",
+      "norm_label": "_too_old()",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L72"
+      "source_location": "L98"
     },
     {
       "id": "src_nutricion_sources_images_find_og_image",
@@ -553,7 +565,7 @@
       "file_type": "code",
       "norm_label": "test_every_category_has_sources_and_rotates()",
       "source_file": "tests/test_sources.py",
-      "source_location": "L43"
+      "source_location": "L49"
     },
     {
       "id": "tests_test_sources_test_feed_entry_is_cleaned_and_keeps_publisher_and_image",
@@ -577,7 +589,7 @@
       "file_type": "code",
       "norm_label": "test_og_image_is_found_in_article_html()",
       "source_file": "tests/test_sources.py",
-      "source_location": "L34"
+      "source_location": "L40"
     },
     {
       "id": "tests_test_sources_test_og_image_missing_returns_empty",
@@ -589,7 +601,7 @@
       "file_type": "code",
       "norm_label": "test_og_image_missing_returns_empty()",
       "source_file": "tests/test_sources.py",
-      "source_location": "L39"
+      "source_location": "L45"
     },
     {
       "id": "tests_test_sources_test_old_database_is_migrated",
@@ -601,14 +613,26 @@
       "file_type": "code",
       "norm_label": "test_old_database_is_migrated()",
       "source_file": "tests/test_sources.py",
-      "source_location": "L53"
+      "source_location": "L59"
+    },
+    {
+      "id": "tests_test_sources_test_old_entries_are_skipped",
+      "label": "test_old_entries_are_skipped()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "feeds.py",
+      "file_type": "code",
+      "norm_label": "test_old_entries_are_skipped()",
+      "source_file": "tests/test_sources.py",
+      "source_location": "L34"
     },
     {
       "id": "src_nutricion_agents_researcher_create_pill",
       "label": "create_pill()",
       "_callable": true,
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "create_pill()",
@@ -620,7 +644,7 @@
       "label": "load_skill()",
       "_callable": true,
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "load_skill()",
@@ -632,7 +656,7 @@
       "label": "evaluate()",
       "_callable": true,
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "evaluate()",
@@ -644,7 +668,7 @@
       "label": ".scores_line()",
       "_callable": true,
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": ".scores_line()",
@@ -656,7 +680,7 @@
       "label": "clamp()",
       "_callable": true,
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "clamp()",
@@ -668,7 +692,7 @@
       "label": "react_to_choice()",
       "_callable": true,
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "react_to_choice()",
@@ -676,11 +700,83 @@
       "source_location": "L27"
     },
     {
+      "id": "src_nutricion_channels_formatting_choice_reaction",
+      "label": "choice_reaction()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "choice_reaction()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L35"
+    },
+    {
+      "id": "src_nutricion_channels_formatting_feedback",
+      "label": "feedback()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "feedback()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L42"
+    },
+    {
+      "id": "src_nutricion_channels_formatting_pill_body",
+      "label": "pill_body()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "pill_body()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L16"
+    },
+    {
+      "id": "src_nutricion_channels_formatting_pill_header",
+      "label": "pill_header()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "pill_header()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L10"
+    },
+    {
+      "id": "src_nutricion_channels_formatting_plain",
+      "label": "plain()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "plain()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L46"
+    },
+    {
+      "id": "src_nutricion_channels_formatting_reminder",
+      "label": "reminder()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "reminder()",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L30"
+    },
+    {
       "id": "src_nutricion_llm_init_llmclient_generate",
       "label": ".generate()",
       "_callable": true,
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": ".generate()",
@@ -692,7 +788,7 @@
       "label": ".generate_structured()",
       "_callable": true,
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": ".generate_structured()",
@@ -704,7 +800,7 @@
       "label": ".generate_structured()",
       "_callable": true,
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": ".generate_structured()",
@@ -716,7 +812,7 @@
       "label": "test_skills_load_without_frontmatter()",
       "_callable": true,
       "_origin": "ast",
-      "community": 13,
+      "community": 15,
       "community_name": "researcher.py",
       "file_type": "code",
       "norm_label": "test_skills_load_without_frontmatter()",
@@ -724,232 +820,16 @@
       "source_location": "L4"
     },
     {
-      "id": "src_nutricion_channels_formatting_choice_reaction",
-      "label": "choice_reaction()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "choice_reaction()",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L35"
-    },
-    {
-      "id": "src_nutricion_channels_formatting_feedback",
-      "label": "feedback()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "feedback()",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L42"
-    },
-    {
-      "id": "src_nutricion_channels_formatting_pill_body",
-      "label": "pill_body()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "pill_body()",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L16"
-    },
-    {
-      "id": "src_nutricion_channels_formatting_pill_header",
-      "label": "pill_header()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "pill_header()",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L10"
-    },
-    {
-      "id": "src_nutricion_channels_formatting_plain",
-      "label": "plain()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "plain()",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L46"
-    },
-    {
-      "id": "src_nutricion_channels_formatting_reminder",
-      "label": "reminder()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "reminder()",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L30"
-    },
-    {
       "id": "src_nutricion_domain_lesson_transition",
       "label": "transition()",
       "_callable": true,
       "_origin": "ast",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "file_type": "code",
       "norm_label": "transition()",
       "source_file": "src/nutricion/domain/lesson.py",
       "source_location": "L27"
-    },
-    {
-      "id": "src_nutricion_memory_store_store_add_lesson",
-      "label": ".add_lesson()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": ".add_lesson()",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L59"
-    },
-    {
-      "id": "src_nutricion_memory_store_store_count_lessons",
-      "label": ".count_lessons()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": ".count_lessons()",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L90"
-    },
-    {
-      "id": "src_nutricion_memory_store_store_get",
-      "label": ".get()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": ".get()",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L118"
-    },
-    {
-      "id": "src_nutricion_memory_store_store_init",
-      "label": ".__init__()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": ".__init__()",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L44"
-    },
-    {
-      "id": "src_nutricion_memory_store_store_migrate",
-      "label": "._migrate()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "._migrate()",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L52"
-    },
-    {
-      "id": "src_nutricion_memory_store_store_move",
-      "label": ".move()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": ".move()",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L93"
-    },
-    {
-      "id": "src_nutricion_memory_store_store_open_lesson",
-      "label": ".open_lesson()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": ".open_lesson()",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L81"
-    },
-    {
-      "id": "src_nutricion_memory_store_store_save_answer",
-      "label": ".save_answer()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": ".save_answer()",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L104"
-    },
-    {
-      "id": "src_nutricion_memory_store_store_save_choice",
-      "label": ".save_choice()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": ".save_choice()",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L99"
-    },
-    {
-      "id": "src_nutricion_memory_store_store_save_feedback",
-      "label": ".save_feedback()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": ".save_feedback()",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L108"
-    },
-    {
-      "id": "src_nutricion_memory_store_store_seen_urls",
-      "label": ".seen_urls()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": ".seen_urls()",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L115"
-    },
-    {
-      "id": "src_nutricion_memory_store_store_set",
-      "label": ".set()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": ".set()",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L122"
     },
     {
       "id": "src_nutricion_memory_store_to_lesson",
@@ -957,7 +837,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "file_type": "code",
       "norm_label": "_to_lesson()",
       "source_file": "src/nutricion/memory/store.py",
@@ -969,7 +849,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "file_type": "code",
       "norm_label": "test_cannot_skip_waiting_for_answer()",
       "source_file": "tests/test_lesson.py",
@@ -981,7 +861,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "file_type": "code",
       "norm_label": "test_failed_evaluation_returns_to_waiting()",
       "source_file": "tests/test_lesson.py",
@@ -993,7 +873,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "file_type": "code",
       "norm_label": "test_happy_path()",
       "source_file": "tests/test_lesson.py",
@@ -1437,7 +1317,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "Agent",
+      "community_name": "Store",
       "file_type": "code",
       "norm_label": ".daily_pill()",
       "source_file": "src/nutricion/app.py",
@@ -1449,7 +1329,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "Agent",
+      "community_name": "Store",
       "file_type": "code",
       "norm_label": "._deliver_new_pill()",
       "source_file": "src/nutricion/app.py",
@@ -1461,7 +1341,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "Agent",
+      "community_name": "Store",
       "file_type": "code",
       "norm_label": "._evaluate()",
       "source_file": "src/nutricion/app.py",
@@ -1473,7 +1353,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "Agent",
+      "community_name": "Store",
       "file_type": "code",
       "norm_label": "._handle_button()",
       "source_file": "src/nutricion/app.py",
@@ -1485,7 +1365,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "Agent",
+      "community_name": "Store",
       "file_type": "code",
       "norm_label": "._handle_text()",
       "source_file": "src/nutricion/app.py",
@@ -1497,7 +1377,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "Agent",
+      "community_name": "Store",
       "file_type": "code",
       "norm_label": "._next_pill()",
       "source_file": "src/nutricion/app.py",
@@ -1509,7 +1389,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "Agent",
+      "community_name": "Store",
       "file_type": "code",
       "norm_label": ".process_updates()",
       "source_file": "src/nutricion/app.py",
@@ -1521,7 +1401,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "Agent",
+      "community_name": "Store",
       "file_type": "code",
       "norm_label": "._send()",
       "source_file": "src/nutricion/app.py",
@@ -1533,7 +1413,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "Agent",
+      "community_name": "Store",
       "file_type": "code",
       "norm_label": "._send_pill()",
       "source_file": "src/nutricion/app.py",
@@ -1545,7 +1425,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "Agent",
+      "community_name": "Store",
       "file_type": "code",
       "norm_label": ".tick()",
       "source_file": "src/nutricion/app.py",
@@ -1557,11 +1437,155 @@
       "_callable": true,
       "_origin": "ast",
       "community": 9,
-      "community_name": "Agent",
+      "community_name": "Store",
       "file_type": "code",
       "norm_label": "._try_photo()",
       "source_file": "src/nutricion/app.py",
       "source_location": "L154"
+    },
+    {
+      "id": "src_nutricion_memory_store_store_add_lesson",
+      "label": ".add_lesson()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Store",
+      "file_type": "code",
+      "norm_label": ".add_lesson()",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L59"
+    },
+    {
+      "id": "src_nutricion_memory_store_store_count_lessons",
+      "label": ".count_lessons()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Store",
+      "file_type": "code",
+      "norm_label": ".count_lessons()",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L90"
+    },
+    {
+      "id": "src_nutricion_memory_store_store_get",
+      "label": ".get()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Store",
+      "file_type": "code",
+      "norm_label": ".get()",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L118"
+    },
+    {
+      "id": "src_nutricion_memory_store_store_init",
+      "label": ".__init__()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Store",
+      "file_type": "code",
+      "norm_label": ".__init__()",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L44"
+    },
+    {
+      "id": "src_nutricion_memory_store_store_migrate",
+      "label": "._migrate()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Store",
+      "file_type": "code",
+      "norm_label": "._migrate()",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L52"
+    },
+    {
+      "id": "src_nutricion_memory_store_store_move",
+      "label": ".move()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Store",
+      "file_type": "code",
+      "norm_label": ".move()",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L93"
+    },
+    {
+      "id": "src_nutricion_memory_store_store_open_lesson",
+      "label": ".open_lesson()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Store",
+      "file_type": "code",
+      "norm_label": ".open_lesson()",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L81"
+    },
+    {
+      "id": "src_nutricion_memory_store_store_save_answer",
+      "label": ".save_answer()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Store",
+      "file_type": "code",
+      "norm_label": ".save_answer()",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L104"
+    },
+    {
+      "id": "src_nutricion_memory_store_store_save_choice",
+      "label": ".save_choice()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Store",
+      "file_type": "code",
+      "norm_label": ".save_choice()",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L99"
+    },
+    {
+      "id": "src_nutricion_memory_store_store_save_feedback",
+      "label": ".save_feedback()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Store",
+      "file_type": "code",
+      "norm_label": ".save_feedback()",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L108"
+    },
+    {
+      "id": "src_nutricion_memory_store_store_seen_urls",
+      "label": ".seen_urls()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Store",
+      "file_type": "code",
+      "norm_label": ".seen_urls()",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L115"
+    },
+    {
+      "id": "src_nutricion_memory_store_store_set",
+      "label": ".set()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Store",
+      "file_type": "code",
+      "norm_label": ".set()",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L122"
     },
     {
       "id": "basesettings",
@@ -1608,6 +1632,17 @@
       "source_location": "L1"
     },
     {
+      "id": "src_nutricion_llm_gemini",
+      "label": "gemini.py",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "main.py",
+      "file_type": "code",
+      "norm_label": "gemini.py",
+      "source_file": "src/nutricion/llm/gemini.py",
+      "source_location": "L1"
+    },
+    {
       "id": "src_nutricion_llm_gemini_py_t",
       "label": "T",
       "_origin": "ast",
@@ -1617,6 +1652,17 @@
       "norm_label": "t",
       "source_file": "",
       "source_location": ""
+    },
+    {
+      "id": "src_nutricion_llm_init",
+      "label": "llm/__init__.py",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "main.py",
+      "file_type": "code",
+      "norm_label": "llm/__init__.py",
+      "source_file": "src/nutricion/llm/__init__.py",
+      "source_location": "L1"
     },
     {
       "id": "src_nutricion_llm_init_py_exception",
@@ -1674,6 +1720,28 @@
       "source_location": "L1"
     },
     {
+      "id": "src_nutricion_llm_gemini_rationale_1",
+      "label": "Implementaci\u00f3n de LLMClient con la capa gratuita de Gemini (Google AI Studio).",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "main.py",
+      "file_type": "rationale",
+      "norm_label": "implementacion de llmclient con la capa gratuita de gemini (google ai studio).",
+      "source_file": "src/nutricion/llm/gemini.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_llm_init_rationale_1",
+      "label": "Cerebro del agente tras una interfaz com\u00fan: se cambia de proveedor sin tocar el\u2026",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "main.py",
+      "file_type": "rationale",
+      "norm_label": "cerebro del agente tras una interfaz comun: se cambia de proveedor sin tocar el...",
+      "source_file": "src/nutricion/llm/__init__.py",
+      "source_location": "L1"
+    },
+    {
       "id": "src_nutricion_main_rationale_1",
       "label": "Punto de entrada: `nutricion [revisar|ping|fuentes|tick [--enviar-pildora]]`.",
       "_origin": "ast",
@@ -1683,6 +1751,17 @@
       "norm_label": "punto de entrada: `nutricion [revisar|ping|fuentes|tick [--enviar-pildora]]`.",
       "source_file": "src/nutricion/main.py",
       "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_sources_feeds_rationale_77",
+      "label": "Diagn\u00f3stico: cu\u00e1ntas entradas devuelve cada fuente (o el error).",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "main.py",
+      "file_type": "rationale",
+      "norm_label": "diagnostico: cuantas entradas devuelve cada fuente (o el error).",
+      "source_file": "src/nutricion/sources/feeds.py",
+      "source_location": "L77"
     },
     {
       "id": "src_nutricion_sources_catalog",
@@ -1784,7 +1863,7 @@
       "source_location": "L1"
     },
     {
-      "id": "src_nutricion_sources_catalog_rationale_91",
+      "id": "src_nutricion_sources_catalog_rationale_102",
       "label": "Rota la categor\u00eda preferida para que las p\u00edldoras no sean siempre del mismo\u2026",
       "_origin": "ast",
       "community": 1,
@@ -1792,7 +1871,7 @@
       "file_type": "rationale",
       "norm_label": "rota la categoria preferida para que las pildoras no sean siempre del mismo...",
       "source_file": "src/nutricion/sources/catalog.py",
-      "source_location": "L91"
+      "source_location": "L102"
     },
     {
       "id": "src_nutricion_sources_feeds_rationale_1",
@@ -1806,7 +1885,7 @@
       "source_location": "L1"
     },
     {
-      "id": "src_nutricion_sources_feeds_rationale_57",
+      "id": "src_nutricion_sources_feeds_rationale_61",
       "label": "Hasta PER_SOURCE noticias nuevas por fuente; una fuente ca\u00edda no detiene a las\u2026",
       "_origin": "ast",
       "community": 1,
@@ -1814,18 +1893,7 @@
       "file_type": "rationale",
       "norm_label": "hasta per_source noticias nuevas por fuente; una fuente caida no detiene a las...",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L57"
-    },
-    {
-      "id": "src_nutricion_sources_feeds_rationale_73",
-      "label": "Diagn\u00f3stico: cu\u00e1ntas entradas devuelve cada fuente (o el error).",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "feeds.py",
-      "file_type": "rationale",
-      "norm_label": "diagnostico: cuantas entradas devuelve cada fuente (o el error).",
-      "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L73"
+      "source_location": "L61"
     },
     {
       "id": "src_nutricion_sources_images_rationale_1",
@@ -1908,229 +1976,6 @@
       "version": "0.1.0"
     },
     {
-      "id": "src_nutricion_agents_researcher",
-      "label": "researcher.py",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "code",
-      "norm_label": "researcher.py",
-      "source_file": "src/nutricion/agents/researcher.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_agents_researcher_py_basemodel",
-      "label": "BaseModel",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "code",
-      "norm_label": "basemodel",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "src_nutricion_agents_skills",
-      "label": "skills.py",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "code",
-      "norm_label": "skills.py",
-      "source_file": "src/nutricion/agents/skills.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_agents_tutor",
-      "label": "tutor.py",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "code",
-      "norm_label": "tutor.py",
-      "source_file": "src/nutricion/agents/tutor.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_agents_tutor_py_basemodel",
-      "label": "BaseModel",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "code",
-      "norm_label": "basemodel",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "src_nutricion_llm_gemini",
-      "label": "gemini.py",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "code",
-      "norm_label": "gemini.py",
-      "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_llm_init",
-      "label": "llm/__init__.py",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "code",
-      "norm_label": "llm/__init__.py",
-      "source_file": "src/nutricion/llm/__init__.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_llm_init_py_protocol",
-      "label": "Protocol",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "code",
-      "norm_label": "protocol",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "src_nutricion_llm_init_py_t",
-      "label": "T",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "code",
-      "norm_label": "t",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "tests_test_skills",
-      "label": "test_skills.py",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "code",
-      "norm_label": "test_skills.py",
-      "source_file": "tests/test_skills.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "claude",
-      "label": "CLAUDE.md",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "document",
-      "node_kind": "page",
-      "norm_label": "claude.md",
-      "source_file": "CLAUDE.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "claude_agente_de_nutrici\u00f3n_de_conocimiento",
-      "label": "Agente de nutrici\u00f3n de conocimiento",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "agente de nutricion de conocimiento",
-      "source_file": "CLAUDE.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "claude_graphify",
-      "label": "graphify",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "graphify",
-      "source_file": "CLAUDE.md",
-      "source_location": "L13"
-    },
-    {
-      "id": "src_nutricion_agents_researcher_rationale_1",
-      "label": "Investigador: elige la noticia m\u00e1s relevante entre todas las fuentes y escribe\u2026",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "rationale",
-      "norm_label": "investigador: elige la noticia mas relevante entre todas las fuentes y escribe...",
-      "source_file": "src/nutricion/agents/researcher.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_agents_skills_rationale_1",
-      "label": "Carga las instrucciones de `skills/<nombre>/SKILL.md` para usarlas como prompt\u2026",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "rationale",
-      "norm_label": "carga las instrucciones de `skills/<nombre>/skill.md` para usarlas como prompt...",
-      "source_file": "src/nutricion/agents/skills.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_agents_tutor_rationale_1",
-      "label": "Tutor: reacciona a la postura elegida con un bot\u00f3n y eval\u00faa la respuesta\u2026",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "rationale",
-      "norm_label": "tutor: reacciona a la postura elegida con un boton y evalua la respuesta...",
-      "source_file": "src/nutricion/agents/tutor.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_llm_gemini_rationale_1",
-      "label": "Implementaci\u00f3n de LLMClient con la capa gratuita de Gemini (Google AI Studio).",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "rationale",
-      "norm_label": "implementacion de llmclient con la capa gratuita de gemini (google ai studio).",
-      "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_llm_init_rationale_1",
-      "label": "Cerebro del agente tras una interfaz com\u00fan: se cambia de proveedor sin tocar el\u2026",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "rationale",
-      "norm_label": "cerebro del agente tras una interfaz comun: se cambia de proveedor sin tocar el...",
-      "source_file": "src/nutricion/llm/__init__.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_llm_init_rationale_14",
-      "label": "Devuelve texto libre.",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "rationale",
-      "norm_label": "devuelve texto libre.",
-      "source_file": "src/nutricion/llm/__init__.py",
-      "source_location": "L14"
-    },
-    {
-      "id": "src_nutricion_llm_init_rationale_18",
-      "label": "Devuelve una instancia de `schema` validada (p. ej. la nota de una evaluaci\u00f3n).",
-      "_origin": "ast",
-      "community": 13,
-      "community_name": "researcher.py",
-      "file_type": "rationale",
-      "norm_label": "devuelve una instancia de `schema` validada (p. ej. la nota de una evaluacion).",
-      "source_file": "src/nutricion/llm/__init__.py",
-      "source_location": "L18"
-    },
-    {
       "id": "claude_hooks_session_start",
       "label": "session-start.sh",
       "_origin": "ast",
@@ -2159,6 +2004,207 @@
       "norm_label": "session-start.sh script",
       "source_file": ".claude/hooks/session-start.sh",
       "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_agents_researcher",
+      "label": "researcher.py",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "researcher.py",
+      "source_file": "src/nutricion/agents/researcher.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_agents_researcher_py_basemodel",
+      "label": "BaseModel",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "basemodel",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "src_nutricion_agents_skills",
+      "label": "skills.py",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "skills.py",
+      "source_file": "src/nutricion/agents/skills.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_agents_tutor",
+      "label": "tutor.py",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "tutor.py",
+      "source_file": "src/nutricion/agents/tutor.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_agents_tutor_py_basemodel",
+      "label": "BaseModel",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "basemodel",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "src_nutricion_channels_formatting",
+      "label": "formatting.py",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "formatting.py",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_llm_init_py_protocol",
+      "label": "Protocol",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "protocol",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "src_nutricion_llm_init_py_t",
+      "label": "T",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "t",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "tests_test_skills",
+      "label": "test_skills.py",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "code",
+      "norm_label": "test_skills.py",
+      "source_file": "tests/test_skills.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "claude",
+      "label": "CLAUDE.md",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "claude.md",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "claude_agente_de_nutrici\u00f3n_de_conocimiento",
+      "label": "Agente de nutrici\u00f3n de conocimiento",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "agente de nutricion de conocimiento",
+      "source_file": "CLAUDE.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "claude_graphify",
+      "label": "graphify",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "graphify",
+      "source_file": "CLAUDE.md",
+      "source_location": "L13"
+    },
+    {
+      "id": "src_nutricion_agents_researcher_rationale_1",
+      "label": "Investigador: elige la noticia m\u00e1s relevante entre todas las fuentes y escribe\u2026",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "rationale",
+      "norm_label": "investigador: elige la noticia mas relevante entre todas las fuentes y escribe...",
+      "source_file": "src/nutricion/agents/researcher.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_agents_skills_rationale_1",
+      "label": "Carga las instrucciones de `skills/<nombre>/SKILL.md` para usarlas como prompt\u2026",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "rationale",
+      "norm_label": "carga las instrucciones de `skills/<nombre>/skill.md` para usarlas como prompt...",
+      "source_file": "src/nutricion/agents/skills.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_agents_tutor_rationale_1",
+      "label": "Tutor: reacciona a la postura elegida con un bot\u00f3n y eval\u00faa la respuesta\u2026",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "rationale",
+      "norm_label": "tutor: reacciona a la postura elegida con un boton y evalua la respuesta...",
+      "source_file": "src/nutricion/agents/tutor.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_channels_formatting_rationale_1",
+      "label": "Formato HTML de Telegram para p\u00edldoras y feedback (todo el texto del LLM se\u2026",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "rationale",
+      "norm_label": "formato html de telegram para pildoras y feedback (todo el texto del llm se...",
+      "source_file": "src/nutricion/channels/formatting.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_llm_init_rationale_14",
+      "label": "Devuelve texto libre.",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "rationale",
+      "norm_label": "devuelve texto libre.",
+      "source_file": "src/nutricion/llm/__init__.py",
+      "source_location": "L14"
+    },
+    {
+      "id": "src_nutricion_llm_init_rationale_18",
+      "label": "Devuelve una instancia de `schema` validada (p. ej. la nota de una evaluaci\u00f3n).",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "researcher.py",
+      "file_type": "rationale",
+      "norm_label": "devuelve una instancia de `schema` validada (p. ej. la nota de una evaluacion).",
+      "source_file": "src/nutricion/llm/__init__.py",
+      "source_location": "L18"
     },
     {
       "id": "readme",
@@ -2401,29 +2447,18 @@
       "label": "Row",
       "_origin": "ast",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "file_type": "code",
       "norm_label": "row",
       "source_file": "",
       "source_location": ""
     },
     {
-      "id": "src_nutricion_channels_formatting",
-      "label": "formatting.py",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "formatting.py",
-      "source_file": "src/nutricion/channels/formatting.py",
-      "source_location": "L1"
-    },
-    {
       "id": "src_nutricion_domain_lesson",
       "label": "lesson.py",
       "_origin": "ast",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "file_type": "code",
       "norm_label": "lesson.py",
       "source_file": "src/nutricion/domain/lesson.py",
@@ -2434,7 +2469,7 @@
       "label": "Exception",
       "_origin": "ast",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "file_type": "code",
       "norm_label": "exception",
       "source_file": "",
@@ -2445,7 +2480,7 @@
       "label": "StrEnum",
       "_origin": "ast",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "file_type": "code",
       "norm_label": "strenum",
       "source_file": "",
@@ -2456,7 +2491,7 @@
       "label": "store.py",
       "_origin": "ast",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "file_type": "code",
       "norm_label": "store.py",
       "source_file": "src/nutricion/memory/store.py",
@@ -2467,21 +2502,10 @@
       "label": "test_lesson.py",
       "_origin": "ast",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "file_type": "code",
       "norm_label": "test_lesson.py",
       "source_file": "tests/test_lesson.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_channels_formatting_rationale_1",
-      "label": "Formato HTML de Telegram para p\u00edldoras y feedback (todo el texto del LLM se\u2026",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "rationale",
-      "norm_label": "formato html de telegram para pildoras y feedback (todo el texto del llm se...",
-      "source_file": "src/nutricion/channels/formatting.py",
       "source_location": "L1"
     },
     {
@@ -2489,7 +2513,7 @@
       "label": "M\u00e1quina de estados de la lecci\u00f3n: p\u00edldora -> desaf\u00edo -> espera -> feedback ->\u2026",
       "_origin": "ast",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "file_type": "rationale",
       "norm_label": "maquina de estados de la leccion: pildora -> desafio -> espera -> feedback ->...",
       "source_file": "src/nutricion/domain/lesson.py",
@@ -2500,22 +2524,11 @@
       "label": "Almac\u00e9n SQLite de lecciones y peque\u00f1os valores de control (p. ej. el offset de\u2026",
       "_origin": "ast",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "file_type": "rationale",
       "norm_label": "almacen sqlite de lecciones y pequenos valores de control (p. ej. el offset de...",
       "source_file": "src/nutricion/memory/store.py",
       "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_memory_store_rationale_82",
-      "label": "La lecci\u00f3n en curso (como mucho hay una), o None si todas est\u00e1n completadas.",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "Store",
-      "file_type": "rationale",
-      "norm_label": "la leccion en curso (como mucho hay una), o none si todas estan completadas.",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L82"
     },
     {
       "id": "tests_test_app",
@@ -2683,6 +2696,17 @@
       "source_location": "L1"
     },
     {
+      "id": "src_nutricion_memory_store_rationale_82",
+      "label": "La lecci\u00f3n en curso (como mucho hay una), o None si todas est\u00e1n completadas.",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Store",
+      "file_type": "rationale",
+      "norm_label": "la leccion en curso (como mucho hay una), o none si todas estan completadas.",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L82"
+    },
+    {
       "id": "argparse",
       "label": "argparse",
       "community": 0,
@@ -2705,6 +2729,39 @@
       "type": "external"
     },
     {
+      "id": "google",
+      "label": "google",
+      "community": 0,
+      "community_name": "main.py",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "google",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "google_genai",
+      "label": "google_genai",
+      "community": 0,
+      "community_name": "main.py",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "google_genai",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "pydantic",
+      "label": "pydantic",
+      "community": 0,
+      "community_name": "main.py",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "pydantic",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "pydantic_settings",
       "label": "pydantic_settings",
       "community": 0,
@@ -2716,17 +2773,6 @@
       "type": "external"
     },
     {
-      "id": "pytest",
-      "label": "pytest",
-      "community": 0,
-      "community_name": "main.py",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "pytest",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "sys",
       "label": "sys",
       "community": 0,
@@ -2734,6 +2780,28 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "sys",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "typing",
+      "label": "typing",
+      "community": 0,
+      "community_name": "main.py",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "typing",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "calendar",
+      "label": "calendar",
+      "community": 1,
+      "community_name": "feeds.py",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "calendar",
       "source_file": "",
       "type": "external"
     },
@@ -2815,6 +2883,17 @@
       "type": "external"
     },
     {
+      "id": "time",
+      "label": "time",
+      "community": 1,
+      "community_name": "feeds.py",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "time",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "urllib_parse",
       "label": "urllib_parse",
       "community": 1,
@@ -2826,31 +2905,9 @@
       "type": "external"
     },
     {
-      "id": "google",
-      "label": "google",
-      "community": 13,
-      "community_name": "researcher.py",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "google",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "google_genai",
-      "label": "google_genai",
-      "community": 13,
-      "community_name": "researcher.py",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "google_genai",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "pathlib",
       "label": "pathlib",
-      "community": 13,
+      "community": 15,
       "community_name": "researcher.py",
       "external": true,
       "file_type": "concept",
@@ -2859,32 +2916,10 @@
       "type": "external"
     },
     {
-      "id": "pydantic",
-      "label": "pydantic",
-      "community": 13,
-      "community_name": "researcher.py",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "pydantic",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "typing",
-      "label": "typing",
-      "community": 13,
-      "community_name": "researcher.py",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "typing",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "datetime",
       "label": "datetime",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "datetime",
@@ -2895,7 +2930,7 @@
       "id": "json",
       "label": "json",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "json",
@@ -2903,10 +2938,21 @@
       "type": "external"
     },
     {
+      "id": "pytest",
+      "label": "pytest",
+      "community": 5,
+      "community_name": "store.py",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "pytest",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "sqlite3",
       "label": "sqlite3",
       "community": 5,
-      "community_name": "Store",
+      "community_name": "store.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "sqlite3",
@@ -3583,24 +3629,12 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L95",
+      "source_location": "L107",
       "weight": 1.0
     },
     {
       "source": "src_nutricion_sources_feeds_fetch_candidates",
       "target": "httpx",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L58",
-      "weight": 1.0
-    },
-    {
-      "source": "src_nutricion_sources_feeds_fetch_candidates",
-      "target": "src_nutricion_sources_feeds_safe_fetch",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3612,6 +3646,18 @@
     },
     {
       "source": "src_nutricion_sources_feeds_fetch_candidates",
+      "target": "src_nutricion_sources_feeds_safe_fetch",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/nutricion/sources/feeds.py",
+      "source_location": "L66",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_sources_feeds_fetch_candidates",
       "target": "src_nutricion_sources_feeds_nonewsfound",
       "relation": "calls",
       "_origin": "ast",
@@ -3619,7 +3665,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L68",
+      "source_location": "L72",
       "weight": 1.0
     },
     {
@@ -3631,12 +3677,12 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L36",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
       "source": "src_nutricion_sources_feeds_fetch_source",
-      "target": "src_nutricion_sources_feeds_candidate",
+      "target": "src_nutricion_sources_feeds_too_old",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3648,19 +3694,7 @@
     },
     {
       "source": "src_nutricion_sources_feeds_fetch_source",
-      "target": "src_nutricion_sources_feeds_clean",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L45",
-      "weight": 1.0
-    },
-    {
-      "source": "src_nutricion_sources_feeds_fetch_source",
-      "target": "src_nutricion_sources_feeds_publisher",
+      "target": "src_nutricion_sources_feeds_candidate",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3672,6 +3706,30 @@
     },
     {
       "source": "src_nutricion_sources_feeds_fetch_source",
+      "target": "src_nutricion_sources_feeds_clean",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/nutricion/sources/feeds.py",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_sources_feeds_fetch_source",
+      "target": "src_nutricion_sources_feeds_publisher",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/nutricion/sources/feeds.py",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_sources_feeds_fetch_source",
       "target": "src_nutricion_sources_feeds_entry_image",
       "relation": "calls",
       "_origin": "ast",
@@ -3679,7 +3737,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L50",
+      "source_location": "L54",
       "weight": 1.0
     },
     {
@@ -3691,7 +3749,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L88",
+      "source_location": "L92",
       "weight": 1.0
     },
     {
@@ -3703,7 +3761,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L75",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
@@ -3715,7 +3773,31 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L80",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_sources_feeds_too_old",
+      "target": "calendar",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/nutricion/sources/feeds.py",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_sources_feeds_too_old",
+      "target": "time",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/nutricion/sources/feeds.py",
+      "source_location": "L102",
       "weight": 1.0
     },
     {
@@ -4111,7 +4193,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_sources.py",
-      "source_location": "L45",
+      "source_location": "L51",
       "weight": 1.0
     },
     {
@@ -4147,7 +4229,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_sources.py",
-      "source_location": "L36",
+      "source_location": "L42",
       "weight": 1.0
     },
     {
@@ -4159,7 +4241,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_sources.py",
-      "source_location": "L36",
+      "source_location": "L42",
       "weight": 1.0
     },
     {
@@ -4171,7 +4253,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_sources.py",
-      "source_location": "L40",
+      "source_location": "L46",
       "weight": 1.0
     },
     {
@@ -4183,7 +4265,31 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_sources.py",
-      "source_location": "L40",
+      "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_sources_test_old_entries_are_skipped",
+      "target": "src_nutricion_sources_feeds_fetch_source",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "tests/test_sources.py",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_sources_test_old_entries_are_skipped",
+      "target": "tests_test_sources_client",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "tests/test_sources.py",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -4231,7 +4337,7 @@
       "confidence_score": 1.0,
       "context": "generic_arg",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L56",
+      "source_location": "L60",
       "weight": 1.0
     },
     {
@@ -4243,7 +4349,7 @@
       "confidence_score": 1.0,
       "context": "generic_arg",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L86",
+      "source_location": "L90",
       "weight": 1.0
     },
     {
@@ -4656,54 +4762,6 @@
     },
     {
       "source": "src_nutricion_sources_feeds",
-      "target": "src_nutricion_sources_catalog_category",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L11",
-      "weight": 1.0
-    },
-    {
-      "source": "src_nutricion_sources_feeds",
-      "target": "src_nutricion_sources_catalog_source",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L11",
-      "weight": 1.0
-    },
-    {
-      "source": "src_nutricion_sources_feeds",
-      "target": "html",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L3",
-      "weight": 1.0
-    },
-    {
-      "source": "src_nutricion_sources_feeds",
-      "target": "re",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L4",
-      "weight": 1.0
-    },
-    {
-      "source": "src_nutricion_sources_feeds",
       "target": "feedparser",
       "relation": "imports",
       "_origin": "ast",
@@ -4711,7 +4769,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L8",
+      "source_location": "L10",
       "weight": 1.0
     },
     {
@@ -4723,7 +4781,79 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L9",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_sources_feeds",
+      "target": "src_nutricion_sources_catalog_category",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/nutricion/sources/feeds.py",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_sources_feeds",
+      "target": "src_nutricion_sources_catalog_source",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/nutricion/sources/feeds.py",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_sources_feeds",
+      "target": "calendar",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/nutricion/sources/feeds.py",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_sources_feeds",
+      "target": "html",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/nutricion/sources/feeds.py",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_sources_feeds",
+      "target": "re",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/nutricion/sources/feeds.py",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_sources_feeds",
+      "target": "time",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/nutricion/sources/feeds.py",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -5335,7 +5465,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L11",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -5347,7 +5477,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L5",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -5359,7 +5489,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L6",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -5767,7 +5897,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L33",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -5779,7 +5909,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L86",
+      "source_location": "L90",
       "weight": 1.0
     },
     {
@@ -5911,7 +6041,7 @@
       "confidence_score": 1.0,
       "context": "return_type",
       "source_file": "src/nutricion/sources/catalog.py",
-      "source_location": "L90",
+      "source_location": "L101",
       "weight": 1.0
     },
     {
@@ -6548,6 +6678,17 @@
     },
     {
       "source": "src_nutricion_sources_catalog",
+      "target": "src_nutricion_sources_catalog_category_of_the_day",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/nutricion/sources/catalog.py",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_sources_catalog",
       "target": "src_nutricion_sources_catalog_source",
       "relation": "contains",
       "_origin": "ast",
@@ -6580,14 +6721,25 @@
       "weight": 1.0
     },
     {
-      "source": "src_nutricion_sources_catalog",
-      "target": "src_nutricion_sources_catalog_category_of_the_day",
+      "source": "src_nutricion_sources_feeds",
+      "target": "src_nutricion_sources_feeds_clean",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "src/nutricion/sources/catalog.py",
-      "source_location": "L90",
+      "source_file": "src/nutricion/sources/feeds.py",
+      "source_location": "L106",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_sources_feeds",
+      "target": "src_nutricion_sources_feeds_publisher",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/nutricion/sources/feeds.py",
+      "source_location": "L110",
       "weight": 1.0
     },
     {
@@ -6598,7 +6750,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L104",
+      "source_location": "L116",
       "weight": 1.0
     },
     {
@@ -6609,7 +6761,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L20",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -6620,7 +6772,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L29",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -6631,7 +6783,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L33",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -6642,7 +6794,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L56",
+      "source_location": "L60",
       "weight": 1.0
     },
     {
@@ -6653,7 +6805,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L72",
+      "source_location": "L76",
       "weight": 1.0
     },
     {
@@ -6664,23 +6816,12 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L86",
+      "source_location": "L90",
       "weight": 1.0
     },
     {
       "source": "src_nutricion_sources_feeds",
-      "target": "src_nutricion_sources_feeds_clean",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L94",
-      "weight": 1.0
-    },
-    {
-      "source": "src_nutricion_sources_feeds",
-      "target": "src_nutricion_sources_feeds_publisher",
+      "target": "src_nutricion_sources_feeds_too_old",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -6944,7 +7085,7 @@
     },
     {
       "source": "tests_test_sources",
-      "target": "tests_test_sources_test_og_image_is_found_in_article_html",
+      "target": "tests_test_sources_test_old_entries_are_skipped",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -6955,13 +7096,24 @@
     },
     {
       "source": "tests_test_sources",
+      "target": "tests_test_sources_test_og_image_is_found_in_article_html",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/test_sources.py",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_sources",
       "target": "tests_test_sources_test_og_image_missing_returns_empty",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/test_sources.py",
-      "source_location": "L39",
+      "source_location": "L45",
       "weight": 1.0
     },
     {
@@ -6972,7 +7124,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/test_sources.py",
-      "source_location": "L43",
+      "source_location": "L49",
       "weight": 1.0
     },
     {
@@ -6983,7 +7135,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/test_sources.py",
-      "source_location": "L53",
+      "source_location": "L59",
       "weight": 1.0
     },
     {
@@ -7104,7 +7256,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L29",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -7933,14 +8085,14 @@
       "weight": 1.0
     },
     {
-      "source": "src_nutricion_sources_catalog_rationale_91",
+      "source": "src_nutricion_sources_catalog_rationale_102",
       "target": "src_nutricion_sources_catalog_category_of_the_day",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/sources/catalog.py",
-      "source_location": "L91",
+      "source_location": "L102",
       "weight": 1.0
     },
     {
@@ -7955,25 +8107,25 @@
       "weight": 1.0
     },
     {
-      "source": "src_nutricion_sources_feeds_rationale_57",
+      "source": "src_nutricion_sources_feeds_rationale_61",
       "target": "src_nutricion_sources_feeds_fetch_candidates",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L57",
+      "source_location": "L61",
       "weight": 1.0
     },
     {
-      "source": "src_nutricion_sources_feeds_rationale_73",
+      "source": "src_nutricion_sources_feeds_rationale_77",
       "target": "src_nutricion_sources_feeds_source_health",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L73",
+      "source_location": "L77",
       "weight": 1.0
     },
     {
@@ -8090,7 +8242,7 @@
       "confidence_score": 0.95,
       "context": "generic_arg",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L56",
+      "source_location": "L60",
       "weight": 0.8
     },
     {
@@ -8102,7 +8254,7 @@
       "confidence_score": 0.95,
       "context": "generic_arg",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L72",
+      "source_location": "L76",
       "weight": 0.8
     },
     {
@@ -8234,7 +8386,7 @@
       "confidence_score": 0.95,
       "context": "parameter_type",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L33",
+      "source_location": "L37",
       "weight": 0.8
     },
     {
@@ -8246,7 +8398,7 @@
       "confidence_score": 0.95,
       "context": "parameter_type",
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L86",
+      "source_location": "L90",
       "weight": 0.8
     },
     {
@@ -8334,7 +8486,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "src/nutricion/sources/feeds.py",
-      "source_location": "L25",
+      "source_location": "L29",
       "weight": 0.8
     },
     {
@@ -8521,7 +8673,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "tests/test_sources.py",
-      "source_location": "L44",
+      "source_location": "L50",
       "weight": 0.8
     },
     {
@@ -8554,10 +8706,32 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "tests/test_sources.py",
-      "source_location": "L68",
+      "source_location": "L74",
+      "weight": 0.8
+    },
+    {
+      "source": "tests_test_sources_test_old_entries_are_skipped",
+      "target": "src_nutricion_sources_catalog_category",
+      "relation": "uses",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "tests/test_sources.py",
+      "source_location": "L36",
+      "weight": 0.8
+    },
+    {
+      "source": "tests_test_sources_test_old_entries_are_skipped",
+      "target": "src_nutricion_sources_catalog_source",
+      "relation": "uses",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "tests/test_sources.py",
+      "source_location": "L36",
       "weight": 0.8
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "69003f47e74931b0b96931d04fb925a0f14802aa"
+  "built_at_commit": "7e2f28de02bbef53c8fba2a165974f39476a02f8"
 }

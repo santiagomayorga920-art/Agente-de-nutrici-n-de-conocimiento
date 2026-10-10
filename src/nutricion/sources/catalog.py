@@ -76,9 +76,20 @@ SOURCES: list[Source] = [
         ),
         Category.INVESTIGACION,
     ),
+    # El RSS de MIT News rechaza las peticiones automáticas: se usan sus noticias (y las de
+    # Stanford HAI y Harvard) indexadas por Google News
     Source(
-        "MIT News (IA)",
-        "https://news.mit.edu/rss/topic/artificial-intelligence2",
+        "Universidades top (vía Google News)",
+        _google_news(
+            "artificial intelligence (site:news.mit.edu OR site:hai.stanford.edu"
+            " OR site:seas.harvard.edu)",
+            "en-US",
+        ),
+        Category.INVESTIGACION,
+    ),
+    Source(
+        "MIT Technology Review",
+        "https://www.technologyreview.com/topic/artificial-intelligence/feed",
         Category.INVESTIGACION,
     ),
     Source(

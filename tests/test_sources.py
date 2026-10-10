@@ -31,6 +31,12 @@ def test_feed_entry_is_cleaned_and_keeps_publisher_and_image():
     assert candidate.category is Category.FINANZAS
 
 
+def test_old_entries_are_skipped():
+    old = RSS.replace(b"<item>", b"<item><pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>")
+    source = Source("Feed", "https://feed", Category.NEGOCIOS)
+    assert fetch_source(source, _client(old)) == []
+
+
 def test_og_image_is_found_in_article_html():
     page = b'<html><head><meta property="og:image" content="https://cdn/x.png"></head></html>'
     assert find_og_image("https://art", _client(page, "text/html")) == "https://cdn/x.png"
