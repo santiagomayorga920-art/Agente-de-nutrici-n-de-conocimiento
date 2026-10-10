@@ -48,9 +48,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/main.py": {
-    "mtime": 1791659678.798347,
-    "seen": 1791659740.5079978,
-    "ast_hash": "283fa3f50137260eba4d0d141f25cfab",
+    "mtime": 1791660187.874052,
+    "seen": 1791660210.8335276,
+    "ast_hash": "9b73a0ba0d29553dfbf3bc583f36c5d0",
     "semantic_hash": ""
   },
   "src/nutricion/memory/__init__.py": {
@@ -168,9 +168,9 @@
     "semantic_hash": ""
   },
   ".github/workflows/ci.yml": {
-    "mtime": 1791659717.736163,
-    "seen": 1791659740.5080256,
-    "ast_hash": "65e573d88fa366ce537ddd517f3b222c",
+    "mtime": 1791660187.874343,
+    "seen": 1791660210.8335521,
+    "ast_hash": "23b8c4184fa0d22e700e38558953dbfc",
     "semantic_hash": ""
   },
   "src/nutricion/channels/formatting.py": {
@@ -216,9 +216,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/web.py": {
-    "mtime": 1791659717.7348976,
-    "seen": 1791659740.508011,
-    "ast_hash": "dc59140ba29c5140d3957e6cbb5d1249",
+    "mtime": 1791660187.8736196,
+    "seen": 1791660210.833539,
+    "ast_hash": "44228506e162eb0518c0228c48368f90",
     "semantic_hash": ""
   },
   "tests/test_progress.py": {
@@ -255,6 +255,12 @@
     "mtime": 1791659678.80405,
     "seen": 1791659740.5080135,
     "ast_hash": "42c62a07005b9a2d7995650232a23ea6",
+    "semantic_hash": ""
+  },
+  "src/nutricion/factory.py": {
+    "mtime": 1791660187.860615,
+    "seen": 1791660210.833522,
+    "ast_hash": "ca0e0c1e9cc95faf1bdd0d08cc66fcda",
     "semantic_hash": ""
   }
 }

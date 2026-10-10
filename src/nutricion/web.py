@@ -16,25 +16,15 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse, PlainTextResponse
 from starlette.routing import Route
 
-from nutricion.app import COMMANDS, OFFSET_KEY, Agent
+from nutricion.app import COMMANDS, OFFSET_KEY
 from nutricion.channels.telegram import TelegramClient
 from nutricion.config import Settings, get_settings
-from nutricion.llm import get_llm
+from nutricion.factory import build_agent
 from nutricion.memory.store import DatabaseConnectionError, Store
 
 log = logging.getLogger("nutricion.web")
 WEBHOOK_PATH = "/telegram"
 _lock = threading.Lock()
-
-
-def build_agent(settings: Settings, store: Store | None = None) -> Agent:
-    return Agent(
-        store=store or Store(settings.database),
-        llm=get_llm(settings),
-        messenger=TelegramClient(settings.telegram_bot_token),
-        chat_id=settings.telegram_chat_id,
-        timezone=settings.timezone,
-    )
 
 
 def process(update: dict, settings: Settings, agent_factory=build_agent) -> None:

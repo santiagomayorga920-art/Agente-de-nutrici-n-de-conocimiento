@@ -53,4 +53,6 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -e .
+      # Con la instalación mínima (la de agente.yml) el tick debe poder importarse
+      - run: python -c "import nutricion.main, nutricion.factory; nutricion.main._run_tick"
       - run: nutricion fuentes

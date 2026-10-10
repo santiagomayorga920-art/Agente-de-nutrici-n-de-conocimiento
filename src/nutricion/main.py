@@ -91,7 +91,7 @@ def open_store(settings: Settings):
 
 def _run_tick(settings: Settings, send_daily_pill: bool) -> None:
     from nutricion.channels.telegram import TelegramClient
-    from nutricion.web import build_agent
+    from nutricion.factory import build_agent
 
     # Con un webhook activo Telegram no permite getUpdates: el servidor ya atiende los mensajes
     webhook = TelegramClient(settings.telegram_bot_token).webhook_url()
