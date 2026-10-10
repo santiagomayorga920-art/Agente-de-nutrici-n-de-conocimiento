@@ -103,6 +103,12 @@ def _too_old(entry, now: float | None = None) -> bool:
     return age_days > MAX_AGE_DAYS
 
 
+def normalize_title(title: str) -> str:
+    """Clave para detectar la misma noticia en varias fuentes (quita el " - Medio" final)."""
+    title = re.sub(r"\s+[-–|]\s+[^-–|]{2,40}$", "", title)
+    return " ".join(re.sub(r"[^\w\s]", " ", title.lower()).split())
+
+
 def _clean(text: str) -> str:
     return " ".join(html.unescape(_TAG.sub(" ", text)).split())
 

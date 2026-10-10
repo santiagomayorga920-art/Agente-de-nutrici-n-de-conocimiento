@@ -3,6 +3,7 @@
 from html import escape
 
 from nutricion.domain.lesson import Pill
+from nutricion.domain.progress import Profile, Score
 
 CATEGORY_ICONS = {"Negocios": "💼", "Finanzas": "📈", "Investigación": "🔬"}
 
@@ -39,8 +40,52 @@ def choice_reaction(choice: str, reaction: str) -> str:
     )
 
 
-def feedback(scores_line: str, text: str) -> str:
-    return f"📊 <b>{escape(scores_line)}</b>\n\n{escape(text)}\n\n✅ <b>Lección completada.</b>"
+def feedback(score: Score, text: str, profile: Profile) -> str:
+    return (
+        f"📊 <b>{escape(score.line())}</b>\n\n{escape(text)}\n\n"
+        f"✅ <b>Lección completada.</b> {progress_line(profile)}"
+    )
+
+
+def progress_line(profile: Profile) -> str:
+    parts = [f"📚 {profile.completed}", f"🔥 {profile.streak} {_days(profile.streak)}"]
+    if profile.next_level:
+        parts.append(f"{profile.to_next_level} para {escape(profile.next_level)}")
+    return " · ".join(parts)
+
+
+def profile_card(profile: Profile) -> str:
+    if not profile.completed:
+        return (
+            "👤 <b>Tu perfil</b>\n"
+            f"Nivel: {escape(profile.level)}\n"
+            "Aún no has completado ninguna píldora. ¡La primera te espera!"
+        )
+    lines = [
+        "👤 <b>Tu perfil</b>",
+        f"Nivel: <b>{escape(profile.level)}</b>",
+        f"📚 Píldoras completadas: <b>{profile.completed}</b>",
+        f"🔥 Racha: <b>{profile.streak} {_days(profile.streak)}</b>",
+        "",
+        f"⭐ Promedio general: <b>{profile.average:.1f}/5</b>",
+        f"   Comprensión {_bar(profile.avg_comprension)} {profile.avg_comprension:.1f}",
+        f"   Razonamiento {_bar(profile.avg_razonamiento)} {profile.avg_razonamiento:.1f}",
+        f"   Negocio {_bar(profile.avg_negocio)} {profile.avg_negocio:.1f}",
+    ]
+    if profile.next_level:
+        lines += ["", f"🎯 Te faltan {profile.to_next_level} para {escape(profile.next_level)}"]
+    if profile.weakest:
+        lines.append(f"💪 Punto a reforzar: <b>{profile.weakest}</b>")
+    return "\n".join(lines)
+
+
+def _bar(value: float) -> str:
+    filled = round(value)
+    return "▰" * filled + "▱" * (5 - filled)
+
+
+def _days(n: int) -> str:
+    return "día" if n == 1 else "días"
 
 
 def plain(text: str) -> str:

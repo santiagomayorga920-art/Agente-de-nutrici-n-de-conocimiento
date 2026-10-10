@@ -7,7 +7,7 @@ from nutricion.channels.telegram import TelegramError
 from nutricion.domain.lesson import LessonState
 from nutricion.memory.store import Store
 from nutricion.sources.catalog import Category
-from nutricion.sources.feeds import Candidate
+from nutricion.sources.feeds import Candidate, NoNewsFound
 
 CHAT = "111"
 
@@ -67,6 +67,9 @@ class FakeMessenger:
             raise TelegramError("wrong file identifier")
         self.sent.append({"kind": "photo", "url": photo_url, "text": caption, "buttons": buttons})
 
+    def send_typing(self, chat_id):
+        pass
+
     def answer_callback(self, callback_id, text=""):
         self.answered.append(callback_id)
 
@@ -107,8 +110,8 @@ def test_daily_pill_is_sent_as_photo_with_option_buttons():
 def test_unreachable_image_falls_back_to_text():
     agent, store, messenger = make_agent(messenger=FakeMessenger(photo_fails=True))
     agent.tick(send_daily_pill=True)
-    assert [m["kind"] for m in messenger.sent] == ["text"]
-    assert messenger.sent[0]["buttons"]
+    assert [m["kind"] for m in messenger.sent] == ["text", "text"]  # perfil + píldora
+    assert messenger.sent[1]["buttons"]
 
 
 def test_first_pill_prefers_the_first_category():
@@ -181,6 +184,60 @@ def test_message_without_pending_challenge():
     messenger.receive("hola")
     agent.tick(send_daily_pill=False)
     assert messenger.sent[0]["text"] == NO_PENDING
+
+
+def test_stats_command_shows_profile_after_lessons():
+    agent, store, messenger = make_agent()
+    messenger.receive("/stats")
+    agent.tick(send_daily_pill=False)
+    assert "Aún no has completado" in messenger.sent[-1]["text"]
+
+    agent.tick(send_daily_pill=True)
+    messenger.receive("Mi análisis")
+    messenger.receive("/stats")
+    agent.tick(send_daily_pill=False)
+    card = messenger.sent[-1]["text"]
+    assert "Píldoras completadas: <b>1</b>" in card
+    assert "Racha: <b>1 día</b>" in card
+    assert "Promedio general: <b>4.0/5</b>" in card  # (4 + 5 + 3) / 3
+    assert "Punto a reforzar: <b>Negocio</b>" in card
+
+
+def test_daily_pill_starts_with_profile_card():
+    agent, store, messenger = make_agent()
+    agent.tick(send_daily_pill=True)
+    assert messenger.sent[0]["text"].startswith("👤 <b>Tu perfil</b>")
+
+
+def test_same_story_from_another_source_is_not_repeated():
+    llm = FakeLLM()
+    store = Store(":memory:")
+    messenger = FakeMessenger()
+
+    def same_story(seen):
+        n = len(seen)
+        return [
+            Candidate("Nvidia compra X - Bloomberg", f"https://bbg/{n}", "", "Bloomberg"),
+            Candidate("Nvidia compra X - Reuters", f"https://reu/{n}", "", "Reuters"),
+        ]
+
+    agent = Agent(store, llm, messenger, CHAT, fetch_candidates=same_story, find_image=lambda u: "")
+    agent.tick(send_daily_pill=True)
+    messenger.receive("respuesta")
+    agent.tick(send_daily_pill=False)
+    with pytest.raises(NoNewsFound):
+        agent.daily_pill()
+
+
+def test_repeated_update_is_ignored():
+    agent, store, messenger = make_agent()
+    agent.tick(send_daily_pill=True)
+    messenger.receive("respuesta")
+    update = messenger.inbox[-1]
+    agent.handle_update(update)
+    sent = len(messenger.sent)
+    agent.handle_update(update)  # Telegram reenvía la misma actualización
+    assert len(messenger.sent) == sent
 
 
 def test_failed_evaluation_is_retried_next_tick():

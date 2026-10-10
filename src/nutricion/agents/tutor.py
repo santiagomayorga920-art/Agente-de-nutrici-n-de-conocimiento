@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 from nutricion.agents.skills import load_skill
 from nutricion.domain.lesson import Pill
+from nutricion.domain.progress import Score
 from nutricion.llm import LLMClient
 
 
@@ -13,15 +14,9 @@ class Evaluation(BaseModel):
     perspectiva_negocio: int
     feedback: str
 
-    def scores_line(self) -> str:
-        def clamp(n: int) -> int:
-            return min(max(n, 1), 5)
-
-        return (
-            f"Comprensión {clamp(self.comprension)}/5 · "
-            f"Razonamiento {clamp(self.razonamiento)}/5 · "
-            f"Negocio {clamp(self.perspectiva_negocio)}/5"
-        )
+    def score(self) -> Score:
+        """Notas acotadas a 1–5 aunque el LLM devuelva valores fuera de rango."""
+        return Score(self.comprension, self.razonamiento, self.perspectiva_negocio)
 
 
 def react_to_choice(llm: LLMClient, pill: Pill, choice: str) -> str:

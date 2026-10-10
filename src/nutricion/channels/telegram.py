@@ -50,6 +50,33 @@ class TelegramClient:
             },
         )
 
+    def send_typing(self, chat_id: str) -> None:
+        """Muestra "escribiendo…" mientras Gemini trabaja (solo se nota en modo webhook)."""
+        try:
+            self._call("sendChatAction", {"chat_id": chat_id, "action": "typing"})
+        except TelegramError:
+            pass
+
+    def webhook_url(self) -> str:
+        return self._call("getWebhookInfo", {}).get("url", "")
+
+    def set_webhook(self, url: str, secret: str) -> None:
+        self._call(
+            "setWebhook",
+            {
+                "url": url,
+                "secret_token": secret,
+                "allowed_updates": ["message", "callback_query"],
+                "drop_pending_updates": False,
+            },
+        )
+
+    def set_commands(self, commands: list[tuple[str, str]]) -> None:
+        self._call(
+            "setMyCommands",
+            {"commands": [{"command": c, "description": d} for c, d in commands]},
+        )
+
     def answer_callback(self, callback_id: str, text: str = "") -> None:
         try:
             self._call("answerCallbackQuery", {"callback_query_id": callback_id, "text": text})

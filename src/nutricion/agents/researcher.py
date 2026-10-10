@@ -23,7 +23,8 @@ class _PillDraft(BaseModel):
 
 def create_pill(
     llm: LLMClient, candidates: list[Candidate], preferred: Category | None = None
-) -> Pill:
+) -> tuple[Pill, Candidate]:
+    """Devuelve la píldora y la candidata original elegida (para marcarla como leída)."""
     system = load_skill("researching-ai") + "\n\n" + load_skill("evaluating-user")
     listing = "\n\n".join(
         f"[{i}] ({c.category} · {c.source}) {c.title}\n{c.summary}"
@@ -46,7 +47,7 @@ def create_pill(
     draft = llm.generate_structured(system, prompt, _PillDraft)
     chosen = candidates[min(max(draft.candidate_number, 1), len(candidates)) - 1]
     options = tuple(o.strip()[:MAX_OPTION_LEN] for o in draft.options if o.strip())
-    return Pill(
+    pill = Pill(
         headline=draft.headline,
         what_happened=draft.what_happened,
         why_it_matters=draft.why_it_matters,
@@ -57,3 +58,4 @@ def create_pill(
         image_url=chosen.image_url,
         options=options[:MAX_OPTIONS],
     )
+    return pill, chosen

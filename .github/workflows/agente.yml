@@ -7,7 +7,8 @@ on:
     # también el mismo texto en DAILY_CRON más abajo.
     - cron: "0 12 * * *"
     # Revisa tus respuestas y botones cada 10 minutos (GitHub puede retrasarlo unos minutos más).
-    # Al ser un repositorio público, los minutos de Actions son gratuitos.
+    # Cuando el webhook de Render está activo esta revisión no hace nada: Render responde al
+    # instante y aquí solo queda la píldora diaria.
     - cron: "*/10 * * * *"
   workflow_dispatch:
     inputs:
@@ -40,7 +41,7 @@ jobs:
           cache: pip
 
       - name: Instalar
-        run: pip install -e .
+        run: pip install -e ".[postgres]"
 
       # El progreso vive en la caché de Actions (no en el repositorio, que es público)
       - name: Recuperar progreso
@@ -50,11 +51,22 @@ jobs:
           key: estado-${{ github.run_id }}
           restore-keys: estado-
 
+      # Una sola vez: al configurar Supabase se copia el historial guardado en la caché
+      - name: Migrar historial a Supabase
+        if: hashFiles('data/nutricion.db') != ''
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          if [ -n "$DATABASE_URL" ]; then nutricion migrar data/nutricion.db; fi
+
       - name: Ejecutar agente
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          # Opcional: con Supabase el progreso vive allí; sin él, en la caché de Actions (SQLite)
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          TIMEZONE: ${{ vars.TIMEZONE || 'UTC' }}
           ENVIAR_PILDORA: >-
             ${{ github.event.schedule == env.DAILY_CRON
             || (github.event_name == 'workflow_dispatch' && inputs.enviar_pildora) }}

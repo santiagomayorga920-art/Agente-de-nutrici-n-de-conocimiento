@@ -1,0 +1,27 @@
+# Despliegue del webhook en Render (plan gratuito). Render lee este archivo al crear un
+# "Blueprint" desde el repositorio. Los valores con sync: false se piden en el panel.
+services:
+  - type: web
+    name: nutricion-bot
+    runtime: python
+    plan: free
+    buildCommand: pip install -e ".[web,postgres]"
+    startCommand: uvicorn nutricion.web:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: TIMEZONE
+        sync: false
+      # Render genera un valor aleatorio: Telegram lo envía en cada petición y el servidor lo
+      # comprueba para rechazar llamadas que no vengan de Telegram
+      - key: TELEGRAM_WEBHOOK_SECRET
+        generateValue: true

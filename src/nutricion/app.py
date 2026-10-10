@@ -1,7 +1,5 @@
-"""Orquestador: una ejecución ("tick") procesa tus mensajes y botones y, si toca, envía la píldora.
-
-Está pensado para correr de forma programada (GitHub Actions): no se queda esperando. Telegram
-guarda tus mensajes y pulsaciones hasta 24 h y el siguiente tick los recoge.
+"""Orquestador del agente. Cada actualización de Telegram (mensaje o botón) pasa por
+`handle_update`, venga del sondeo programado (`tick`) o del webhook en tiempo real.
 """
 
 from collections.abc import Callable
@@ -14,6 +12,7 @@ from nutricion.agents import researcher, tutor
 from nutricion.channels import formatting as fmt
 from nutricion.channels.telegram import TelegramError
 from nutricion.domain.lesson import Lesson, LessonState
+from nutricion.domain.progress import Profile, build_profile
 from nutricion.llm import LLMClient
 from nutricion.memory.store import Store
 from nutricion.sources import feeds, images
@@ -22,15 +21,19 @@ from nutricion.sources.catalog import category_of_the_day
 OFFSET_KEY = "telegram_offset"
 NEXT = "next"
 OPTION_PREFIX = "op"
-# EVALUATING también admite respuesta: un tick anterior pudo fallar a mitad de la evaluación
+# EVALUATING también admite respuesta: un intento anterior pudo fallar a mitad de la evaluación
 _ANSWERABLE = (LessonState.AWAITING_ANSWER, LessonState.EVALUATING)
 _NEXT_BUTTON = [("➡️ Siguiente píldora", NEXT)]
 CAPTION_LIMIT = 1024
 
+COMMANDS = [
+    ("siguiente", "Recibir una nueva píldora"),
+    ("stats", "Ver tu perfil y estadísticas"),
+]
 WELCOME = (
     "¡Hola! Soy tu agente de nutrición de conocimiento. Cada día te enviaré una píldora sobre IA"
     " y negocios con un desafío. Elige una postura con los botones o respóndelo por escrito y te"
-    " daré feedback.\n\nComandos: /siguiente para pedir una nueva píldora."
+    " daré feedback.\n\nComandos: /siguiente para una nueva píldora · /stats para tu perfil."
 )
 NO_PENDING = (
     "No tienes ningún desafío pendiente. Escribe /siguiente para recibir una nueva píldora."
@@ -43,6 +46,8 @@ class Messenger(Protocol):
     def send_message(self, chat_id: str, text: str, buttons=None) -> None: ...
 
     def send_photo(self, chat_id: str, photo_url: str, caption: str, buttons=None) -> None: ...
+
+    def send_typing(self, chat_id: str) -> None: ...
 
     def answer_callback(self, callback_id: str, text: str = "") -> None: ...
 
@@ -57,37 +62,54 @@ class Agent:
     chat_id: str
     fetch_candidates: Callable[[set[str]], list[feeds.Candidate]] = feeds.fetch_candidates
     find_image: Callable[[str], str] = field(default=images.find_og_image)
+    timezone: str = "UTC"
 
-    def tick(self, send_daily_pill: bool) -> None:
-        self.process_updates()
+    # --- entradas -------------------------------------------------------------------------
+
+    def tick(self, send_daily_pill: bool, poll: bool = True) -> None:
+        """Ejecución programada: recoge actualizaciones (si no hay webhook) y la píldora diaria."""
+        if poll:
+            offset = int(self.store.get(OFFSET_KEY) or 0)
+            for update in self.messenger.get_updates(offset):
+                self.handle_update(update)
         if send_daily_pill:
             self.daily_pill()
 
-    def process_updates(self) -> None:
-        offset = int(self.store.get(OFFSET_KEY) or 0)
-        for update in self.messenger.get_updates(offset):
-            if "callback_query" in update:
-                self._handle_button(update["callback_query"])
-            else:
-                message = update.get("message") or {}
-                text = (message.get("text") or "").strip()
-                if str(message.get("chat", {}).get("id")) == self.chat_id and text:
-                    self._handle_text(text)
-            # Se avanza tras procesar: si algo falla, se reintenta en el próximo tick
-            self.store.set(OFFSET_KEY, str(update["update_id"] + 1))
+    def handle_update(self, update: dict) -> None:
+        update_id = update["update_id"]
+        if update_id < int(self.store.get(OFFSET_KEY) or 0):
+            return  # ya procesada (Telegram puede reenviar una actualización)
+        if "callback_query" in update:
+            self._handle_button(update["callback_query"])
+        else:
+            message = update.get("message") or {}
+            text = (message.get("text") or "").strip()
+            if str(message.get("chat", {}).get("id")) == self.chat_id and text:
+                self._handle_text(text)
+        # Se avanza tras procesar: si algo falla, se reintenta
+        self.store.set(OFFSET_KEY, str(update_id + 1))
 
     def daily_pill(self) -> None:
+        self._send(fmt.profile_card(self.profile()))
         lesson = self.store.open_lesson()
         if lesson and lesson.state in _ANSWERABLE:
-            self.messenger.send_message(self.chat_id, fmt.reminder(lesson.pill))
+            self._send(fmt.reminder(lesson.pill))
         else:
             self._deliver_new_pill()
 
+    def profile(self) -> Profile:
+        return build_profile(self.store.scores(), tz=self.timezone)
+
+    # --- mensajes y botones ---------------------------------------------------------------
+
     def _handle_text(self, text: str) -> None:
-        command = text.split()[0].lower()
+        command = text.split()[0].lower().split("@")[0]
         lesson = self.store.open_lesson()
         if command == "/start":
             self._send(fmt.plain(WELCOME))
+            self._send(fmt.profile_card(self.profile()))
+        elif command == "/stats":
+            self._send(fmt.profile_card(self.profile()))
         elif command == "/siguiente":
             self._next_pill(lesson)
         elif lesson and lesson.state in _ANSWERABLE:
@@ -114,6 +136,7 @@ class Agent:
                 return
             choice = lesson.pill.options[int(index)]
             lesson = self.store.save_choice(lesson, choice)
+            self.messenger.send_typing(self.chat_id)
             reaction = tutor.react_to_choice(self.llm, lesson.pill, choice)
             self._send(fmt.choice_reaction(choice, reaction))
 
@@ -123,16 +146,26 @@ class Agent:
         else:
             self._deliver_new_pill()
 
+    # --- píldoras -------------------------------------------------------------------------
+
     def _deliver_new_pill(self) -> None:
         lesson = self.store.open_lesson()
         if not (lesson and lesson.state is LessonState.PENDING):
             # Si un envío anterior falló, se reutiliza esa píldora en vez de generar otra
-            candidates = self.fetch_candidates(self.store.seen_urls())
+            self.messenger.send_typing(self.chat_id)
+            seen_titles = self.store.seen_titles()
+            candidates = [
+                c
+                for c in self.fetch_candidates(self.store.seen_urls())
+                if feeds.normalize_title(c.title) not in seen_titles
+            ]
+            if not candidates:
+                raise feeds.NoNewsFound("Todas las noticias disponibles ya se enviaron")
             preferred = category_of_the_day(self.store.count_lessons())
-            pill = researcher.create_pill(self.llm, candidates, preferred)
+            pill, chosen = researcher.create_pill(self.llm, candidates, preferred)
             if not pill.image_url:
                 pill = replace(pill, image_url=self.find_image(pill.source_url))
-            lesson = self.store.add_lesson(pill)
+            lesson = self.store.add_lesson(pill, feeds.normalize_title(chosen.title))
         self._send_pill(lesson)
         self.store.move(lesson, LessonState.AWAITING_ANSWER)
 
@@ -158,18 +191,22 @@ class Agent:
         except (TelegramError, httpx.HTTPError):
             return False  # Telegram no pudo descargar la imagen: se envía solo el texto
 
+    # --- evaluación -----------------------------------------------------------------------
+
     def _evaluate(self, lesson: Lesson, answer: str) -> None:
         self.store.save_answer(lesson, answer)
         if lesson.state is LessonState.AWAITING_ANSWER:
             lesson = self.store.move(lesson, LessonState.EVALUATING)
+        self.messenger.send_typing(self.chat_id)
         try:
             evaluation = tutor.evaluate(self.llm, lesson.pill, answer, lesson.choice)
         except Exception:
             self.store.move(lesson, LessonState.AWAITING_ANSWER)
             raise
-        self.store.save_feedback(lesson, evaluation.feedback, evaluation.scores_line())
-        self._send(fmt.feedback(evaluation.scores_line(), evaluation.feedback), _NEXT_BUTTON)
+        score = evaluation.score()
+        self.store.save_evaluation(lesson, evaluation.feedback, score)
         self.store.move(lesson, LessonState.COMPLETED)
+        self._send(fmt.feedback(score, evaluation.feedback, self.profile()), _NEXT_BUTTON)
 
     def _send(self, text: str, buttons=None) -> None:
         self.messenger.send_message(self.chat_id, text, buttons)

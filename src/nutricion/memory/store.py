@@ -1,16 +1,20 @@
-"""Almacén SQLite de lecciones y pequeños valores de control (p. ej. el offset de Telegram)."""
+"""Almacén de lecciones y valores de control. Funciona con SQLite (local / caché de Actions) o con
+Postgres (Supabase), según la URL: `sqlite:///ruta.db` o `postgresql://...`.
+
+Las consultas se escriben con `?` y se adaptan a `%s` para Postgres.
+"""
 
 import json
+import re
 import sqlite3
 from dataclasses import replace
 from datetime import UTC, datetime
 from pathlib import Path
 
 from nutricion.domain.lesson import Lesson, LessonState, Pill, transition
+from nutricion.domain.progress import Score
 
-_SCHEMA = """
-CREATE TABLE IF NOT EXISTS lessons (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+_COLUMNS = """
     created_at TEXT NOT NULL,
     headline TEXT NOT NULL,
     what_happened TEXT NOT NULL,
@@ -21,12 +25,13 @@ CREATE TABLE IF NOT EXISTS lessons (
     answer TEXT,
     feedback TEXT,
     scores TEXT
-);
-CREATE TABLE IF NOT EXISTS kv (
-    key TEXT PRIMARY KEY,
-    value TEXT NOT NULL
-);
 """
+_KV = "CREATE TABLE IF NOT EXISTS kv (key TEXT PRIMARY KEY, value TEXT NOT NULL)"
+_LESSONS = "CREATE TABLE IF NOT EXISTS lessons (id {id_type} PRIMARY KEY, {columns})"
+_SCHEMAS = {
+    "sqlite": _LESSONS.format(id_type="INTEGER", columns=_COLUMNS),
+    "postgres": _LESSONS.format(id_type="BIGSERIAL", columns=_COLUMNS),
+}
 
 # Columnas añadidas después de la primera versión: se agregan a bases de datos ya existentes
 _MIGRATIONS = {
@@ -35,100 +40,206 @@ _MIGRATIONS = {
     "image_url": "TEXT NOT NULL DEFAULT ''",
     "options": "TEXT NOT NULL DEFAULT '[]'",
     "choice": "TEXT NOT NULL DEFAULT ''",
+    "source_title": "TEXT NOT NULL DEFAULT ''",
+    "comprension": "INTEGER",
+    "razonamiento": "INTEGER",
+    "negocio": "INTEGER",
+    "completed_at": "TEXT",
 }
 
 _OPEN_STATES = (LessonState.PENDING, LessonState.AWAITING_ANSWER, LessonState.EVALUATING)
+_SCORE_TEXT = re.compile(r"Comprensión (\d)/5 · Razonamiento (\d)/5 · Negocio (\d)/5")
 
 
 class Store:
-    def __init__(self, path: str) -> None:
-        if path != ":memory:":
-            Path(path).parent.mkdir(parents=True, exist_ok=True)
-        self._db = sqlite3.connect(path)
-        self._db.row_factory = sqlite3.Row
-        self._db.executescript(_SCHEMA)
+    def __init__(self, url: str) -> None:
+        if url.startswith(("postgres://", "postgresql://")):
+            import psycopg
+
+            # prepare_threshold=None: compatible con el pooler de Supabase (pgbouncer)
+            self._db = psycopg.connect(url, autocommit=True, prepare_threshold=None)
+            self._dialect = "postgres"
+        else:
+            path = url.removeprefix("sqlite:///")
+            if path != ":memory:":
+                Path(path).parent.mkdir(parents=True, exist_ok=True)
+            self._db = sqlite3.connect(path, isolation_level=None, check_same_thread=False)
+            self._dialect = "sqlite"
+        self._run(_SCHEMAS[self._dialect])
+        self._run(_KV)
         self._migrate()
 
-    def _migrate(self) -> None:
-        existing = {row["name"] for row in self._db.execute("PRAGMA table_info(lessons)")}
-        with self._db:
-            for column, definition in _MIGRATIONS.items():
-                if column not in existing:
-                    self._db.execute(f"ALTER TABLE lessons ADD COLUMN {column} {definition}")
+    def close(self) -> None:
+        self._db.close()
 
-    def add_lesson(self, pill: Pill) -> Lesson:
-        with self._db:
-            cur = self._db.execute(
-                "INSERT INTO lessons (created_at, headline, what_happened, why_it_matters,"
-                " source_url, challenge, state, source_name, category, image_url, options)"
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                (
-                    datetime.now(UTC).isoformat(),
-                    pill.headline,
-                    pill.what_happened,
-                    pill.why_it_matters,
-                    pill.source_url,
-                    pill.challenge,
-                    LessonState.PENDING,
-                    pill.source_name,
-                    pill.category,
-                    pill.image_url,
-                    json.dumps(list(pill.options), ensure_ascii=False),
-                ),
-            )
-        return Lesson(id=cur.lastrowid, pill=pill, state=LessonState.PENDING)
+    # --- acceso genérico -------------------------------------------------------------------
+
+    def _run(self, sql: str, params: tuple = ()):
+        if self._dialect == "postgres":
+            sql = sql.replace("?", "%s")
+        cursor = self._db.cursor()
+        cursor.execute(sql, params)
+        return cursor
+
+    def _rows(self, sql: str, params: tuple = ()) -> list[dict]:
+        cursor = self._run(sql, params)
+        names = [d[0] for d in cursor.description]
+        return [dict(zip(names, row, strict=True)) for row in cursor.fetchall()]
+
+    def _migrate(self) -> None:
+        existing = {d[0] for d in self._run("SELECT * FROM lessons LIMIT 0").description}
+        for column, definition in _MIGRATIONS.items():
+            if column not in existing:
+                self._run(f"ALTER TABLE lessons ADD COLUMN {column} {definition}")
+        # Lecciones evaluadas antes de guardar las notas por separado: se extraen del texto
+        for row in self._rows(
+            "SELECT id, scores FROM lessons WHERE scores IS NOT NULL AND comprension IS NULL"
+        ):
+            if match := _SCORE_TEXT.search(row["scores"] or ""):
+                self._run(
+                    "UPDATE lessons SET comprension = ?, razonamiento = ?, negocio = ?,"
+                    " completed_at = COALESCE(completed_at, created_at) WHERE id = ?",
+                    (*map(int, match.groups()), row["id"]),
+                )
+
+    # --- lecciones ------------------------------------------------------------------------
+
+    def add_lesson(self, pill: Pill, source_title: str = "") -> Lesson:
+        cursor = self._run(
+            "INSERT INTO lessons (created_at, headline, what_happened, why_it_matters,"
+            " source_url, challenge, state, source_name, category, image_url, options,"
+            " source_title) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id",
+            (
+                _now(),
+                pill.headline,
+                pill.what_happened,
+                pill.why_it_matters,
+                pill.source_url,
+                pill.challenge,
+                str(LessonState.PENDING),
+                pill.source_name,
+                pill.category,
+                pill.image_url,
+                json.dumps(list(pill.options), ensure_ascii=False),
+                source_title,
+            ),
+        )
+        lesson_id = cursor.fetchone()[0]
+        return Lesson(id=lesson_id, pill=pill, state=LessonState.PENDING)
 
     def open_lesson(self) -> Lesson | None:
         """La lección en curso (como mucho hay una), o None si todas están completadas."""
         placeholders = ",".join("?" * len(_OPEN_STATES))
-        row = self._db.execute(
+        rows = self._rows(
             f"SELECT * FROM lessons WHERE state IN ({placeholders}) ORDER BY id DESC LIMIT 1",
-            _OPEN_STATES,
-        ).fetchone()
-        return _to_lesson(row) if row else None
+            tuple(str(s) for s in _OPEN_STATES),
+        )
+        return _to_lesson(rows[0]) if rows else None
 
     def count_lessons(self) -> int:
-        return self._db.execute("SELECT COUNT(*) FROM lessons").fetchone()[0]
+        return self._run("SELECT COUNT(*) FROM lessons").fetchone()[0]
 
     def move(self, lesson: Lesson, target: LessonState) -> Lesson:
         new_state = transition(lesson.state, target)
-        with self._db:
-            self._db.execute("UPDATE lessons SET state = ? WHERE id = ?", (new_state, lesson.id))
+        self._run("UPDATE lessons SET state = ? WHERE id = ?", (str(new_state), lesson.id))
         return replace(lesson, state=new_state)
 
     def save_choice(self, lesson: Lesson, choice: str) -> Lesson:
-        with self._db:
-            self._db.execute("UPDATE lessons SET choice = ? WHERE id = ?", (choice, lesson.id))
+        self._run("UPDATE lessons SET choice = ? WHERE id = ?", (choice, lesson.id))
         return replace(lesson, choice=choice)
 
     def save_answer(self, lesson: Lesson, answer: str) -> None:
-        with self._db:
-            self._db.execute("UPDATE lessons SET answer = ? WHERE id = ?", (answer, lesson.id))
+        self._run("UPDATE lessons SET answer = ? WHERE id = ?", (answer, lesson.id))
 
-    def save_feedback(self, lesson: Lesson, feedback: str, scores: str) -> None:
-        with self._db:
-            self._db.execute(
-                "UPDATE lessons SET feedback = ?, scores = ? WHERE id = ?",
-                (feedback, scores, lesson.id),
+    def save_evaluation(self, lesson: Lesson, feedback: str, score: Score) -> None:
+        self._run(
+            "UPDATE lessons SET feedback = ?, scores = ?, comprension = ?, razonamiento = ?,"
+            " negocio = ?, completed_at = ? WHERE id = ?",
+            (
+                feedback,
+                score.line(),
+                score.comprension,
+                score.razonamiento,
+                score.negocio,
+                _now(),
+                lesson.id,
+            ),
+        )
+
+    def scores(self) -> list[tuple[datetime, Score]]:
+        """Notas de las lecciones completadas, en orden cronológico."""
+        rows = self._rows(
+            "SELECT completed_at, comprension, razonamiento, negocio FROM lessons"
+            " WHERE comprension IS NOT NULL ORDER BY completed_at"
+        )
+        return [
+            (
+                datetime.fromisoformat(r["completed_at"]),
+                Score(r["comprension"], r["razonamiento"], r["negocio"]),
             )
+            for r in rows
+        ]
 
     def seen_urls(self) -> set[str]:
-        return {row[0] for row in self._db.execute("SELECT source_url FROM lessons")}
+        return {r["source_url"] for r in self._rows("SELECT source_url FROM lessons")}
+
+    def seen_titles(self) -> set[str]:
+        rows = self._rows("SELECT source_title FROM lessons WHERE source_title != ''")
+        return {r["source_title"] for r in rows}
+
+    # --- valores de control ---------------------------------------------------------------
 
     def get(self, key: str) -> str | None:
-        row = self._db.execute("SELECT value FROM kv WHERE key = ?", (key,)).fetchone()
+        row = self._run("SELECT value FROM kv WHERE key = ?", (key,)).fetchone()
         return row[0] if row else None
 
     def set(self, key: str, value: str) -> None:
-        with self._db:
-            self._db.execute(
-                "INSERT INTO kv (key, value) VALUES (?, ?)"
-                " ON CONFLICT(key) DO UPDATE SET value = excluded.value",
-                (key, value),
+        self._run(
+            "INSERT INTO kv (key, value) VALUES (?, ?)"
+            " ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+            (key, value),
+        )
+
+    # --- migración entre bases de datos ---------------------------------------------------
+
+    def import_from(self, other: "Store") -> int:
+        """Copia lecciones y valores de otra base (p. ej. SQLite de Actions -> Supabase)."""
+        copied = 0
+        known = self.seen_urls()
+        columns = ["created_at", "source_url", *_COLUMN_NAMES, *_MIGRATIONS]
+        for row in other._rows("SELECT * FROM lessons ORDER BY id"):
+            if row["source_url"] in known:
+                continue
+            values = tuple(row.get(c) for c in columns)
+            self._run(
+                f"INSERT INTO lessons ({', '.join(columns)})"
+                f" VALUES ({', '.join('?' * len(columns))})",
+                values,
             )
+            copied += 1
+        for row in other._rows("SELECT key, value FROM kv"):
+            if self.get(row["key"]) is None:
+                self.set(row["key"], row["value"])
+        return copied
 
 
-def _to_lesson(row: sqlite3.Row) -> Lesson:
+_COLUMN_NAMES = [
+    "headline",
+    "what_happened",
+    "why_it_matters",
+    "challenge",
+    "state",
+    "answer",
+    "feedback",
+    "scores",
+]
+
+
+def _now() -> str:
+    return datetime.now(UTC).isoformat()
+
+
+def _to_lesson(row: dict) -> Lesson:
     pill = Pill(
         headline=row["headline"],
         what_happened=row["what_happened"],

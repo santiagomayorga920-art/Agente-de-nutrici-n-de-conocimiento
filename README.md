@@ -13,6 +13,7 @@ cp .env.example .env        # rellena tus claves
 nutricion                   # verifica la configuración
 nutricion ping              # prueba real contra Gemini
 nutricion fuentes           # cuántas noticias devuelve cada fuente
+nutricion stats             # tu perfil (nivel, racha, promedios)
 nutricion tick --enviar-pildora   # procesa mensajes y envía una píldora
 pytest                      # ejecuta las pruebas
 ```
@@ -22,13 +23,14 @@ pytest                      # ejecuta las pruebas
 ```
 src/nutricion/
   config.py        configuración desde .env
-  domain/          modelo puro: máquina de estados de la lección
+  domain/          modelo puro: estados de la lección y gamificación (nivel, racha)
   llm/             cerebro intercambiable (hoy: Gemini, capa gratuita)
   sources/         catálogo de fuentes (prensa, finanzas, arXiv, universidades) e imágenes
   agents/          investigador (elige y redacta) y tutor (reacciona y evalúa)
   app.py           orquestador: un "tick" procesa tus mensajes y envía la píldora
   channels/        Telegram: HTML, fotos y botones (inline keyboards)
-  memory/          persistencia SQLite del progreso
+  memory/          persistencia: SQLite (local/caché) o Postgres (Supabase)
+  web.py           servidor del webhook de Telegram (Render)
 skills/            instrucciones .md que usan los agentes en tiempo de ejecución
 .claude/           configuración de Claude Code para desarrollar (hooks de Graphify)
 graphify-out/      grafo de conocimiento del código (graph.json, GRAPH_REPORT.md)
@@ -64,3 +66,20 @@ Para cambiar la hora, edita las dos apariciones de `"0 12 * * *"` en el workflow
 
 Las claves se guardan como *Secrets* del repositorio: `GEMINI_API_KEY`, `TELEGRAM_BOT_TOKEN`,
 `TELEGRAM_CHAT_ID` (Settings → Secrets and variables → Actions).
+
+## Modo tiempo real (webhook en Render + Supabase)
+
+Sin servidor, el bot responde en la siguiente revisión (cada ~10 min). Con el webhook responde al
+instante. Todo es gratuito:
+
+| Pieza | Servicio | Para qué |
+|---|---|---|
+| Servidor del webhook | Render (plan free) | Recibe mensajes y botones al instante |
+| Base de datos | Supabase (Postgres free) | Progreso compartido entre Render y Actions |
+| Píldora diaria | GitHub Actions | Tarea programada a la hora elegida |
+
+Cuando el webhook está activo, el workflow cada 10 min lo detecta y no sondea Telegram.
+El primer arranque copia el historial de la caché de Actions a Supabase (`nutricion migrar`).
+
+Render duerme el servicio tras 15 min sin uso: el primer mensaje tras una pausa tarda ~1 min
+en despertarlo; después todo es inmediato.
