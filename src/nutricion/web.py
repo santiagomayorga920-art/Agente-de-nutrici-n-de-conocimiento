@@ -92,16 +92,25 @@ def create_app(settings: Settings | None = None, agent_factory=build_agent) -> S
             "url_publica": settings.webhook_base_url or "no detectada",
         }
 
+    def authorized(request: Request) -> bool:
+        """Clave CRON_SECRET por parámetro ?clave= o cabecera X-Cron-Secret."""
+        key = request.query_params.get("clave") or request.headers.get("x-cron-secret", "")
+        return bool(settings.cron_secret) and hmac.compare_digest(key, settings.cron_secret)
+
+    unauthorized = JSONResponse({"ok": False, "error": "clave incorrecta"}, status_code=401)
+
     async def cron_daily_pill(request: Request) -> JSONResponse:
         """Disparador de cron-job.org: responde al instante y envía la píldora en segundo plano."""
-        key = request.query_params.get("clave") or request.headers.get("x-cron-secret", "")
-        if not settings.cron_secret or not hmac.compare_digest(key, settings.cron_secret):
-            return JSONResponse({"ok": False, "error": "clave incorrecta"}, status_code=401)
+        if not authorized(request):
+            return unauthorized
         force = request.query_params.get("forzar") == "1"
         task = BackgroundTask(run_daily_pill, settings, force, agent_factory)
         return JSONResponse({"ok": True, "pildora": "en preparación"}, background=task)
 
     async def diagnose(request: Request) -> JSONResponse:
+        # Protegido: revela el destino de la base de datos (servidor, usuario del proyecto)
+        if not authorized(request):
+            return unauthorized
         return JSONResponse(await run_in_threadpool(diagnostics))
 
     async def telegram(request: Request) -> JSONResponse:

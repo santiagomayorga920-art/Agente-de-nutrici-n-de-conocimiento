@@ -84,7 +84,8 @@ def test_failed_update_warns_user_and_is_not_retried_forever():
 
 def test_diagnostics_reports_configuration_without_secrets():
     client = TestClient(create_app(settings(), lambda s: FakeAgent()))
-    data = client.get("/diagnostico").json()
+    assert client.get("/diagnostico").status_code == 401
+    data = client.get("/diagnostico?clave=Cron123").json()
     assert data["telegram_webhook_secret"] is True
     assert data["gemini_api_key"] is False
     assert SECRET not in str(data)
@@ -138,3 +139,10 @@ def test_cron_endpoint_sends_daily_pill():
     assert client.get("/cron/pildora?clave=Cron123&forzar=1").status_code == 200
     assert agent.pills == [False, False, True]
     assert agent.store.closed
+
+
+def test_diagnostics_requires_the_cron_key():
+    client = TestClient(create_app(settings(), lambda s: FakeAgent()))
+    assert client.get("/diagnostico?clave=mal").status_code == 401
+    assert client.get("/diagnostico", headers={"X-Cron-Secret": "Cron123"}).status_code == 200
+    assert client.get("/").text == "ok"  # el ping de cron-job.org sigue siendo público

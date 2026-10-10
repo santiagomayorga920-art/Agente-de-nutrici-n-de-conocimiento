@@ -241,6 +241,19 @@
       "source_location": "L61"
     },
     {
+      "id": "src_nutricion_app_messenger",
+      "label": "Messenger",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "Messenger",
+      "file_type": "code",
+      "norm_label": "messenger",
+      "source_file": "src/nutricion/app.py",
+      "source_location": "L46"
+    },
+    {
       "id": "tests_test_app_fakellm",
       "label": "FakeLLM",
       "_callable": true,
@@ -293,30 +306,30 @@
       "source_location": "L12"
     },
     {
-      "id": "src_nutricion_app_messenger",
-      "label": "Messenger",
+      "id": "src_nutricion_domain_lesson_invalidtransition",
+      "label": "InvalidTransition",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 8,
       "community_name": "app.py",
       "file_type": "code",
-      "norm_label": "messenger",
-      "source_file": "src/nutricion/app.py",
-      "source_location": "L46"
-    },
-    {
-      "id": "src_nutricion_domain_lesson_invalidtransition",
-      "label": "InvalidTransition",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store",
-      "file_type": "code",
       "norm_label": "invalidtransition",
       "source_file": "src/nutricion/domain/lesson.py",
       "source_location": "L23"
+    },
+    {
+      "id": "src_nutricion_domain_lesson_lessonstate",
+      "label": "LessonState",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "app.py",
+      "file_type": "code",
+      "norm_label": "lessonstate",
+      "source_file": "src/nutricion/domain/lesson.py",
+      "source_location": "L7"
     },
     {
       "id": "src_nutricion_domain_lesson_lesson",
@@ -330,19 +343,6 @@
       "norm_label": "lesson",
       "source_file": "src/nutricion/domain/lesson.py",
       "source_location": "L48"
-    },
-    {
-      "id": "src_nutricion_domain_lesson_lessonstate",
-      "label": "LessonState",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "lessonstate",
-      "source_file": "src/nutricion/domain/lesson.py",
-      "source_location": "L7"
     },
     {
       "id": "src_nutricion_memory_store_store",
@@ -524,18 +524,6 @@
       "norm_label": "_run_tick()",
       "source_file": "src/nutricion/main.py",
       "source_location": "L95"
-    },
-    {
-      "id": "tests_test_diagnose_test_unreachable_postgres_raises_a_readable_error",
-      "label": "test_unreachable_postgres_raises_a_readable_error()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Settings",
-      "file_type": "code",
-      "norm_label": "test_unreachable_postgres_raises_a_readable_error()",
-      "source_file": "tests/test_diagnose.py",
-      "source_location": "L47"
     },
     {
       "id": "tests_test_llm_test_gemini_is_selected_when_key_present",
@@ -1258,6 +1246,18 @@
       "source_location": "L70"
     },
     {
+      "id": "src_nutricion_web_create_app_authorized",
+      "label": "authorized()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "web.py",
+      "file_type": "code",
+      "norm_label": "authorized()",
+      "source_file": "src/nutricion/web.py",
+      "source_location": "L95"
+    },
+    {
       "id": "src_nutricion_web_create_app_cron_daily_pill",
       "label": "cron_daily_pill()",
       "_callable": true,
@@ -1267,7 +1267,7 @@
       "file_type": "code",
       "norm_label": "cron_daily_pill()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L95"
+      "source_location": "L102"
     },
     {
       "id": "src_nutricion_web_create_app_diagnose",
@@ -1279,7 +1279,7 @@
       "file_type": "code",
       "norm_label": "diagnose()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L104"
+      "source_location": "L110"
     },
     {
       "id": "src_nutricion_web_create_app_diagnostics",
@@ -1315,7 +1315,7 @@
       "file_type": "code",
       "norm_label": "telegram()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L107"
+      "source_location": "L116"
     },
     {
       "id": "src_nutricion_web_getattr",
@@ -1327,7 +1327,7 @@
       "file_type": "code",
       "norm_label": "__getattr__()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L140"
+      "source_location": "L149"
     },
     {
       "id": "src_nutricion_web_process",
@@ -1471,7 +1471,7 @@
       "file_type": "code",
       "norm_label": "test_cron_endpoint_requires_the_key()",
       "source_file": "tests/test_web.py",
-      "source_location": "L125"
+      "source_location": "L126"
     },
     {
       "id": "tests_test_web_test_cron_endpoint_sends_daily_pill",
@@ -1483,7 +1483,7 @@
       "file_type": "code",
       "norm_label": "test_cron_endpoint_sends_daily_pill()",
       "source_file": "tests/test_web.py",
-      "source_location": "L133"
+      "source_location": "L134"
     },
     {
       "id": "tests_test_web_test_diagnostics_reports_configuration_without_secrets",
@@ -1496,6 +1496,18 @@
       "norm_label": "test_diagnostics_reports_configuration_without_secrets()",
       "source_file": "tests/test_web.py",
       "source_location": "L85"
+    },
+    {
+      "id": "tests_test_web_test_diagnostics_requires_the_cron_key",
+      "label": "test_diagnostics_requires_the_cron_key()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "web.py",
+      "file_type": "code",
+      "norm_label": "test_diagnostics_requires_the_cron_key()",
+      "source_file": "tests/test_web.py",
+      "source_location": "L144"
     },
     {
       "id": "tests_test_web_test_failed_update_warns_user_and_is_not_retried_forever",
@@ -1531,7 +1543,7 @@
       "file_type": "code",
       "norm_label": "test_raw_secret_is_not_accepted_as_header()",
       "source_file": "tests/test_web.py",
-      "source_location": "L116"
+      "source_location": "L117"
     },
     {
       "id": "tests_test_web_test_secret_sent_to_telegram_uses_only_allowed_characters",
@@ -1543,7 +1555,7 @@
       "file_type": "code",
       "norm_label": "test_secret_sent_to_telegram_uses_only_allowed_characters()",
       "source_file": "tests/test_web.py",
-      "source_location": "L108"
+      "source_location": "L109"
     },
     {
       "id": "tests_test_web_test_unreachable_database_warns_user",
@@ -1555,7 +1567,7 @@
       "file_type": "code",
       "norm_label": "test_unreachable_database_warns_user()",
       "source_file": "tests/test_web.py",
-      "source_location": "L93"
+      "source_location": "L94"
     },
     {
       "id": "tests_test_web_test_unreachable_database_warns_user_broken_factory",
@@ -1567,7 +1579,7 @@
       "file_type": "code",
       "norm_label": "broken_factory()",
       "source_file": "tests/test_web.py",
-      "source_location": "L101"
+      "source_location": "L102"
     },
     {
       "id": "tests_test_web_test_webhook_processes_update_with_valid_secret",
@@ -1774,6 +1786,78 @@
       "source_location": "L217"
     },
     {
+      "id": "src_nutricion_app_messenger_answer_callback",
+      "label": ".answer_callback()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "Messenger",
+      "file_type": "code",
+      "norm_label": ".answer_callback()",
+      "source_file": "src/nutricion/app.py",
+      "source_location": "L55"
+    },
+    {
+      "id": "src_nutricion_app_messenger_get_updates",
+      "label": ".get_updates()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "Messenger",
+      "file_type": "code",
+      "norm_label": ".get_updates()",
+      "source_file": "src/nutricion/app.py",
+      "source_location": "L47"
+    },
+    {
+      "id": "src_nutricion_app_messenger_remove_buttons",
+      "label": ".remove_buttons()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "Messenger",
+      "file_type": "code",
+      "norm_label": ".remove_buttons()",
+      "source_file": "src/nutricion/app.py",
+      "source_location": "L57"
+    },
+    {
+      "id": "src_nutricion_app_messenger_send_message",
+      "label": ".send_message()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "Messenger",
+      "file_type": "code",
+      "norm_label": ".send_message()",
+      "source_file": "src/nutricion/app.py",
+      "source_location": "L49"
+    },
+    {
+      "id": "src_nutricion_app_messenger_send_photo",
+      "label": ".send_photo()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "Messenger",
+      "file_type": "code",
+      "norm_label": ".send_photo()",
+      "source_file": "src/nutricion/app.py",
+      "source_location": "L51"
+    },
+    {
+      "id": "src_nutricion_app_messenger_send_typing",
+      "label": ".send_typing()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "Messenger",
+      "file_type": "code",
+      "norm_label": ".send_typing()",
+      "source_file": "src/nutricion/app.py",
+      "source_location": "L53"
+    },
+    {
       "id": "src_nutricion_memory_diagnose_connection_summary",
       "label": "connection_summary()",
       "_callable": true,
@@ -1904,6 +1988,18 @@
       "norm_label": "test_unknown_tenant_error_is_explained()",
       "source_file": "tests/test_diagnose.py",
       "source_location": "L94"
+    },
+    {
+      "id": "tests_test_diagnose_test_unreachable_postgres_raises_a_readable_error",
+      "label": "test_unreachable_postgres_raises_a_readable_error()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "test_diagnose.py",
+      "file_type": "code",
+      "norm_label": "test_unreachable_postgres_raises_a_readable_error()",
+      "source_file": "tests/test_diagnose.py",
+      "source_location": "L47"
     },
     {
       "id": "tests_test_diagnose_test_url_without_template_is_left_alone",
@@ -2419,7 +2515,7 @@
       "file_type": "code",
       "norm_label": "lifespan()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L118"
+      "source_location": "L127"
     },
     {
       "id": "tests_test_app_fakemessenger_send_photo",
@@ -2434,88 +2530,64 @@
       "source_location": "L65"
     },
     {
-      "id": "src_nutricion_app_messenger_answer_callback",
-      "label": ".answer_callback()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "app.py",
-      "file_type": "code",
-      "norm_label": ".answer_callback()",
-      "source_file": "src/nutricion/app.py",
-      "source_location": "L55"
-    },
-    {
-      "id": "src_nutricion_app_messenger_get_updates",
-      "label": ".get_updates()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "app.py",
-      "file_type": "code",
-      "norm_label": ".get_updates()",
-      "source_file": "src/nutricion/app.py",
-      "source_location": "L47"
-    },
-    {
-      "id": "src_nutricion_app_messenger_remove_buttons",
-      "label": ".remove_buttons()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "app.py",
-      "file_type": "code",
-      "norm_label": ".remove_buttons()",
-      "source_file": "src/nutricion/app.py",
-      "source_location": "L57"
-    },
-    {
-      "id": "src_nutricion_app_messenger_send_message",
-      "label": ".send_message()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "app.py",
-      "file_type": "code",
-      "norm_label": ".send_message()",
-      "source_file": "src/nutricion/app.py",
-      "source_location": "L49"
-    },
-    {
-      "id": "src_nutricion_app_messenger_send_photo",
-      "label": ".send_photo()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "app.py",
-      "file_type": "code",
-      "norm_label": ".send_photo()",
-      "source_file": "src/nutricion/app.py",
-      "source_location": "L51"
-    },
-    {
-      "id": "src_nutricion_app_messenger_send_typing",
-      "label": ".send_typing()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "app.py",
-      "file_type": "code",
-      "norm_label": ".send_typing()",
-      "source_file": "src/nutricion/app.py",
-      "source_location": "L53"
-    },
-    {
       "id": "src_nutricion_domain_lesson_transition",
       "label": "transition()",
       "_callable": true,
       "_origin": "ast",
-      "community": 9,
-      "community_name": "Store",
+      "community": 8,
+      "community_name": "app.py",
       "file_type": "code",
       "norm_label": "transition()",
       "source_file": "src/nutricion/domain/lesson.py",
       "source_location": "L27"
+    },
+    {
+      "id": "src_nutricion_memory_store_to_lesson",
+      "label": "_to_lesson()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "app.py",
+      "file_type": "code",
+      "norm_label": "_to_lesson()",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L252"
+    },
+    {
+      "id": "tests_test_lesson_test_cannot_skip_waiting_for_answer",
+      "label": "test_cannot_skip_waiting_for_answer()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "app.py",
+      "file_type": "code",
+      "norm_label": "test_cannot_skip_waiting_for_answer()",
+      "source_file": "tests/test_lesson.py",
+      "source_location": "L13"
+    },
+    {
+      "id": "tests_test_lesson_test_failed_evaluation_returns_to_waiting",
+      "label": "test_failed_evaluation_returns_to_waiting()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "app.py",
+      "file_type": "code",
+      "norm_label": "test_failed_evaluation_returns_to_waiting()",
+      "source_file": "tests/test_lesson.py",
+      "source_location": "L18"
+    },
+    {
+      "id": "tests_test_lesson_test_happy_path",
+      "label": "test_happy_path()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "app.py",
+      "file_type": "code",
+      "norm_label": "test_happy_path()",
+      "source_file": "tests/test_lesson.py",
+      "source_location": "L6"
     },
     {
       "id": "src_nutricion_main_migrate",
@@ -2756,54 +2828,6 @@
       "norm_label": ".set()",
       "source_file": "src/nutricion/memory/store.py",
       "source_location": "L206"
-    },
-    {
-      "id": "src_nutricion_memory_store_to_lesson",
-      "label": "_to_lesson()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "_to_lesson()",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L252"
-    },
-    {
-      "id": "tests_test_lesson_test_cannot_skip_waiting_for_answer",
-      "label": "test_cannot_skip_waiting_for_answer()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "test_cannot_skip_waiting_for_answer()",
-      "source_file": "tests/test_lesson.py",
-      "source_location": "L13"
-    },
-    {
-      "id": "tests_test_lesson_test_failed_evaluation_returns_to_waiting",
-      "label": "test_failed_evaluation_returns_to_waiting()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "test_failed_evaluation_returns_to_waiting()",
-      "source_file": "tests/test_lesson.py",
-      "source_location": "L18"
-    },
-    {
-      "id": "tests_test_lesson_test_happy_path",
-      "label": "test_happy_path()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "test_happy_path()",
-      "source_file": "tests/test_lesson.py",
-      "source_location": "L6"
     },
     {
       "id": "tests_test_store_pill",
@@ -3750,6 +3774,17 @@
       "source_location": "L96"
     },
     {
+      "id": "src_nutricion_app_py_protocol",
+      "label": "Protocol",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "Messenger",
+      "file_type": "code",
+      "norm_label": "protocol",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
       "id": "readme",
       "label": "README.md",
       "_origin": "ast",
@@ -4198,17 +4233,6 @@
       "source_location": "L1"
     },
     {
-      "id": "src_nutricion_app_py_protocol",
-      "label": "Protocol",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "app.py",
-      "file_type": "code",
-      "norm_label": "protocol",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
       "id": "src_nutricion_channels_init",
       "label": "channels/__init__.py",
       "_origin": "ast",
@@ -4220,6 +4244,50 @@
       "source_location": "L1"
     },
     {
+      "id": "src_nutricion_domain_lesson",
+      "label": "lesson.py",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "app.py",
+      "file_type": "code",
+      "norm_label": "lesson.py",
+      "source_file": "src/nutricion/domain/lesson.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_domain_lesson_py_exception",
+      "label": "Exception",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "app.py",
+      "file_type": "code",
+      "norm_label": "exception",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "src_nutricion_domain_lesson_py_strenum",
+      "label": "StrEnum",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "app.py",
+      "file_type": "code",
+      "norm_label": "strenum",
+      "source_file": "",
+      "source_location": ""
+    },
+    {
+      "id": "src_nutricion_memory_store",
+      "label": "store.py",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "app.py",
+      "file_type": "code",
+      "norm_label": "store.py",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L1"
+    },
+    {
       "id": "src_nutricion_sources_init",
       "label": "sources/__init__.py",
       "_origin": "ast",
@@ -4228,6 +4296,17 @@
       "file_type": "code",
       "norm_label": "sources/__init__.py",
       "source_file": "src/nutricion/sources/__init__.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_test_lesson",
+      "label": "test_lesson.py",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "app.py",
+      "file_type": "code",
+      "norm_label": "test_lesson.py",
+      "source_file": "tests/test_lesson.py",
       "source_location": "L1"
     },
     {
@@ -4264,6 +4343,28 @@
       "source_location": "L1"
     },
     {
+      "id": "src_nutricion_domain_lesson_rationale_1",
+      "label": "M\u00e1quina de estados de la lecci\u00f3n: p\u00edldora -> desaf\u00edo -> espera -> feedback ->\u2026",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "app.py",
+      "file_type": "rationale",
+      "norm_label": "maquina de estados de la leccion: pildora -> desafio -> espera -> feedback ->...",
+      "source_file": "src/nutricion/domain/lesson.py",
+      "source_location": "L1"
+    },
+    {
+      "id": "src_nutricion_memory_store_rationale_1",
+      "label": "Almac\u00e9n de lecciones y valores de control. Funciona con SQLite (local / cach\u00e9\u2026",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "app.py",
+      "file_type": "rationale",
+      "norm_label": "almacen de lecciones y valores de control. funciona con sqlite (local / cache...",
+      "source_file": "src/nutricion/memory/store.py",
+      "source_location": "L1"
+    },
+    {
       "id": "src_nutricion_sources_init_rationale_1",
       "label": "Fuentes de noticias gratuitas y legales: feeds RSS/Atom y la API p\u00fablica de\u2026",
       "_origin": "ast",
@@ -4286,50 +4387,6 @@
       "source_location": ""
     },
     {
-      "id": "src_nutricion_domain_lesson",
-      "label": "lesson.py",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "lesson.py",
-      "source_file": "src/nutricion/domain/lesson.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_domain_lesson_py_exception",
-      "label": "Exception",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "exception",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "src_nutricion_domain_lesson_py_strenum",
-      "label": "StrEnum",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "strenum",
-      "source_file": "",
-      "source_location": ""
-    },
-    {
-      "id": "src_nutricion_memory_store",
-      "label": "store.py",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "store.py",
-      "source_file": "src/nutricion/memory/store.py",
-      "source_location": "L1"
-    },
-    {
       "id": "src_nutricion_memory_store_py_datetime",
       "label": "datetime",
       "_origin": "ast",
@@ -4341,17 +4398,6 @@
       "source_location": ""
     },
     {
-      "id": "tests_test_lesson",
-      "label": "test_lesson.py",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store",
-      "file_type": "code",
-      "norm_label": "test_lesson.py",
-      "source_file": "tests/test_lesson.py",
-      "source_location": "L1"
-    },
-    {
       "id": "tests_test_store",
       "label": "test_store.py",
       "_origin": "ast",
@@ -4360,28 +4406,6 @@
       "file_type": "code",
       "norm_label": "test_store.py",
       "source_file": "tests/test_store.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_domain_lesson_rationale_1",
-      "label": "M\u00e1quina de estados de la lecci\u00f3n: p\u00edldora -> desaf\u00edo -> espera -> feedback ->\u2026",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store",
-      "file_type": "rationale",
-      "norm_label": "maquina de estados de la leccion: pildora -> desafio -> espera -> feedback ->...",
-      "source_file": "src/nutricion/domain/lesson.py",
-      "source_location": "L1"
-    },
-    {
-      "id": "src_nutricion_memory_store_rationale_1",
-      "label": "Almac\u00e9n de lecciones y valores de control. Funciona con SQLite (local / cach\u00e9\u2026",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "Store",
-      "file_type": "rationale",
-      "norm_label": "almacen de lecciones y valores de control. funciona con sqlite (local / cache...",
-      "source_file": "src/nutricion/memory/store.py",
       "source_location": "L1"
     },
     {
@@ -4484,17 +4508,6 @@
       "type": "external"
     },
     {
-      "id": "pytest",
-      "label": "pytest",
-      "community": 0,
-      "community_name": "Settings",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "pytest",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "sys",
       "label": "sys",
       "community": 0,
@@ -4524,17 +4537,6 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "concurrent_futures",
-      "source_file": "",
-      "type": "external"
-    },
-    {
-      "id": "dataclasses",
-      "label": "dataclasses",
-      "community": 1,
-      "community_name": "feeds.py",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "dataclasses",
       "source_file": "",
       "type": "external"
     },
@@ -4601,6 +4603,17 @@
       "external": true,
       "file_type": "concept",
       "norm_label": "time",
+      "source_file": "",
+      "type": "external"
+    },
+    {
+      "id": "zoneinfo",
+      "label": "zoneinfo",
+      "community": 13,
+      "community_name": "Score",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "zoneinfo",
       "source_file": "",
       "type": "external"
     },
@@ -4770,6 +4783,17 @@
       "type": "external"
     },
     {
+      "id": "pytest",
+      "label": "pytest",
+      "community": 5,
+      "community_name": "test_diagnose.py",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "pytest",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "urllib_parse",
       "label": "urllib_parse",
       "community": 5,
@@ -4792,6 +4816,17 @@
       "type": "external"
     },
     {
+      "id": "dataclasses",
+      "label": "dataclasses",
+      "community": 8,
+      "community_name": "app.py",
+      "external": true,
+      "file_type": "concept",
+      "norm_label": "dataclasses",
+      "source_file": "",
+      "type": "external"
+    },
+    {
       "id": "datetime",
       "label": "datetime",
       "community": 8,
@@ -4803,21 +4838,10 @@
       "type": "external"
     },
     {
-      "id": "zoneinfo",
-      "label": "zoneinfo",
-      "community": 8,
-      "community_name": "app.py",
-      "external": true,
-      "file_type": "concept",
-      "norm_label": "zoneinfo",
-      "source_file": "",
-      "type": "external"
-    },
-    {
       "id": "json",
       "label": "json",
-      "community": 9,
-      "community_name": "Store",
+      "community": 8,
+      "community_name": "app.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "json",
@@ -4827,8 +4851,8 @@
     {
       "id": "pathlib",
       "label": "pathlib",
-      "community": 9,
-      "community_name": "Store",
+      "community": 8,
+      "community_name": "app.py",
       "external": true,
       "file_type": "concept",
       "norm_label": "pathlib",
@@ -6441,7 +6465,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L121",
+      "source_location": "L130",
       "weight": 1.0
     },
     {
@@ -6481,6 +6505,30 @@
       "weight": 1.0
     },
     {
+      "source": "src_nutricion_web_create_app_cron_daily_pill",
+      "target": "src_nutricion_web_create_app_authorized",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/nutricion/web.py",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_web_create_app_diagnose",
+      "target": "src_nutricion_web_create_app_authorized",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/nutricion/web.py",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
       "source": "src_nutricion_web_create_app_diagnostics",
       "target": "src_nutricion_memory_store_store",
       "relation": "calls",
@@ -6513,7 +6561,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L121",
+      "source_location": "L130",
       "weight": 1.0
     },
     {
@@ -6525,7 +6573,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L143",
+      "source_location": "L152",
       "weight": 1.0
     },
     {
@@ -6537,7 +6585,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L144",
+      "source_location": "L153",
       "weight": 1.0
     },
     {
@@ -7389,7 +7437,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L126",
+      "source_location": "L127",
       "weight": 1.0
     },
     {
@@ -7401,7 +7449,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L127",
+      "source_location": "L128",
       "weight": 1.0
     },
     {
@@ -7413,7 +7461,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L127",
+      "source_location": "L128",
       "weight": 1.0
     },
     {
@@ -7425,7 +7473,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L134",
+      "source_location": "L135",
       "weight": 1.0
     },
     {
@@ -7437,7 +7485,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L135",
+      "source_location": "L136",
       "weight": 1.0
     },
     {
@@ -7449,7 +7497,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L135",
+      "source_location": "L136",
       "weight": 1.0
     },
     {
@@ -7486,6 +7534,42 @@
       "context": "call",
       "source_file": "tests/test_web.py",
       "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_web_test_diagnostics_requires_the_cron_key",
+      "target": "src_nutricion_web_create_app",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "tests/test_web.py",
+      "source_location": "L145",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_web_test_diagnostics_requires_the_cron_key",
+      "target": "tests_test_web_fakeagent",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "tests/test_web.py",
+      "source_location": "L145",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_web_test_diagnostics_requires_the_cron_key",
+      "target": "tests_test_web_settings",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "tests/test_web.py",
+      "source_location": "L145",
       "weight": 1.0
     },
     {
@@ -7569,7 +7653,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L117",
+      "source_location": "L118",
       "weight": 1.0
     },
     {
@@ -7581,7 +7665,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L118",
+      "source_location": "L119",
       "weight": 1.0
     },
     {
@@ -7593,7 +7677,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L118",
+      "source_location": "L119",
       "weight": 1.0
     },
     {
@@ -7605,7 +7689,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L104",
+      "source_location": "L105",
       "weight": 1.0
     },
     {
@@ -7617,7 +7701,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L104",
+      "source_location": "L105",
       "weight": 1.0
     },
     {
@@ -11591,7 +11675,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L140",
+      "source_location": "L149",
       "weight": 1.0
     },
     {
@@ -11636,6 +11720,17 @@
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
       "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_web_create_app",
+      "target": "src_nutricion_web_create_app_authorized",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/nutricion/web.py",
+      "source_location": "L95",
       "weight": 1.0
     },
     {
@@ -12240,7 +12335,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/test_web.py",
-      "source_location": "L108",
+      "source_location": "L109",
       "weight": 1.0
     },
     {
@@ -12251,7 +12346,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/test_web.py",
-      "source_location": "L116",
+      "source_location": "L117",
       "weight": 1.0
     },
     {
@@ -12262,7 +12357,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/test_web.py",
-      "source_location": "L125",
+      "source_location": "L126",
       "weight": 1.0
     },
     {
@@ -12273,7 +12368,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/test_web.py",
-      "source_location": "L133",
+      "source_location": "L134",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_web",
+      "target": "tests_test_web_test_diagnostics_requires_the_cron_key",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "tests/test_web.py",
+      "source_location": "L144",
       "weight": 1.0
     },
     {
@@ -12383,7 +12489,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/test_web.py",
-      "source_location": "L93",
+      "source_location": "L94",
       "weight": 1.0
     },
     {
@@ -13990,7 +14096,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L132",
+      "source_location": "L141",
       "weight": 1.0
     },
     {
@@ -14002,7 +14108,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L133",
+      "source_location": "L142",
       "weight": 1.0
     },
     {
@@ -14014,7 +14120,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L134",
+      "source_location": "L143",
       "weight": 1.0
     },
     {
@@ -14026,7 +14132,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L135",
+      "source_location": "L144",
       "weight": 1.0
     },
     {
@@ -14038,7 +14144,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L137",
+      "source_location": "L146",
       "weight": 1.0
     },
     {
@@ -14050,7 +14156,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L101",
+      "source_location": "L107",
       "weight": 1.0
     },
     {
@@ -14062,7 +14168,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L101",
+      "source_location": "L107",
       "weight": 1.0
     },
     {
@@ -14074,7 +14180,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L105",
+      "source_location": "L114",
       "weight": 1.0
     },
     {
@@ -14086,7 +14192,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L114",
+      "source_location": "L123",
       "weight": 1.0
     },
     {
@@ -14098,7 +14204,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L114",
+      "source_location": "L123",
       "weight": 1.0
     },
     {
@@ -14134,7 +14240,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "tests/test_web.py",
-      "source_location": "L104",
+      "source_location": "L105",
       "weight": 1.0
     },
     {
@@ -14266,7 +14372,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L123",
+      "source_location": "L132",
       "weight": 1.0
     },
     {
@@ -14278,7 +14384,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L124",
+      "source_location": "L133",
       "weight": 1.0
     },
     {
@@ -14398,7 +14504,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L102",
+      "source_location": "L103",
       "weight": 1.0
     },
     {
@@ -15394,7 +15500,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "tests/test_web.py",
-      "source_location": "L112",
+      "source_location": "L113",
       "weight": 0.8
     },
     {
@@ -15405,10 +15511,10 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "tests/test_web.py",
-      "source_location": "L102",
+      "source_location": "L103",
       "weight": 0.8
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "46d94ea13d54f24c09c66682f4d6ba0bb2cb228b"
+  "built_at_commit": "ed150147f799a920cde36c1065b8b780f8ae5080"
 }

@@ -97,5 +97,5 @@ en despertarlo; después todo es inmediato.
 
 - **GitHub Actions:** si `DATABASE_URL` está mal, el resumen de la ejecución muestra un aviso con
   el motivo en español y el bot sigue funcionando con SQLite.
-- **Render:** abre `https://<tu-servicio>.onrender.com/diagnostico` para ver qué variables faltan
-  y si la base de datos conecta (nunca muestra claves).
+- **Render:** abre `https://<tu-servicio>.onrender.com/diagnostico?clave=<CRON_SECRET>` para ver
+  qué variables faltan y si la base de datos conecta (protegido; nunca muestra claves).

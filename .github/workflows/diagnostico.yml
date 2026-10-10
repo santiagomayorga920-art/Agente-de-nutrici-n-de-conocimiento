@@ -26,8 +26,14 @@ jobs:
       - name: Servidor de Render (puede tardar ~1 min si está dormido)
         env:
           RENDER_URL: ${{ vars.RENDER_URL || 'https://nutricion-bot-50b8.onrender.com' }}
+          # La clave va en una cabecera para que no quede en los registros de Render
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
-          curl -sS --max-time 120 -w "\nHTTP %{http_code} en %{time_total}s\n" "$RENDER_URL/diagnostico" || true
+          if [ -z "$CRON_SECRET" ]; then
+            echo "::warning title=Falta el Secret CRON_SECRET::Añádelo a los Secrets de GitHub con el mismo valor que en Render."
+          fi
+          curl -sS --max-time 120 -H "X-Cron-Secret: $CRON_SECRET" \
+            -w "\nHTTP %{http_code} en %{time_total}s\n" "$RENDER_URL/diagnostico" || true
       - name: Webhook según Telegram (después de despertar el servidor)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
