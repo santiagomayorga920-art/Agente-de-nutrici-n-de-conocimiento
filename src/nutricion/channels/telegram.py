@@ -1,5 +1,7 @@
 """Cliente mínimo de la Bot API de Telegram (sondeo con getUpdates, sin servidor)."""
 
+import json
+
 import httpx
 
 MAX_TEXT = 4096
@@ -50,10 +52,27 @@ class TelegramClient:
             },
         )
 
-    def send_typing(self, chat_id: str) -> None:
+    def send_photo_file(
+        self, chat_id: str, image: bytes, caption: str, buttons: Buttons | None = None
+    ) -> None:
+        """Sube una imagen generada (la tarjeta visual) en vez de pasar una URL."""
+        data = {"chat_id": chat_id, "caption": caption[:MAX_CAPTION], "parse_mode": "HTML"}
+        markup = _keyboard(buttons).get("reply_markup")
+        if markup:
+            data["reply_markup"] = json.dumps(markup, ensure_ascii=False)
+        response = self._http.post(
+            f"{self._base}/sendPhoto",
+            data=data,
+            files={"photo": ("tarjeta.png", image, "image/png")},
+        )
+        result = response.json()
+        if not result.get("ok"):
+            raise TelegramError(f"sendPhoto: {result.get('description', response.status_code)}")
+
+    def send_typing(self, chat_id: str, action: str = "typing") -> None:
         """Muestra "escribiendo…" mientras Gemini trabaja (solo se nota en modo webhook)."""
         try:
-            self._call("sendChatAction", {"chat_id": chat_id, "action": "typing"})
+            self._call("sendChatAction", {"chat_id": chat_id, "action": action})
         except TelegramError:
             pass
 

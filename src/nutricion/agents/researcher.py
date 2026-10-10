@@ -10,6 +10,7 @@ from nutricion.sources.feeds import Candidate
 
 MAX_OPTIONS = 4
 MAX_OPTION_LEN = 40
+MAX_FIGURE_LEN = 14
 
 
 class _PillDraft(BaseModel):
@@ -19,6 +20,8 @@ class _PillDraft(BaseModel):
     why_it_matters: str
     challenge: str
     options: list[str]
+    key_figure: str
+    key_figure_label: str
 
 
 def create_pill(
@@ -41,8 +44,13 @@ def create_pill(
         " relevancia e indica su número en candidate_number. "
         + preference
         + "Escribe la píldora en español, formula el desafío y propón en `options` de 3 a 4"
-        f" posturas de respuesta rápida (máximo {MAX_OPTION_LEN} caracteres cada una).\n\n"
-        + listing
+        f" posturas de respuesta rápida (máximo {MAX_OPTION_LEN} caracteres cada una)."
+        " Para la tarjeta visual, extrae en `key_figure` la cifra más llamativa de la noticia,"
+        " corta (máximo 14 caracteres, p. ej. «200 M USD», «-35 %», «3x»), en notación"
+        " española: millones = «M» y miles de millones = «mil M» (p. ej. «100 mil M USD»);"
+        " nunca «B», «bn» ni «billones». En"
+        " `key_figure_label` qué representa (máximo 40 caracteres). Si no hay una cifra clara,"
+        " deja ambos vacíos; no inventes números.\n\n" + listing
     )
     draft = llm.generate_structured(system, prompt, _PillDraft)
     chosen = candidates[min(max(draft.candidate_number, 1), len(candidates)) - 1]
@@ -57,5 +65,7 @@ def create_pill(
         category=chosen.category,
         image_url=chosen.image_url,
         options=options[:MAX_OPTIONS],
+        key_figure=draft.key_figure.strip()[:MAX_FIGURE_LEN],
+        key_figure_label=draft.key_figure_label.strip()[:MAX_OPTION_LEN],
     )
     return pill, chosen

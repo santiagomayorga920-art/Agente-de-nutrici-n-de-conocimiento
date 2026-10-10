@@ -13,9 +13,10 @@ import httpx
 from nutricion.agents import researcher, tutor
 from nutricion.channels import formatting as fmt
 from nutricion.channels.telegram import TelegramError
-from nutricion.domain.lesson import Lesson, LessonState
+from nutricion.domain.lesson import Lesson, LessonState, Pill
 from nutricion.domain.progress import Profile, build_profile
 from nutricion.llm import LLMClient
+from nutricion.media import card
 from nutricion.memory.store import Store
 from nutricion.sources import feeds, images
 from nutricion.sources.catalog import category_of_the_day
@@ -50,6 +51,8 @@ class Messenger(Protocol):
 
     def send_photo(self, chat_id: str, photo_url: str, caption: str, buttons=None) -> None: ...
 
+    def send_photo_file(self, chat_id: str, image: bytes, caption: str, buttons=None) -> None: ...
+
     def send_typing(self, chat_id: str) -> None: ...
 
     def answer_callback(self, callback_id: str, text: str = "") -> None: ...
@@ -65,6 +68,7 @@ class Agent:
     chat_id: str
     fetch_candidates: Callable[[set[str]], list[feeds.Candidate]] = feeds.fetch_candidates
     find_image: Callable[[str], str] = field(default=images.find_og_image)
+    make_card: Callable[[Pill, str], bytes | None] = field(default=card.build_card)
     timezone: str = "UTC"
 
     # --- entradas -------------------------------------------------------------------------
@@ -187,22 +191,30 @@ class Agent:
         buttons = [(o, f"{OPTION_PREFIX}:{lesson.id}:{i}") for i, o in enumerate(pill.options)]
         header, body = fmt.pill_header(pill), fmt.pill_body(pill)
         full = f"{header}\n\n{body}"
+        # 1) Tarjeta visual generada; 2) foto del artículo por URL; 3) solo texto
+        image = self.make_card(pill, self.timezone)
+        photos = [image] if image else []
         if pill.image_url:
+            photos.append(pill.image_url)
+        for photo in photos:
             # Una sola tarjeta si cabe en el pie de foto; si no, foto con titular y luego el texto
             if len(full) <= CAPTION_LIMIT:
-                if self._try_photo(pill.image_url, full, buttons):
+                if self._try_photo(photo, full, buttons):
                     return
-            elif self._try_photo(pill.image_url, header):
+            elif self._try_photo(photo, header):
                 self._send(body, buttons)
                 return
         self._send(full, buttons)
 
-    def _try_photo(self, url: str, caption: str, buttons=None) -> bool:
+    def _try_photo(self, photo: bytes | str, caption: str, buttons=None) -> bool:
         try:
-            self.messenger.send_photo(self.chat_id, url, caption, buttons)
+            if isinstance(photo, bytes):
+                self.messenger.send_photo_file(self.chat_id, photo, caption, buttons)
+            else:
+                self.messenger.send_photo(self.chat_id, photo, caption, buttons)
             return True
         except (TelegramError, httpx.HTTPError):
-            return False  # Telegram no pudo descargar la imagen: se envía solo el texto
+            return False  # Telegram rechazó la imagen: se prueba la siguiente opción
 
     # --- evaluación -----------------------------------------------------------------------
 

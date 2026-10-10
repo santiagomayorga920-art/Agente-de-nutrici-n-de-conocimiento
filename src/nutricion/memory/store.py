@@ -46,6 +46,8 @@ _MIGRATIONS = {
     "razonamiento": "INTEGER",
     "negocio": "INTEGER",
     "completed_at": "TEXT",
+    "key_figure": "TEXT NOT NULL DEFAULT ''",
+    "key_figure_label": "TEXT NOT NULL DEFAULT ''",
 }
 
 _OPEN_STATES = (LessonState.PENDING, LessonState.AWAITING_ANSWER, LessonState.EVALUATING)
@@ -118,7 +120,8 @@ class Store:
         cursor = self._run(
             "INSERT INTO lessons (created_at, headline, what_happened, why_it_matters,"
             " source_url, challenge, state, source_name, category, image_url, options,"
-            " source_title) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id",
+            " source_title, key_figure, key_figure_label)"
+            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id",
             (
                 _now(),
                 pill.headline,
@@ -132,6 +135,8 @@ class Store:
                 pill.image_url,
                 json.dumps(list(pill.options), ensure_ascii=False),
                 source_title,
+                pill.key_figure,
+                pill.key_figure_label,
             ),
         )
         lesson_id = cursor.fetchone()[0]
@@ -260,5 +265,7 @@ def _to_lesson(row: dict) -> Lesson:
         category=row["category"],
         image_url=row["image_url"],
         options=tuple(json.loads(row["options"])),
+        key_figure=row.get("key_figure") or "",
+        key_figure_label=row.get("key_figure_label") or "",
     )
     return Lesson(id=row["id"], pill=pill, state=LessonState(row["state"]), choice=row["choice"])

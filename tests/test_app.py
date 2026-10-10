@@ -31,6 +31,8 @@ class FakeLLM:
                 why_it_matters="Importa.",
                 challenge="¿Invertirías?",
                 options=["Sí, de inmediato", "Esperaría", "No invertiría"],
+                key_figure="200 M USD",
+                key_figure_label="ronda Serie B",
             )
         if self.fail_evaluation:
             raise RuntimeError("API caída")
@@ -38,8 +40,9 @@ class FakeLLM:
 
 
 class FakeMessenger:
-    def __init__(self, photo_fails: bool = False) -> None:
+    def __init__(self, photo_fails: bool = False, card_fails: bool = False) -> None:
         self.photo_fails = photo_fails
+        self.card_fails = card_fails
         self.inbox: list[dict] = []
         self.sent: list[dict] = []
         self.answered: list[str] = []
@@ -67,7 +70,12 @@ class FakeMessenger:
             raise TelegramError("wrong file identifier")
         self.sent.append({"kind": "photo", "url": photo_url, "text": caption, "buttons": buttons})
 
-    def send_typing(self, chat_id):
+    def send_photo_file(self, chat_id, image, caption, buttons=None):
+        if self.card_fails:
+            raise TelegramError("IMAGE_PROCESS_FAILED")
+        self.sent.append({"kind": "card", "image": image, "text": caption, "buttons": buttons})
+
+    def send_typing(self, chat_id, action="typing"):
         pass
 
     def answer_callback(self, callback_id, text=""):
@@ -86,11 +94,17 @@ def news(seen):
     ]
 
 
-def make_agent(llm=None, messenger=None, image=""):
+def make_agent(llm=None, messenger=None, image="", card=None):
     store = Store(":memory:")
     messenger = messenger or FakeMessenger()
     agent = Agent(
-        store, llm or FakeLLM(), messenger, CHAT, fetch_candidates=news, find_image=lambda u: image
+        store,
+        llm or FakeLLM(),
+        messenger,
+        CHAT,
+        fetch_candidates=news,
+        find_image=lambda u: image,
+        make_card=lambda pill, tz: card,
     )
     return agent, store, messenger
 
@@ -105,6 +119,21 @@ def test_daily_pill_is_sent_as_photo_with_option_buttons():
     assert last["kind"] == "photo" and last["url"] == "https://img/b.png"
     assert "Titular &lt;importante&gt;" in last["text"]  # el texto del LLM se escapa
     assert last["buttons"][1] == ("Esperaría", f"op:{lesson.id}:1")
+
+
+def test_pill_is_sent_as_generated_card_with_buttons():
+    agent, store, messenger = make_agent(card=b"PNG")
+    agent.tick(send_daily_pill=True)
+    last = messenger.sent[-1]
+    assert last["kind"] == "card" and last["image"] == b"PNG"
+    assert last["buttons"][0][1].startswith("op:")
+    assert store.open_lesson().pill.key_figure == "200 M USD"
+
+
+def test_rejected_card_falls_back_to_article_photo():
+    agent, store, messenger = make_agent(messenger=FakeMessenger(card_fails=True), card=b"PNG")
+    agent.tick(send_daily_pill=True)
+    assert messenger.sent[-1]["kind"] == "photo"
 
 
 def test_unreachable_image_falls_back_to_text():

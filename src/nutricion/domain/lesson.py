@@ -42,6 +42,9 @@ class Pill:
     image_url: str = ""
     # Posturas de respuesta rápida que se muestran como botones
     options: tuple[str, ...] = ()
+    # Dato destacado de la tarjeta visual (p. ej. "200 M USD" / "ronda Serie B"); puede faltar
+    key_figure: str = ""
+    key_figure_label: str = ""
 
 
 @dataclass(frozen=True)
