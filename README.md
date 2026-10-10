@@ -11,6 +11,7 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev,telegram]"
 cp .env.example .env        # rellena tus claves
 nutricion                   # verifica la configuración
+nutricion --ping            # prueba real contra Gemini (requiere GEMINI_API_KEY)
 pytest                      # ejecuta las pruebas
 ```
 
@@ -20,7 +21,8 @@ pytest                      # ejecuta las pruebas
 src/nutricion/
   config.py        configuración desde .env
   domain/          modelo puro: máquina de estados de la lección
-  agents/          investigador y tutor (llamadas a Claude)
+  llm/             cerebro intercambiable (hoy: Gemini, capa gratuita)
+  agents/          investigador y tutor
   channels/        Telegram (y luego WhatsApp)
   memory/          persistencia SQLite del progreso
 skills/            instrucciones .md que usan los agentes en tiempo de ejecución
@@ -37,3 +39,10 @@ graphify update .
 ```
 
 Tras cada `git pull`, ejecuta `graphify update .` para mantenerlo sincronizado.
+
+## Sesiones en la nube (Claude Code)
+
+`.claude/hooks/session-start.sh` se ejecuta al abrir cada sesión: crea el entorno, instala
+dependencias, genera `.env` desde `.env.example`, actualiza el grafo e instala los hooks de git
+que lo regeneran tras cada commit. Las claves se configuran como variables del entorno de la
+nube (no en el chat): `GEMINI_API_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.

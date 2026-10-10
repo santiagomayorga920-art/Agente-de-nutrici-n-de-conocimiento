@@ -5,12 +5,13 @@ description = "Agente de nutrición de conocimiento: píldoras diarias de IA y n
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "anthropic>=0.70",
+    "google-genai>=2.29",
     "pydantic-settings>=2.4",
 ]
 
 [project.optional-dependencies]
 telegram = ["python-telegram-bot>=21.0"]
+news = ["feedparser>=6.0"]
 dev = [
     "pytest>=8.0",
     "ruff>=0.6",

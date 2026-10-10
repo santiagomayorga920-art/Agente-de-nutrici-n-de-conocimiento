@@ -1,0 +1,17 @@
+{
+  "0": "config.py",
+  "1": "llm/__init__.py",
+  "2": "Agente de nutrición de conocimiento",
+  "3": "Desafiar y evaluar",
+  "4": "Investigar IA y negocios",
+  "5": "lesson.py",
+  "6": "get_llm",
+  "7": "Agente de nutrición de conocimiento",
+  "8": "agents/__init__.py",
+  "9": "channels/__init__.py",
+  "10": "domain/__init__.py",
+  "11": "memory/__init__.py",
+  "12": "nutricion",
+  "13": "LLMClient",
+  "14": "session-start.sh"
+}

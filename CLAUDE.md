@@ -6,6 +6,8 @@ de juicio crítico, espera la respuesta del usuario y la evalúa.
 - Código en `src/nutricion/`; el dominio (`domain/`) no depende de APIs externas.
 - Instrucciones de los agentes en tiempo de ejecución: `skills/*/SKILL.md`.
 - Comprobaciones antes de commitear: `ruff check . && ruff format --check . && pytest`.
+- El LLM se usa solo a través de `nutricion.llm.LLMClient` (hoy Gemini gratuito); no llamar SDKs
+  de proveedores desde otros módulos.
 - Idioma de la documentación y los mensajes al usuario: español.
 
 ## graphify
