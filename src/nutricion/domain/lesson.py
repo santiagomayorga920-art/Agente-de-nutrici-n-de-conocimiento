@@ -1,5 +1,6 @@
 """Máquina de estados de la lección: píldora -> desafío -> espera -> feedback -> completada."""
 
+from dataclasses import dataclass
 from enum import StrEnum
 
 
@@ -27,3 +28,19 @@ def transition(current: LessonState, target: LessonState) -> LessonState:
     if target not in _TRANSITIONS[current]:
         raise InvalidTransition(f"{current} -> {target} no está permitido")
     return target
+
+
+@dataclass(frozen=True)
+class Pill:
+    headline: str
+    what_happened: str
+    why_it_matters: str
+    source_url: str
+    challenge: str
+
+
+@dataclass(frozen=True)
+class Lesson:
+    id: int
+    pill: Pill
+    state: LessonState

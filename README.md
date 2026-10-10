@@ -8,10 +8,11 @@ la **evalúa** y pasa a la siguiente.
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev,telegram]"
+pip install -e ".[dev]"
 cp .env.example .env        # rellena tus claves
 nutricion                   # verifica la configuración
-nutricion --ping            # prueba real contra Gemini (requiere GEMINI_API_KEY)
+nutricion ping              # prueba real contra Gemini
+nutricion tick --enviar-pildora   # procesa mensajes y envía una píldora
 pytest                      # ejecuta las pruebas
 ```
 
@@ -22,7 +23,8 @@ src/nutricion/
   config.py        configuración desde .env
   domain/          modelo puro: máquina de estados de la lección
   llm/             cerebro intercambiable (hoy: Gemini, capa gratuita)
-  agents/          investigador y tutor
+  agents/          investigador (RSS + Gemini) y tutor (evaluación)
+  app.py           orquestador: un "tick" procesa tus mensajes y envía la píldora
   channels/        Telegram (y luego WhatsApp)
   memory/          persistencia SQLite del progreso
 skills/            instrucciones .md que usan los agentes en tiempo de ejecución
@@ -46,3 +48,17 @@ Tras cada `git pull`, ejecuta `graphify update .` para mantenerlo sincronizado.
 dependencias, genera `.env` desde `.env.example`, actualiza el grafo e instala los hooks de git
 que lo regeneran tras cada commit. Las claves se configuran como variables del entorno de la
 nube (no en el chat): `GEMINI_API_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
+
+## Ejecución automática (GitHub Actions)
+
+`.github/workflows/agente.yml` corre en GitHub, sin ningún ordenador encendido:
+
+- **Cada día a las 12:00 UTC** envía la píldora con su desafío (o te recuerda el pendiente).
+- **Cada hora** revisa tus respuestas en Telegram, te evalúa y responde.
+- En Telegram puedes escribir `/siguiente` para pedir otra píldora tras completar una.
+
+Para cambiar la hora, edita las dos apariciones de `"0 12 * * *"` en el workflow
+(formato `minuto hora * * *`, en UTC). Ejemplo: `"30 23 * * *"` = 23:30 UTC.
+
+Las claves se guardan como *Secrets* del repositorio: `GEMINI_API_KEY`, `TELEGRAM_BOT_TOKEN`,
+`TELEGRAM_CHAT_ID` (Settings → Secrets and variables → Actions).

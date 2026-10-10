@@ -1,0 +1,72 @@
+name: Agente de nutrición
+
+on:
+  schedule:
+    # Píldora diaria. Hora en UTC: 12:00 UTC = 07:00 en Colombia/Perú/Ecuador, 08:00 en Chile
+    # (horario de invierno), 09:00 en Argentina, 14:00 en España (verano). Si la cambias, cambia
+    # también el mismo texto en DAILY_CRON más abajo.
+    - cron: "0 12 * * *"
+    # Revisa tus respuestas en Telegram cada hora (minuto 17 para evitar la congestión de las :00)
+    - cron: "17 * * * *"
+  workflow_dispatch:
+    inputs:
+      enviar_pildora:
+        description: "Enviar una píldora ahora"
+        type: boolean
+        default: true
+
+# Nunca dos ejecuciones a la vez: comparten la misma base de datos
+concurrency:
+  group: agente
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  DAILY_CRON: "0 12 * * *"
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar
+        run: pip install -e .
+
+      # El progreso vive en la caché de Actions (no en el repositorio, que es público)
+      - name: Recuperar progreso
+        uses: actions/cache/restore@v4
+        with:
+          path: data
+          key: estado-${{ github.run_id }}
+          restore-keys: estado-
+
+      - name: Ejecutar agente
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          ENVIAR_PILDORA: >-
+            ${{ github.event.schedule == env.DAILY_CRON
+            || (github.event_name == 'workflow_dispatch' && inputs.enviar_pildora) }}
+        run: |
+          if [ "$ENVIAR_PILDORA" = "true" ]; then
+            nutricion tick --enviar-pildora
+          else
+            nutricion tick
+          fi
+
+      - name: Guardar progreso
+        if: always() && hashFiles('data/nutricion.db') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: data
+          key: estado-${{ github.run_id }}-${{ github.run_attempt }}

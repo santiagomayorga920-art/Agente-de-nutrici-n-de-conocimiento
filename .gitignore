@@ -19,3 +19,6 @@ graphify-out/.graphify_*
 graphify-out/needs_update
 graphify-out/graph.html
 graphify-out/20*/
+
+# Progreso del agente (en GitHub vive en la caché de Actions)
+data/

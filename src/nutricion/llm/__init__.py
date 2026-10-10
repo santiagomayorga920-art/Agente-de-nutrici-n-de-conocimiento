@@ -28,4 +28,8 @@ def get_llm(settings: Settings) -> LLMClient:
         raise MissingAPIKey("Falta GEMINI_API_KEY")
     from nutricion.llm.gemini import GeminiClient
 
-    return GeminiClient(api_key=settings.gemini_api_key, model=settings.gemini_model)
+    return GeminiClient(
+        api_key=settings.gemini_api_key,
+        model=settings.gemini_model,
+        fallback_model=settings.gemini_fallback_model,
+    )

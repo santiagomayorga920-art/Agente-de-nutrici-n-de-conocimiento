@@ -9,7 +9,7 @@ fi
 cd "$CLAUDE_PROJECT_DIR"
 
 [ -d .venv ] || python3 -m venv .venv
-.venv/bin/pip install -q -e ".[dev,telegram]"
+.venv/bin/pip install -q -e ".[dev]"
 
 [ -f .env ] || cp .env.example .env
 
