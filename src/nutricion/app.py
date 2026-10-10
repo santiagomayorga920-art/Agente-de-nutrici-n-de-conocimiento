@@ -4,7 +4,9 @@
 
 from collections.abc import Callable
 from dataclasses import dataclass, field, replace
+from datetime import datetime
 from typing import Protocol
+from zoneinfo import ZoneInfo
 
 import httpx
 
@@ -19,6 +21,7 @@ from nutricion.sources import feeds, images
 from nutricion.sources.catalog import category_of_the_day
 
 OFFSET_KEY = "telegram_offset"
+DAILY_KEY = "ultima_pildora_diaria"
 NEXT = "next"
 OPTION_PREFIX = "op"
 # EVALUATING también admite respuesta: un intento anterior pudo fallar a mitad de la evaluación
@@ -73,7 +76,7 @@ class Agent:
             for update in self.messenger.get_updates(offset):
                 self.handle_update(update)
         if send_daily_pill:
-            self.daily_pill()
+            self.daily_pill_if_due()
 
     def handle_update(self, update: dict) -> None:
         update_id = update["update_id"]
@@ -88,6 +91,16 @@ class Agent:
                 self._handle_text(text)
         # Se avanza tras procesar: si algo falla, se reintenta
         self.store.set(OFFSET_KEY, str(update_id + 1))
+
+    def daily_pill_if_due(self, force: bool = False) -> bool:
+        """Envía la píldora diaria una sola vez por día (en la zona horaria del usuario), aunque
+        el disparador programado llegue repetido. Devuelve si la envió."""
+        today = datetime.now(ZoneInfo(self.timezone)).date().isoformat()
+        if not force and self.store.get(DAILY_KEY) == today:
+            return False
+        self.daily_pill()
+        self.store.set(DAILY_KEY, today)
+        return True
 
     def daily_pill(self) -> None:
         self._send(fmt.profile_card(self.profile()))

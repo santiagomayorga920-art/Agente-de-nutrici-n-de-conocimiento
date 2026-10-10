@@ -252,3 +252,12 @@ def test_failed_evaluation_is_retried_next_tick():
     agent.llm = FakeLLM()
     agent.tick(send_daily_pill=False)
     assert store.open_lesson() is None
+
+
+def test_daily_pill_is_sent_only_once_per_day():
+    agent, store, messenger = make_agent()
+    assert agent.daily_pill_if_due() is True
+    sent = len(messenger.sent)
+    assert agent.daily_pill_if_due() is False  # el cron repetido no envía nada
+    assert len(messenger.sent) == sent
+    assert agent.daily_pill_if_due(force=True) is True

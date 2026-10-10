@@ -1,19 +1,13 @@
 name: Agente de nutrición
 
 on:
-  schedule:
-    # Píldora diaria. Hora en UTC: 12:00 UTC = 07:00 en Colombia/Perú/Ecuador, 08:00 en Chile
-    # (horario de invierno), 09:00 en Argentina, 14:00 en España (verano). Si la cambias, cambia
-    # también el mismo texto en DAILY_CRON más abajo.
-    - cron: "0 12 * * *"
-    # Revisa tus respuestas y botones cada 10 minutos (GitHub puede retrasarlo unos minutos más).
-    # Cuando el webhook de Render está activo esta revisión no hace nada: Render responde al
-    # instante y aquí solo queda la píldora diaria.
-    - cron: "*/10 * * * *"
+  # La píldora diaria la dispara cron-job.org llamando a Render (/cron/pildora) y los mensajes
+  # llegan al instante por webhook. Este workflow queda para lanzarlo a mano si hace falta
+  # (p. ej. si Render no está disponible); envía la píldora como mucho una vez al día.
   workflow_dispatch:
     inputs:
       enviar_pildora:
-        description: "Enviar una píldora ahora"
+        description: "Enviar la píldora de hoy (si aún no se envió)"
         type: boolean
         default: true
 
@@ -24,9 +18,6 @@ concurrency:
 
 permissions:
   contents: read
-
-env:
-  DAILY_CRON: "0 12 * * *"
 
 jobs:
   tick:
@@ -69,9 +60,7 @@ jobs:
           # Opcional: con Supabase el progreso vive allí; sin él, en la caché de Actions (SQLite)
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           TIMEZONE: ${{ vars.TIMEZONE || 'UTC' }}
-          ENVIAR_PILDORA: >-
-            ${{ github.event.schedule == env.DAILY_CRON
-            || (github.event_name == 'workflow_dispatch' && inputs.enviar_pildora) }}
+          ENVIAR_PILDORA: ${{ inputs.enviar_pildora }}
         run: |
           if [ "$ENVIAR_PILDORA" = "true" ]; then
             nutricion tick --enviar-pildora

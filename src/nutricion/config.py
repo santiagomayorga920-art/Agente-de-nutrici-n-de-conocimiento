@@ -20,6 +20,8 @@ class Settings(BaseSettings):
     database_path: str = "data/nutricion.db"
     # Modo webhook (tiempo real): secreto que Telegram envía en cada petición
     telegram_webhook_secret: str = ""
+    # Clave que cron-job.org envía para disparar la píldora diaria (solo letras y números)
+    cron_secret: str = ""
     # URL pública del servidor; en Render se toma sola de RENDER_EXTERNAL_URL
     public_url: str = ""
     # Zona horaria para calcular la racha de días (p. ej. America/Bogota, America/Mexico_City)

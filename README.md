@@ -52,7 +52,16 @@ Tras cada `git pull`, ejecuta `graphify update .` para mantenerlo sincronizado.
 dependencias, genera `.env` desde `.env.example` y actualiza el grafo. Las claves se configuran como variables del entorno de la
 nube (no en el chat): `GEMINI_API_KEY`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
 
-## Ejecución automática (GitHub Actions)
+## Automatización final (Render + cron-job.org)
+
+- **Mensajes y botones:** llegan al instante por webhook al servidor de Render.
+- **Píldora diaria:** cron-job.org llama a `https://<servidor>/cron/pildora?clave=<CRON_SECRET>`
+  a la hora elegida. Se envía como mucho una vez al día aunque la llamada se repita
+  (`&forzar=1` envía otra igualmente).
+- **Mantener despierto:** cron-job.org llama a `https://<servidor>/` cada 10 minutos.
+- GitHub Actions queda como respaldo manual (Run workflow).
+
+## Ejecución por GitHub Actions (modo anterior, sin servidor)
 
 `.github/workflows/agente.yml` corre en GitHub, sin ningún ordenador encendido:
 

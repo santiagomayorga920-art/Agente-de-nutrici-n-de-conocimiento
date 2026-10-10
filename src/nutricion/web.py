@@ -54,6 +54,18 @@ def process(update: dict, settings: Settings, agent_factory=build_agent) -> None
             agent.store.close()
 
 
+def run_daily_pill(settings: Settings, force: bool, agent_factory=build_agent) -> None:
+    with _lock:
+        agent = agent_factory(settings)
+        try:
+            sent = agent.daily_pill_if_due(force=force)
+            log.info("Píldora diaria %s", "enviada" if sent else "ya enviada hoy: se omite")
+        except Exception:
+            log.exception("Error enviando la píldora diaria")
+        finally:
+            agent.store.close()
+
+
 def create_app(settings: Settings | None = None, agent_factory=build_agent) -> Starlette:
     settings = settings or get_settings()
 
@@ -73,8 +85,18 @@ def create_app(settings: Settings | None = None, agent_factory=build_agent) -> S
             "telegram_bot_token": bool(settings.telegram_bot_token),
             "telegram_chat_id": bool(settings.telegram_chat_id),
             "telegram_webhook_secret": bool(settings.telegram_webhook_secret),
+            "cron_secret": bool(settings.cron_secret),
             "url_publica": settings.webhook_base_url or "no detectada",
         }
+
+    async def cron_daily_pill(request: Request) -> JSONResponse:
+        """Disparador de cron-job.org: responde al instante y envía la píldora en segundo plano."""
+        key = request.query_params.get("clave") or request.headers.get("x-cron-secret", "")
+        if not settings.cron_secret or not hmac.compare_digest(key, settings.cron_secret):
+            return JSONResponse({"ok": False, "error": "clave incorrecta"}, status_code=401)
+        force = request.query_params.get("forzar") == "1"
+        task = BackgroundTask(run_daily_pill, settings, force, agent_factory)
+        return JSONResponse({"ok": True, "pildora": "en preparación"}, background=task)
 
     async def diagnose(request: Request) -> JSONResponse:
         return JSONResponse(await run_in_threadpool(diagnostics))
@@ -106,6 +128,7 @@ def create_app(settings: Settings | None = None, agent_factory=build_agent) -> S
     routes = [
         Route("/", health),
         Route("/diagnostico", diagnose),
+        Route("/cron/pildora", cron_daily_pill, methods=["GET", "POST"]),
         Route(WEBHOOK_PATH, telegram, methods=["POST"]),
     ]
     return Starlette(routes=routes, lifespan=lifespan)

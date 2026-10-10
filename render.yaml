@@ -21,6 +21,9 @@ services:
         sync: false
       - key: TIMEZONE
         sync: false
+      # Clave para que cron-job.org dispare la píldora diaria; elígela tú (solo letras y números)
+      - key: CRON_SECRET
+        sync: false
       # Render genera un valor aleatorio: Telegram lo envía en cada petición y el servidor lo
       # comprueba para rechazar llamadas que no vengan de Telegram
       - key: TELEGRAM_WEBHOOK_SECRET

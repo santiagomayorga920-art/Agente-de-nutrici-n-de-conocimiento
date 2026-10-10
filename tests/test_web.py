@@ -32,6 +32,11 @@ class FakeAgent:
         self.store = FakeStore()
         self.messenger = FakeMessenger()
         self.handled = []
+        self.pills = []
+
+    def daily_pill_if_due(self, force=False):
+        self.pills.append(force)
+        return True
 
     def handle_update(self, update):
         if self.fail:
@@ -40,7 +45,9 @@ class FakeAgent:
 
 
 def settings() -> Settings:
-    return Settings(_env_file=None, telegram_webhook_secret=SECRET, telegram_chat_id="1")
+    return Settings(
+        _env_file=None, telegram_webhook_secret=SECRET, telegram_chat_id="1", cron_secret="Cron123"
+    )
 
 
 def test_webhook_rejects_requests_without_the_secret():
@@ -113,3 +120,21 @@ def test_raw_secret_is_not_accepted_as_header():
         "/telegram", json={"update_id": 1}, headers={"X-Telegram-Bot-Api-Secret-Token": SECRET}
     )
     assert response.status_code == 401
+
+
+def test_cron_endpoint_requires_the_key():
+    agent = FakeAgent()
+    client = TestClient(create_app(settings(), lambda s: agent))
+    assert client.get("/cron/pildora").status_code == 401
+    assert client.get("/cron/pildora?clave=otra").status_code == 401
+    assert agent.pills == []
+
+
+def test_cron_endpoint_sends_daily_pill():
+    agent = FakeAgent()
+    client = TestClient(create_app(settings(), lambda s: agent))
+    assert client.get("/cron/pildora?clave=Cron123").json()["ok"] is True
+    assert client.post("/cron/pildora", headers={"X-Cron-Secret": "Cron123"}).status_code == 200
+    assert client.get("/cron/pildora?clave=Cron123&forzar=1").status_code == 200
+    assert agent.pills == [False, False, True]
+    assert agent.store.closed
