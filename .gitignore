@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+
+# Secretos y datos locales
+.env
+*.db
+*.sqlite3
+
+# Graphify: se versionan graph.json y GRAPH_REPORT.md; el resto es local de cada máquina
+graphify-out/cache/
+graphify-out/.graphify_*
+graphify-out/needs_update
+graphify-out/graph.html

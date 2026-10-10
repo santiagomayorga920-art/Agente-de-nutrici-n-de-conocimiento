@@ -1,0 +1,92 @@
+{
+  ".claude/settings.json": {
+    "mtime": 1791636143.5577786,
+    "seen": 1791636143.9865377,
+    "ast_hash": "b3bf8f416f911abf6c2a4066ad58531c",
+    "semantic_hash": ""
+  },
+  "pyproject.toml": {
+    "mtime": 1791636109.6857834,
+    "seen": 1791636143.9865437,
+    "ast_hash": "62375d59a20954021ea2ea941dfa5c4b",
+    "semantic_hash": ""
+  },
+  "src/nutricion/__init__.py": {
+    "mtime": 1791636109.6914866,
+    "seen": 1791636143.9865458,
+    "ast_hash": "5c3c5e0f989d5c6bd7ef8fbad59f9881",
+    "semantic_hash": ""
+  },
+  "src/nutricion/agents/__init__.py": {
+    "mtime": 1791636143.0826125,
+    "seen": 1791636143.9865472,
+    "ast_hash": "7a4aa3a837ab805ebe66ee943ca74538",
+    "semantic_hash": ""
+  },
+  "src/nutricion/channels/__init__.py": {
+    "mtime": 1791636109.6973925,
+    "seen": 1791636143.9865482,
+    "ast_hash": "72ea75601a3e9c0164db74106b5eabfb",
+    "semantic_hash": ""
+  },
+  "src/nutricion/config.py": {
+    "mtime": 1791636109.691522,
+    "seen": 1791636143.986549,
+    "ast_hash": "312b31da9863f97647b9611c75019b46",
+    "semantic_hash": ""
+  },
+  "src/nutricion/domain/__init__.py": {
+    "mtime": 1791636143.0826125,
+    "seen": 1791636143.98655,
+    "ast_hash": "17fe4c79cd5d9ca7f5d351702a48a4ae",
+    "semantic_hash": ""
+  },
+  "src/nutricion/domain/lesson.py": {
+    "mtime": 1791636143.0852087,
+    "seen": 1791636143.9865508,
+    "ast_hash": "d6e767178354b82f6969173f56602ee2",
+    "semantic_hash": ""
+  },
+  "src/nutricion/main.py": {
+    "mtime": 1791636109.6944118,
+    "seen": 1791636143.9865515,
+    "ast_hash": "97244c6df1a19fb28cfd23ac91edacb5",
+    "semantic_hash": ""
+  },
+  "src/nutricion/memory/__init__.py": {
+    "mtime": 1791636109.6987839,
+    "seen": 1791636143.9865525,
+    "ast_hash": "95e9a4ad21a9415ec68731bef5841325",
+    "semantic_hash": ""
+  },
+  "tests/test_lesson.py": {
+    "mtime": 1791636143.0991268,
+    "seen": 1791636143.9865537,
+    "ast_hash": "2bd7eec356d78f50fcda62404e12b6e4",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1791636143.5572915,
+    "seen": 1791636143.9865544,
+    "ast_hash": "82efb97a359f5c7290bf2513d14686be",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1791636126.1762202,
+    "seen": 1791636143.9865553,
+    "ast_hash": "cfbd78f2113b7c614022a3190b7eaec1",
+    "semantic_hash": ""
+  },
+  "skills/evaluating-user/SKILL.md": {
+    "mtime": 1791636126.1745071,
+    "seen": 1791636143.9865565,
+    "ast_hash": "c35525b6d2efa6758915904c2752b7c1",
+    "semantic_hash": ""
+  },
+  "skills/researching-ai/SKILL.md": {
+    "mtime": 1791636126.1715229,
+    "seen": 1791636143.9865572,
+    "ast_hash": "5859a5c0ca3672f284ae83aaa66883bb",
+    "semantic_hash": ""
+  }
+}

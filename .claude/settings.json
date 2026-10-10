@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "G=\"$CLAUDE_PROJECT_DIR/.venv/bin/graphify\"; [ -x \"$G\" ] && \"$G\" hook-guard search || true",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "G=\"$CLAUDE_PROJECT_DIR/.venv/bin/graphify\"; [ -x \"$G\" ] && \"$G\" hook-guard read || true",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
