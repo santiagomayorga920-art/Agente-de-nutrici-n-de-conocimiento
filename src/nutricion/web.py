@@ -7,6 +7,7 @@ actualización en segundo plano, de una en una, para que Telegram no la reenvíe
 import hmac
 import json
 import logging
+import os
 import threading
 import time
 import traceback
@@ -166,6 +167,9 @@ def create_app(settings: Settings | None = None, agent_factory=build_agent) -> S
         except DatabaseConnectionError as exc:
             database = str(exc)
         return {
+            # Commit desplegado (Render lo expone): confirma si un cambio ya está en producción
+            "version": os.environ.get("RENDER_GIT_COMMIT", "")[:7] or "desconocida",
+            "nota_de_voz": settings.voice_notes,
             "procesando_ahora": json.loads(busy) if busy else None,
             "eventos_recientes": events,
             "base_de_datos": database,

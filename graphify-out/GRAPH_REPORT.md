@@ -1,17 +1,17 @@
 # Graph Report - Agente-de-nutrici-n-de-conocimiento  (2026-10-11)
 
 ## Corpus Check
-- 46 files · ~14,762 words
+- 46 files · ~14,799 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 5 file(s) not represented in the graph (top: (none) 2, .ttf 2, .example 1)
 
 ## Summary
-- 516 nodes · 1172 edges · 20 communities (14 shown, 6 thin omitted)
+- 516 nodes · 1173 edges · 20 communities (14 shown, 6 thin omitted)
 - Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 144 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `64b787ae`
+- Built from commit: `9b62e4f6`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 

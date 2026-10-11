@@ -120,6 +120,7 @@ def test_diagnostics_reports_configuration_without_secrets():
     client = TestClient(create_app(settings(), lambda s: FakeAgent()))
     assert client.get("/diagnostico").status_code == 401
     data = client.get("/diagnostico?clave=Cron123").json()
+    assert data["version"] == "desconocida" and data["nota_de_voz"] is True
     assert data["telegram_webhook_secret"] is True
     assert data["gemini_api_key"] is False
     assert SECRET not in str(data)

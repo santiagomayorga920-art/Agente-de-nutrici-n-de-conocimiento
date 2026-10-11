@@ -1329,7 +1329,7 @@
       "file_type": "code",
       "norm_label": "create_app()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L151"
+      "source_location": "L152"
     },
     {
       "id": "src_nutricion_web_create_app_authorized",
@@ -1341,7 +1341,7 @@
       "file_type": "code",
       "norm_label": "authorized()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L182"
+      "source_location": "L186"
     },
     {
       "id": "src_nutricion_web_create_app_cron_daily_pill",
@@ -1353,7 +1353,7 @@
       "file_type": "code",
       "norm_label": "cron_daily_pill()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L189"
+      "source_location": "L193"
     },
     {
       "id": "src_nutricion_web_create_app_diagnose",
@@ -1365,7 +1365,7 @@
       "file_type": "code",
       "norm_label": "diagnose()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L197"
+      "source_location": "L201"
     },
     {
       "id": "src_nutricion_web_create_app_health",
@@ -1377,7 +1377,7 @@
       "file_type": "code",
       "norm_label": "health()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L154"
+      "source_location": "L155"
     },
     {
       "id": "src_nutricion_web_create_app_telegram",
@@ -1389,7 +1389,7 @@
       "file_type": "code",
       "norm_label": "telegram()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L203"
+      "source_location": "L207"
     },
     {
       "id": "src_nutricion_web_describe",
@@ -1401,7 +1401,7 @@
       "file_type": "code",
       "norm_label": "_describe()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L63"
+      "source_location": "L64"
     },
     {
       "id": "src_nutricion_web_getattr",
@@ -1413,7 +1413,7 @@
       "file_type": "code",
       "norm_label": "__getattr__()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L236"
+      "source_location": "L240"
     },
     {
       "id": "src_nutricion_web_now",
@@ -1425,7 +1425,7 @@
       "file_type": "code",
       "norm_label": "_now()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L33"
+      "source_location": "L34"
     },
     {
       "id": "src_nutricion_web_process",
@@ -1437,7 +1437,7 @@
       "file_type": "code",
       "norm_label": "process()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L123"
+      "source_location": "L124"
     },
     {
       "id": "src_nutricion_web_process_job",
@@ -1449,7 +1449,7 @@
       "file_type": "code",
       "norm_label": "job()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L126"
+      "source_location": "L127"
     },
     {
       "id": "src_nutricion_web_record_error",
@@ -1461,7 +1461,7 @@
       "file_type": "code",
       "norm_label": "_record_error()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L70"
+      "source_location": "L71"
     },
     {
       "id": "src_nutricion_web_run_daily_pill",
@@ -1473,7 +1473,7 @@
       "file_type": "code",
       "norm_label": "run_daily_pill()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L140"
+      "source_location": "L141"
     },
     {
       "id": "src_nutricion_web_run_daily_pill_job",
@@ -1485,7 +1485,7 @@
       "file_type": "code",
       "norm_label": "job()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L141"
+      "source_location": "L142"
     },
     {
       "id": "src_nutricion_web_run_locked",
@@ -1497,7 +1497,7 @@
       "file_type": "code",
       "norm_label": "_run_locked()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L77"
+      "source_location": "L78"
     },
     {
       "id": "src_nutricion_web_trace",
@@ -1509,7 +1509,7 @@
       "file_type": "code",
       "norm_label": "_trace()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L55"
+      "source_location": "L56"
     },
     {
       "id": "src_nutricion_web_warn",
@@ -1521,7 +1521,7 @@
       "file_type": "code",
       "norm_label": "_warn()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L46"
+      "source_location": "L47"
     },
     {
       "id": "tests_test_web_fakeagent_daily_pill_if_due",
@@ -1665,7 +1665,7 @@
       "file_type": "code",
       "norm_label": "test_cron_endpoint_requires_the_key()",
       "source_file": "tests/test_web.py",
-      "source_location": "L161"
+      "source_location": "L162"
     },
     {
       "id": "tests_test_web_test_cron_endpoint_sends_daily_pill",
@@ -1677,7 +1677,7 @@
       "file_type": "code",
       "norm_label": "test_cron_endpoint_sends_daily_pill()",
       "source_file": "tests/test_web.py",
-      "source_location": "L169"
+      "source_location": "L170"
     },
     {
       "id": "tests_test_web_test_diagnostics_reports_configuration_without_secrets",
@@ -1701,7 +1701,7 @@
       "file_type": "code",
       "norm_label": "test_diagnostics_requires_the_cron_key()",
       "source_file": "tests/test_web.py",
-      "source_location": "L179"
+      "source_location": "L180"
     },
     {
       "id": "tests_test_web_test_failed_update_is_logged_warns_user_and_is_not_retried",
@@ -1737,7 +1737,7 @@
       "file_type": "code",
       "norm_label": "test_raw_secret_is_not_accepted_as_header()",
       "source_file": "tests/test_web.py",
-      "source_location": "L152"
+      "source_location": "L153"
     },
     {
       "id": "tests_test_web_test_secret_sent_to_telegram_uses_only_allowed_characters",
@@ -1749,7 +1749,7 @@
       "file_type": "code",
       "norm_label": "test_secret_sent_to_telegram_uses_only_allowed_characters()",
       "source_file": "tests/test_web.py",
-      "source_location": "L144"
+      "source_location": "L145"
     },
     {
       "id": "tests_test_web_test_stuck_previous_job_warns_instead_of_waiting_forever",
@@ -1773,7 +1773,7 @@
       "file_type": "code",
       "norm_label": "test_unreachable_database_warns_user()",
       "source_file": "tests/test_web.py",
-      "source_location": "L128"
+      "source_location": "L129"
     },
     {
       "id": "tests_test_web_test_unreachable_database_warns_user_broken_factory",
@@ -1785,7 +1785,7 @@
       "file_type": "code",
       "norm_label": "broken_factory()",
       "source_file": "tests/test_web.py",
-      "source_location": "L137"
+      "source_location": "L138"
     },
     {
       "id": "tests_test_web_test_webhook_processes_update_with_valid_secret",
@@ -2625,7 +2625,7 @@
       "file_type": "code",
       "norm_label": "diagnostics()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L157"
+      "source_location": "L158"
     },
     {
       "id": "tests_test_store_pill",
@@ -3261,7 +3261,7 @@
       "file_type": "code",
       "norm_label": "lifespan()",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L214"
+      "source_location": "L218"
     },
     {
       "id": "tests_test_app_fakemessenger_answer_callback",
@@ -4734,7 +4734,7 @@
       "source_location": "L1"
     },
     {
-      "id": "src_nutricion_web_rationale_56",
+      "id": "src_nutricion_web_rationale_57",
       "label": "Rastro de cada acci\u00f3n completada, para revisar qu\u00e9 pas\u00f3 si algo no llega.",
       "_origin": "ast",
       "community": 16,
@@ -4742,10 +4742,10 @@
       "file_type": "rationale",
       "norm_label": "rastro de cada accion completada, para revisar que paso si algo no llega.",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L56"
+      "source_location": "L57"
     },
     {
-      "id": "src_nutricion_web_rationale_78",
+      "id": "src_nutricion_web_rationale_79",
       "label": "Ejecuta un trabajo de uno en uno. Si otro sigue atascado, avisa en vez de\u2026",
       "_origin": "ast",
       "community": 16,
@@ -4753,7 +4753,7 @@
       "file_type": "rationale",
       "norm_label": "ejecuta un trabajo de uno en uno. si otro sigue atascado, avisa en vez de...",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L78"
+      "source_location": "L79"
     },
     {
       "id": "src_nutricion_app_rationale_111",
@@ -8125,7 +8125,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L152",
+      "source_location": "L153",
       "weight": 1.0
     },
     {
@@ -8137,7 +8137,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L161",
+      "source_location": "L162",
       "weight": 1.0
     },
     {
@@ -8149,7 +8149,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L172",
+      "source_location": "L176",
       "weight": 1.0
     },
     {
@@ -8161,7 +8161,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L217",
+      "source_location": "L221",
       "weight": 1.0
     },
     {
@@ -8173,7 +8173,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L191",
+      "source_location": "L195",
       "weight": 1.0
     },
     {
@@ -8185,7 +8185,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L199",
+      "source_location": "L203",
       "weight": 1.0
     },
     {
@@ -8197,7 +8197,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L161",
+      "source_location": "L162",
       "weight": 1.0
     },
     {
@@ -8209,7 +8209,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L172",
+      "source_location": "L176",
       "weight": 1.0
     },
     {
@@ -8221,7 +8221,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L217",
+      "source_location": "L221",
       "weight": 1.0
     },
     {
@@ -8233,7 +8233,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L239",
+      "source_location": "L243",
       "weight": 1.0
     },
     {
@@ -8245,7 +8245,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L240",
+      "source_location": "L244",
       "weight": 1.0
     },
     {
@@ -8257,7 +8257,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L124",
+      "source_location": "L125",
       "weight": 1.0
     },
     {
@@ -8269,7 +8269,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L135",
+      "source_location": "L136",
       "weight": 1.0
     },
     {
@@ -8281,7 +8281,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L72",
+      "source_location": "L73",
       "weight": 1.0
     },
     {
@@ -8293,79 +8293,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L146",
-      "weight": 1.0
-    },
-    {
-      "source": "src_nutricion_web_run_locked",
-      "target": "json",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/nutricion/web.py",
-      "source_location": "L101",
-      "weight": 1.0
-    },
-    {
-      "source": "src_nutricion_web_run_locked",
-      "target": "src_nutricion_web_now",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/nutricion/web.py",
-      "source_location": "L101",
-      "weight": 1.0
-    },
-    {
-      "source": "src_nutricion_web_run_locked",
-      "target": "src_nutricion_web_process_job",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/nutricion/web.py",
-      "source_location": "L102",
-      "weight": 1.0
-    },
-    {
-      "source": "src_nutricion_web_run_locked",
-      "target": "src_nutricion_web_trace",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/nutricion/web.py",
-      "source_location": "L103",
-      "weight": 1.0
-    },
-    {
-      "source": "src_nutricion_web_run_locked",
-      "target": "src_nutricion_web_record_error",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/nutricion/web.py",
-      "source_location": "L106",
-      "weight": 1.0
-    },
-    {
-      "source": "src_nutricion_web_run_locked",
-      "target": "src_nutricion_web_warn",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "src/nutricion/web.py",
-      "source_location": "L82",
+      "source_location": "L147",
       "weight": 1.0
     },
     {
@@ -8377,7 +8305,79 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L99",
+      "source_location": "L100",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_web_run_locked",
+      "target": "json",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/nutricion/web.py",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_web_run_locked",
+      "target": "src_nutricion_web_now",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/nutricion/web.py",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_web_run_locked",
+      "target": "src_nutricion_web_process_job",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/nutricion/web.py",
+      "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_web_run_locked",
+      "target": "src_nutricion_web_trace",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/nutricion/web.py",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_web_run_locked",
+      "target": "src_nutricion_web_record_error",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/nutricion/web.py",
+      "source_location": "L107",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_web_run_locked",
+      "target": "src_nutricion_web_warn",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "src/nutricion/web.py",
+      "source_location": "L83",
       "weight": 1.0
     },
     {
@@ -8389,7 +8389,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L48",
+      "source_location": "L49",
       "weight": 1.0
     },
     {
@@ -9661,7 +9661,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L162",
+      "source_location": "L163",
       "weight": 1.0
     },
     {
@@ -9673,7 +9673,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L163",
+      "source_location": "L164",
       "weight": 1.0
     },
     {
@@ -9685,24 +9685,12 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L163",
+      "source_location": "L164",
       "weight": 1.0
     },
     {
       "source": "tests_test_web_test_cron_endpoint_sends_daily_pill",
       "target": "tests_test_web_fakeagent",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "tests/test_web.py",
-      "source_location": "L170",
-      "weight": 1.0
-    },
-    {
-      "source": "tests_test_web_test_cron_endpoint_sends_daily_pill",
-      "target": "src_nutricion_web_create_app",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -9714,6 +9702,18 @@
     },
     {
       "source": "tests_test_web_test_cron_endpoint_sends_daily_pill",
+      "target": "src_nutricion_web_create_app",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "tests/test_web.py",
+      "source_location": "L172",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_test_web_test_cron_endpoint_sends_daily_pill",
       "target": "tests_test_web_settings",
       "relation": "calls",
       "_origin": "ast",
@@ -9721,7 +9721,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L171",
+      "source_location": "L172",
       "weight": 1.0
     },
     {
@@ -9769,7 +9769,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L180",
+      "source_location": "L181",
       "weight": 1.0
     },
     {
@@ -9781,7 +9781,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L180",
+      "source_location": "L181",
       "weight": 1.0
     },
     {
@@ -9793,7 +9793,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L180",
+      "source_location": "L181",
       "weight": 1.0
     },
     {
@@ -9877,7 +9877,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L153",
+      "source_location": "L154",
       "weight": 1.0
     },
     {
@@ -9889,7 +9889,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L154",
+      "source_location": "L155",
       "weight": 1.0
     },
     {
@@ -9901,7 +9901,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L154",
+      "source_location": "L155",
       "weight": 1.0
     },
     {
@@ -9949,7 +9949,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L140",
+      "source_location": "L141",
       "weight": 1.0
     },
     {
@@ -9961,7 +9961,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L140",
+      "source_location": "L141",
       "weight": 1.0
     },
     {
@@ -11154,7 +11154,7 @@
     },
     {
       "source": "src_nutricion_web",
-      "target": "threading",
+      "target": "os",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11166,7 +11166,7 @@
     },
     {
       "source": "src_nutricion_web",
-      "target": "time",
+      "target": "threading",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11178,7 +11178,7 @@
     },
     {
       "source": "src_nutricion_web",
-      "target": "traceback",
+      "target": "time",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11190,6 +11190,18 @@
     },
     {
       "source": "src_nutricion_web",
+      "target": "traceback",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "src/nutricion/web.py",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "src_nutricion_web",
       "target": "src_nutricion_channels_telegram_telegramclient",
       "relation": "imports",
       "_origin": "ast",
@@ -11197,7 +11209,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -11209,7 +11221,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -11221,7 +11233,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -11233,7 +11245,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -11245,7 +11257,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -11257,7 +11269,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -11269,7 +11281,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -12361,7 +12373,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -12373,7 +12385,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L14",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -12385,7 +12397,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -12397,7 +12409,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -12409,7 +12421,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -12421,7 +12433,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -12433,7 +12445,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -12445,7 +12457,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -12457,7 +12469,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -12469,7 +12481,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -12481,7 +12493,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -12493,7 +12505,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -12505,7 +12517,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L27",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -12517,7 +12529,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -13537,7 +13549,7 @@
       "confidence_score": 1.0,
       "context": "return_type",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L151",
+      "source_location": "L152",
       "weight": 1.0
     },
     {
@@ -14866,7 +14878,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L123",
+      "source_location": "L124",
       "weight": 1.0
     },
     {
@@ -14877,7 +14889,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L140",
+      "source_location": "L141",
       "weight": 1.0
     },
     {
@@ -14888,7 +14900,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L151",
+      "source_location": "L152",
       "weight": 1.0
     },
     {
@@ -14899,7 +14911,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L236",
+      "source_location": "L240",
       "weight": 1.0
     },
     {
@@ -14910,7 +14922,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0
     },
     {
@@ -14921,7 +14933,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L46",
+      "source_location": "L47",
       "weight": 1.0
     },
     {
@@ -14932,7 +14944,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L55",
+      "source_location": "L56",
       "weight": 1.0
     },
     {
@@ -14943,7 +14955,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L63",
+      "source_location": "L64",
       "weight": 1.0
     },
     {
@@ -14954,7 +14966,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L70",
+      "source_location": "L71",
       "weight": 1.0
     },
     {
@@ -14965,7 +14977,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L77",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
@@ -14976,7 +14988,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L157",
+      "source_location": "L158",
       "weight": 1.0
     },
     {
@@ -14987,7 +14999,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L182",
+      "source_location": "L186",
       "weight": 1.0
     },
     {
@@ -14998,7 +15010,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L141",
+      "source_location": "L142",
       "weight": 1.0
     },
     {
@@ -15889,7 +15901,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/test_web.py",
-      "source_location": "L128",
+      "source_location": "L129",
       "weight": 1.0
     },
     {
@@ -15900,7 +15912,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/test_web.py",
-      "source_location": "L144",
+      "source_location": "L145",
       "weight": 1.0
     },
     {
@@ -15911,7 +15923,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/test_web.py",
-      "source_location": "L152",
+      "source_location": "L153",
       "weight": 1.0
     },
     {
@@ -15922,7 +15934,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/test_web.py",
-      "source_location": "L161",
+      "source_location": "L162",
       "weight": 1.0
     },
     {
@@ -15933,7 +15945,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/test_web.py",
-      "source_location": "L169",
+      "source_location": "L170",
       "weight": 1.0
     },
     {
@@ -15944,7 +15956,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/test_web.py",
-      "source_location": "L179",
+      "source_location": "L180",
       "weight": 1.0
     },
     {
@@ -17972,25 +17984,25 @@
       "weight": 1.0
     },
     {
-      "source": "src_nutricion_web_rationale_56",
+      "source": "src_nutricion_web_rationale_57",
       "target": "src_nutricion_web_trace",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L56",
+      "source_location": "L57",
       "weight": 1.0
     },
     {
-      "source": "src_nutricion_web_rationale_78",
+      "source": "src_nutricion_web_rationale_79",
       "target": "src_nutricion_web_run_locked",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L78",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
@@ -18013,7 +18025,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L228",
+      "source_location": "L232",
       "weight": 1.0
     },
     {
@@ -18025,7 +18037,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L229",
+      "source_location": "L233",
       "weight": 1.0
     },
     {
@@ -18037,7 +18049,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L230",
+      "source_location": "L234",
       "weight": 1.0
     },
     {
@@ -18049,7 +18061,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L231",
+      "source_location": "L235",
       "weight": 1.0
     },
     {
@@ -18061,7 +18073,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L233",
+      "source_location": "L237",
       "weight": 1.0
     },
     {
@@ -18073,7 +18085,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L194",
+      "source_location": "L198",
       "weight": 1.0
     },
     {
@@ -18085,7 +18097,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L194",
+      "source_location": "L198",
       "weight": 1.0
     },
     {
@@ -18097,7 +18109,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L201",
+      "source_location": "L205",
       "weight": 1.0
     },
     {
@@ -18109,7 +18121,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L210",
+      "source_location": "L214",
       "weight": 1.0
     },
     {
@@ -18121,7 +18133,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L210",
+      "source_location": "L214",
       "weight": 1.0
     },
     {
@@ -18133,7 +18145,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L135",
+      "source_location": "L136",
       "weight": 1.0
     },
     {
@@ -18145,7 +18157,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L146",
+      "source_location": "L147",
       "weight": 1.0
     },
     {
@@ -18181,7 +18193,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "tests/test_web.py",
-      "source_location": "L140",
+      "source_location": "L141",
       "weight": 1.0
     },
     {
@@ -18337,7 +18349,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L163",
+      "source_location": "L164",
       "weight": 1.0
     },
     {
@@ -18349,7 +18361,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L164",
+      "source_location": "L165",
       "weight": 1.0
     },
     {
@@ -18361,7 +18373,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L165",
+      "source_location": "L166",
       "weight": 1.0
     },
     {
@@ -18373,7 +18385,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L219",
+      "source_location": "L223",
       "weight": 1.0
     },
     {
@@ -18385,7 +18397,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L220",
+      "source_location": "L224",
       "weight": 1.0
     },
     {
@@ -18517,7 +18529,7 @@
       "confidence_score": 0.85,
       "context": "call",
       "source_file": "tests/test_web.py",
-      "source_location": "L138",
+      "source_location": "L139",
       "weight": 1.0
     },
     {
@@ -18877,7 +18889,7 @@
       "confidence_score": 0.95,
       "context": "parameter_type",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L151",
+      "source_location": "L152",
       "weight": 0.8
     },
     {
@@ -18889,7 +18901,7 @@
       "confidence_score": 0.95,
       "context": "parameter_type",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L123",
+      "source_location": "L124",
       "weight": 0.8
     },
     {
@@ -18901,7 +18913,7 @@
       "confidence_score": 0.95,
       "context": "parameter_type",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L140",
+      "source_location": "L141",
       "weight": 0.8
     },
     {
@@ -18913,7 +18925,7 @@
       "confidence_score": 0.95,
       "context": "parameter_type",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L77",
+      "source_location": "L78",
       "weight": 0.8
     },
     {
@@ -18925,7 +18937,7 @@
       "confidence_score": 0.95,
       "context": "parameter_type",
       "source_file": "src/nutricion/web.py",
-      "source_location": "L46",
+      "source_location": "L47",
       "weight": 0.8
     },
     {
@@ -19112,7 +19124,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L166",
+      "source_location": "L167",
       "weight": 0.8
     },
     {
@@ -19123,7 +19135,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "src/nutricion/web.py",
-      "source_location": "L91",
+      "source_location": "L92",
       "weight": 0.8
     },
     {
@@ -19651,7 +19663,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "tests/test_web.py",
-      "source_location": "L148",
+      "source_location": "L149",
       "weight": 0.8
     },
     {
@@ -19662,10 +19674,10 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "tests/test_web.py",
-      "source_location": "L138",
+      "source_location": "L139",
       "weight": 0.8
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "64b787aeb30a4d40d73bdd6cbce331106ccbe791"
+  "built_at_commit": "9b62e4f68ac9c494ccccc27a0d45d78eac51a5e6"
 }
