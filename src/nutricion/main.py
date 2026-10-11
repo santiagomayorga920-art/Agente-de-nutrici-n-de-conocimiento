@@ -88,10 +88,28 @@ def _illustrate(settings: Settings, scene: str, output: str) -> None:
         print(f"::error title=Ilustración no generada::{exc}")
         sys.exit(1)
     print(f"Ilustración: {len(image) // 1024} KB en {time.monotonic() - start:.1f} s")
+    print(_image_summary(image))
     result = card.build_card(pill, settings.timezone, image)
     with open(output, "wb") as f:
         f.write(result or b"")
     print(f"Tarjeta guardada en {output} ({len(result or b'') // 1024} KB)")
+
+
+def _image_summary(data: bytes) -> str:
+    """Datos para saber, sin ver la imagen, si es una ilustración real o un aviso de límite
+    (casi sin colores) del proveedor."""
+    import io
+
+    from PIL import Image, ImageStat
+
+    image = Image.open(io.BytesIO(data)).convert("RGB")
+    thumb = image.resize((64, 64))
+    colors = len(set(thumb.getdata()))
+    spread = sum(ImageStat.Stat(thumb).stddev) / 3
+    return (
+        f"Imagen: {image.width}×{image.height} · {colors} colores distintos en miniatura 64×64"
+        f" · variación {spread:.0f} (una ilustración real suele superar 1000 colores y 30)"
+    )
 
 
 def _database_status(settings: Settings) -> str:

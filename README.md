@@ -116,6 +116,12 @@ en despertarlo; después todo es inmediato.
 ## Multimedia de la píldora
 
 - **Tarjeta visual (v4.1):** imagen de 1080×1080 con la categoría, el dato clave y el titular.
+- **Ilustración IA (v4.3):** el investigador describe una escena para cada noticia y se
+  dibuja como fondo de la tarjeta (los textos los pone Pillow encima, para que se lean
+  bien). Proveedores gratuitos: Cloudflare Workers AI si defines `CLOUDFLARE_ACCOUNT_ID` y
+  `CLOUDFLARE_API_TOKEN` (más estable), o Pollinations sin cuenta. Si ninguno responde, se usa
+  la foto del artículo y queda un «aviso» en `/diagnostico`. Para desactivarla:
+  `ILLUSTRATIONS=false`. Prueba: `nutricion ilustrar` o el workflow «Ilustración de prueba».
 - **Nota de voz (v4.2):** después de la tarjeta llega un audio de unos 40–60 s que lee la
   píldora y el desafío, generado con los modelos de voz gratuitos de Gemini
   (`GEMINI_TTS_MODEL`, con respaldo `GEMINI_TTS_FALLBACK_MODEL`) y la voz `GEMINI_TTS_VOICE`.
