@@ -13,13 +13,15 @@ from pydantic import BaseModel
 
 T = TypeVar("T", bound=BaseModel)
 
-# Saturación (503) o cuota agotada (429): merece la pena probar con el modelo de respaldo
-_RETRYABLE = {429, 500, 503}
+# Saturación (503), tiempo agotado en Google (504) o cuota agotada (429): merece la pena probar
+# con el modelo de respaldo
+_RETRYABLE = {429, 500, 502, 503, 504}
 # Límite por petición: sin él una llamada colgada bloquearía el bot indefinidamente
 TIMEOUT_MS = 60_000
 # Reintentos automáticos solo ante fallos pasajeros; con cuota agotada (429) reintentar el mismo
 # modelo solo hace esperar: se pasa directo al de respaldo
-_HTTP_RETRY = types.HttpRetryOptions(attempts=2, http_status_codes=[408, 500, 502, 503, 504])
+# (tampoco 504: el modelo ya tardó todo su plazo y reintentarlo duplica la espera)
+_HTTP_RETRY = types.HttpRetryOptions(attempts=2, http_status_codes=[408, 500, 502, 503])
 # Tiempo que se omite un modelo sin cuota si Google no indica cuándo se recupera
 DEFAULT_SKIP_S = 600
 MAX_SKIP_S = 24 * 3600
