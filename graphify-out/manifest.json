@@ -132,9 +132,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/app.py": {
-    "mtime": 1791723106.5420449,
-    "seen": 1791723321.9115765,
-    "ast_hash": "046f277eee44cfae65a639d7d93248ba",
+    "mtime": 1791724588.4632318,
+    "seen": 1791724610.800585,
+    "ast_hash": "651857decedd86b9c7513de503774044",
     "semantic_hash": ""
   },
   "src/nutricion/channels/telegram.py": {
@@ -150,9 +150,9 @@
     "semantic_hash": ""
   },
   "tests/test_app.py": {
-    "mtime": 1791723132.2462976,
-    "seen": 1791723321.9116104,
-    "ast_hash": "2eb9db42733ad6880c2ef234d89a1333",
+    "mtime": 1791724602.8674128,
+    "seen": 1791724610.8006268,
+    "ast_hash": "b896947a63c00cffe6b13caf4a214855",
     "semantic_hash": ""
   },
   "tests/test_skills.py": {
@@ -264,9 +264,9 @@
     "semantic_hash": ""
   },
   ".github/diagnostico.txt": {
-    "mtime": 1791681128.053998,
-    "seen": 1791681209.5403385,
-    "ast_hash": "4ba694b5fddf14fbcd92b40d4a3d7e42",
+    "mtime": 1791724521.8564868,
+    "seen": 1791724610.8006434,
+    "ast_hash": "787899c852c0f6cfb2d0723258f0c4ca",
     "semantic_hash": ""
   },
   ".github/workflows/diagnostico.yml": {

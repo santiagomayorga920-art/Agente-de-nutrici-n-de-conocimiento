@@ -3,6 +3,7 @@
 """
 
 import json
+import time
 import traceback
 from collections.abc import Callable
 from dataclasses import dataclass, field, replace
@@ -26,6 +27,8 @@ from nutricion.sources.catalog import category_of_the_day
 
 OFFSET_KEY = "telegram_offset"
 DAILY_KEY = "ultima_pildora_diaria"
+# Tras un /reportar sin texto, el siguiente mensaje se guarda como su descripción
+REPORT_PENDING_KEY = "reporte_pendiente"
 NEXT = "next"
 OPTION_PREFIX = "op"
 # EVALUATING también admite respuesta: un intento anterior pudo fallar a mitad de la evaluación
@@ -140,6 +143,9 @@ class Agent:
             self._send(fmt.profile_card(self.profile()))
         elif command == "/reportar":
             self.report(text.partition(" ")[2].strip())
+        elif not command.startswith("/") and self.store.get(REPORT_PENDING_KEY):
+            self.store.set(REPORT_PENDING_KEY, "")
+            self.report(text)
         elif command == "/siguiente":
             self._next_pill(lesson)
         elif lesson and lesson.state in _ANSWERABLE:
@@ -191,9 +197,10 @@ class Agent:
                 " errores para revisarlo. ¡Gracias!"
             )
         else:
+            self.store.set(REPORT_PENDING_KEY, "1")
             self._send(
-                "🛠 Reporte guardado. Si quieres añadir detalles, escribe por ejemplo:\n"
-                "<code>/reportar pulsé Siguiente píldora y no llegó nada</code>"
+                "🛠 Reporte guardado. <b>¿Qué pasó?</b> Escríbelo en tu próximo mensaje y lo"
+                " añado al reporte (p. ej. «pulsé Siguiente píldora y no llegó el audio»)."
             )
 
     def _next_pill(self, lesson: Lesson | None) -> None:
@@ -205,6 +212,7 @@ class Agent:
     # --- píldoras -------------------------------------------------------------------------
 
     def _deliver_new_pill(self) -> None:
+        steps = _Stopwatch()
         lesson = self.store.open_lesson()
         if not (lesson and lesson.state is LessonState.PENDING):
             # Si un envío anterior falló, se reutiliza esa píldora en vez de generar otra
@@ -217,18 +225,25 @@ class Agent:
             ]
             if not candidates:
                 raise feeds.NoNewsFound("Todas las noticias disponibles ya se enviaron")
+            steps.lap("noticias")
             preferred = category_of_the_day(self.store.count_lessons())
             recent = self.store.recent_pills(researcher.HISTORY)
             pill, chosen = researcher.create_pill(self.llm, candidates, preferred, recent)
+            steps.lap("redacción")
             if not pill.image_url:
                 pill = replace(pill, image_url=self.find_image(pill.source_url))
             lesson = self.store.add_lesson(pill, feeds.normalize_title(chosen.title))
-        self._send_pill(lesson)
+        self._send_pill(lesson, steps)
         self.store.move(lesson, LessonState.AWAITING_ANSWER)
+        # Desglose para el diagnóstico: dice qué etapa hace lenta una píldora
+        self.store.log_event("traza", f"píldora {lesson.id}: {steps}")
 
-    def _send_pill(self, lesson: Lesson) -> None:
+    def _send_pill(self, lesson: Lesson, steps: "_Stopwatch | None" = None) -> None:
+        steps = steps or _Stopwatch()
         self._send_pill_visual(lesson)
+        steps.lap("tarjeta y envío")
         self._send_voice(lesson.pill)
+        steps.lap("voz")
 
     def _send_pill_visual(self, lesson: Lesson) -> None:
         pill = lesson.pill
@@ -290,3 +305,19 @@ class Agent:
 
     def _send(self, text: str, buttons=None) -> None:
         self.messenger.send_message(self.chat_id, text, buttons)
+
+
+class _Stopwatch:
+    """Mide cuánto tarda cada etapa: «noticias 4.1 s · redacción 12.0 s · …»."""
+
+    def __init__(self) -> None:
+        self._last = time.monotonic()
+        self._laps: list[str] = []
+
+    def lap(self, name: str) -> None:
+        now = time.monotonic()
+        self._laps.append(f"{name} {now - self._last:.1f} s")
+        self._last = now
+
+    def __str__(self) -> str:
+        return " · ".join(self._laps)

@@ -315,7 +315,7 @@ def test_report_button_saves_report_and_asks_for_details():
     messenger.press("report")
     agent.tick(send_daily_pill=False)
     assert store.recent_events(1)[0]["message"] == "(sin descripción)"
-    assert "/reportar" in messenger.sent[-1]["text"]
+    assert "¿Qué pasó?" in messenger.sent[-1]["text"]
 
 
 def test_voice_note_follows_the_pill():
@@ -339,8 +339,8 @@ def test_voice_failure_does_not_block_the_lesson():
     agent.tick(send_daily_pill=True)
     assert messenger.sent[-1]["kind"] == "card"
     assert store.open_lesson().state is LessonState.AWAITING_ANSWER
-    event = store.recent_events()[0]
-    assert event["kind"] == "aviso" and "cuota de voz" in event["detail"]
+    event = next(e for e in store.recent_events() if e["kind"] == "aviso")
+    assert "cuota de voz" in event["detail"]
 
 
 def test_pill_stores_angle_and_shows_glossary():
@@ -365,3 +365,28 @@ def test_previous_pills_are_shown_to_the_researcher():
     prompt = [p for p in llm.prompts if "candidatas" in p][-1]
     assert "(inversión y financiación) Titular <importante>" in prompt
     assert "VARIEDAD OBLIGATORIA" in prompt
+
+
+def test_new_pill_logs_time_per_step():
+    agent, store, messenger = make_agent(card=b"PNG")
+    agent.tick(send_daily_pill=True)
+    trace = [e for e in store.recent_events() if e["kind"] == "traza"][0]["message"]
+    assert trace.startswith("píldora 1: noticias ")
+    assert "redacción" in trace and "tarjeta y envío" in trace and "voz" in trace
+
+
+def test_report_without_text_asks_and_saves_next_message():
+    agent, store, messenger = make_agent()
+    agent.tick(send_daily_pill=True)
+    messenger.press("report")
+    agent.tick(send_daily_pill=False)
+    assert "¿Qué pasó?" in messenger.sent[-1]["text"]
+    messenger.receive("tardó más de un minuto")
+    agent.tick(send_daily_pill=False)
+    reports = [e for e in store.recent_events() if e["kind"] == "reporte"]
+    assert reports[0]["message"] == "tardó más de un minuto"
+    # El mensaje no se tomó como respuesta al desafío
+    assert store.open_lesson().state is LessonState.AWAITING_ANSWER
+    messenger.receive("mi respuesta")
+    agent.tick(send_daily_pill=False)
+    assert store.open_lesson() is None
