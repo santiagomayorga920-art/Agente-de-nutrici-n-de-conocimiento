@@ -22,11 +22,11 @@ TIMEOUT_MS = 60_000
 # modelo solo hace esperar: se pasa directo al de respaldo
 # (tampoco 504: el modelo ya tardó todo su plazo y reintentarlo duplica la espera)
 _HTTP_RETRY = types.HttpRetryOptions(attempts=2, http_status_codes=[408, 500, 502, 503])
-# Tiempo que se omite un modelo sin cuota si Google no indica cuándo se recupera
+# Tiempo que se omite un modelo lento o sin cuota si Google no indica cuándo se recupera
 DEFAULT_SKIP_S = 600
 MAX_SKIP_S = 24 * 3600
-# Modelo -> momento (time.monotonic) hasta el que se omite por cuota agotada. Es global porque
-# el servidor crea un cliente por mensaje y la cuota es de la clave, no del cliente
+# Modelo -> momento (time.monotonic) hasta el que se omite por cuota agotada o lentitud. Es
+# global porque el servidor crea un cliente por mensaje y la cuota es de la clave, no del cliente
 _exhausted: dict[str, float] = {}
 
 
@@ -90,11 +90,13 @@ class GeminiClient:
                 _exhausted.pop(model, None)
                 return response
             except errors.APIError as exc:
-                if exc.code == 429:
+                if exc.code in (429, 504):
+                    # Sin cuota o colgado: se omite un rato para no esperar en cada mensaje
                     _exhausted[model] = time.monotonic() + retry_delay(exc)
                 if exc.code not in _RETRYABLE or i == len(models) - 1:
                     raise
             except httpx.TimeoutException:
+                _exhausted[model] = time.monotonic() + DEFAULT_SKIP_S
                 if i == len(models) - 1:
                     raise
         raise AssertionError("inalcanzable")

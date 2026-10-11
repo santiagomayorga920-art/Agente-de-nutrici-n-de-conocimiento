@@ -44,7 +44,9 @@ def test_exhausted_model_is_skipped_until_quota_returns(monkeypatch):
     models = _Models(fail={"principal"})
     llm._client = type("C", (), {"models": models})()
     assert llm.generate("s", "p") == "ok"
+    assert "principal" in gemini._exhausted  # el siguiente mensaje no lo espera
     assert llm.generate("s", "p") == "ok"
+    assert "principal" in gemini._exhausted  # el siguiente mensaje no lo espera
     # La segunda vez va directo al respaldo, sin perder tiempo con el modelo sin cuota
     assert models.calls == ["principal", "respaldo", "respaldo"]
     assert 80_000 < gemini._exhausted["principal"] - time.monotonic() < 84_000
@@ -68,3 +70,4 @@ def test_timeout_in_google_falls_back_to_the_backup_model(monkeypatch):
         "C", (), {"models": type("M", (), {"generate_content": staticmethod(slow_primary)})}
     )()
     assert llm.generate("s", "p") == "ok"
+    assert "principal" in gemini._exhausted  # el siguiente mensaje no lo espera

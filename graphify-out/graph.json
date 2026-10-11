@@ -732,7 +732,7 @@
       "file_type": "code",
       "norm_label": "test_timeout_in_google_falls_back_to_the_backup_model()",
       "source_file": "tests/test_llm.py",
-      "source_location": "L53"
+      "source_location": "L55"
     },
     {
       "id": "tests_test_llm_test_timeout_in_google_falls_back_to_the_backup_model_slow_primary",
@@ -744,7 +744,7 @@
       "file_type": "code",
       "norm_label": "slow_primary()",
       "source_file": "tests/test_llm.py",
-      "source_location": "L62"
+      "source_location": "L64"
     },
     {
       "id": "src_nutricion_sources_catalog_category_of_the_day",
@@ -2364,7 +2364,7 @@
       "file_type": "code",
       "norm_label": "as_wav()",
       "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L109"
+      "source_location": "L111"
     },
     {
       "id": "src_nutricion_llm_gemini_retry_delay",
@@ -2376,7 +2376,7 @@
       "file_type": "code",
       "norm_label": "retry_delay()",
       "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L103"
+      "source_location": "L105"
     },
     {
       "id": "src_nutricion_llm_init_llmclient_speak",
@@ -5084,7 +5084,7 @@
       "source_location": "L1"
     },
     {
-      "id": "src_nutricion_llm_gemini_rationale_104",
+      "id": "src_nutricion_llm_gemini_rationale_106",
       "label": "Segundos hasta que Google vuelve a dar cuota (p. ej. \u00abretryDelay: 83071s\u00bb).",
       "_origin": "ast",
       "community": 19,
@@ -5092,10 +5092,10 @@
       "file_type": "rationale",
       "norm_label": "segundos hasta que google vuelve a dar cuota (p. ej. \u00abretrydelay: 83071s\u00bb).",
       "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L104"
+      "source_location": "L106"
     },
     {
-      "id": "src_nutricion_llm_gemini_rationale_110",
+      "id": "src_nutricion_llm_gemini_rationale_112",
       "label": "Los modelos de voz devuelven WAV o PCM crudo (\u00abaudio/L16;rate=24000\u00bb): se\u2026",
       "_origin": "ast",
       "community": 19,
@@ -5103,7 +5103,7 @@
       "file_type": "rationale",
       "norm_label": "los modelos de voz devuelven wav o pcm crudo (\u00abaudio/l16;rate=24000\u00bb): se...",
       "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L110"
+      "source_location": "L112"
     },
     {
       "id": "src_nutricion_llm_init_rationale_22",
@@ -7330,7 +7330,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L113",
+      "source_location": "L115",
       "weight": 1.0
     },
     {
@@ -7342,7 +7342,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L114",
+      "source_location": "L116",
       "weight": 1.0
     },
     {
@@ -7354,7 +7354,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L115",
+      "source_location": "L117",
       "weight": 1.0
     },
     {
@@ -7390,7 +7390,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L94",
+      "source_location": "L95",
       "weight": 1.0
     },
     {
@@ -7438,7 +7438,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L105",
+      "source_location": "L107",
       "weight": 1.0
     },
     {
@@ -9850,7 +9850,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/test_llm.py",
-      "source_location": "L60",
+      "source_location": "L62",
       "weight": 1.0
     },
     {
@@ -14062,7 +14062,7 @@
       "confidence_score": 1.0,
       "context": "parameter_type",
       "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L103",
+      "source_location": "L105",
       "weight": 1.0
     },
     {
@@ -15339,7 +15339,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L103",
+      "source_location": "L105",
       "weight": 1.0
     },
     {
@@ -15350,7 +15350,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L109",
+      "source_location": "L111",
       "weight": 1.0
     },
     {
@@ -16648,7 +16648,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "tests/test_llm.py",
-      "source_location": "L53",
+      "source_location": "L55",
       "weight": 1.0
     },
     {
@@ -18907,25 +18907,25 @@
       "weight": 1.0
     },
     {
-      "source": "src_nutricion_llm_gemini_rationale_104",
+      "source": "src_nutricion_llm_gemini_rationale_106",
       "target": "src_nutricion_llm_gemini_retry_delay",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L104",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
-      "source": "src_nutricion_llm_gemini_rationale_110",
+      "source": "src_nutricion_llm_gemini_rationale_112",
       "target": "src_nutricion_llm_gemini_as_wav",
       "relation": "rationale_for",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/nutricion/llm/gemini.py",
-      "source_location": "L110",
+      "source_location": "L112",
       "weight": 1.0
     },
     {
@@ -19523,7 +19523,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "tests/test_llm.py",
-      "source_location": "L68",
+      "source_location": "L70",
       "weight": 1.0
     },
     {
@@ -20880,7 +20880,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.95,
       "source_file": "tests/test_llm.py",
-      "source_location": "L59",
+      "source_location": "L61",
       "weight": 0.8
     },
     {
@@ -21127,5 +21127,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "2900eb9a690c29a1cf13ab55d08e2d88f6f1c0e5"
+  "built_at_commit": "08881c3841a97f2808e3c5504226d39c71cb0ea8"
 }

@@ -1,7 +1,7 @@
 # Graph Report - Agente-de-nutrici-n-de-conocimiento  (2026-10-11)
 
 ## Corpus Check
-- 47 files · ~16,457 words
+- 47 files · ~16,515 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 5 file(s) not represented in the graph (top: (none) 2, .ttf 2, .example 1)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `2900eb9a`
+- Built from commit: `08881c38`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
