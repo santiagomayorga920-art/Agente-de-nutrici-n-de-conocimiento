@@ -5,6 +5,7 @@ from nutricion.agents.tutor import Evaluation
 from nutricion.app import NEXT, NO_PENDING, OFFSET_KEY, Agent
 from nutricion.channels.telegram import TelegramError
 from nutricion.domain.lesson import LessonState
+from nutricion.media.voice import Voice
 from nutricion.memory.store import Store
 from nutricion.sources.catalog import Category
 from nutricion.sources.feeds import Candidate, NoNewsFound
@@ -74,6 +75,9 @@ class FakeMessenger:
         if self.card_fails:
             raise TelegramError("IMAGE_PROCESS_FAILED")
         self.sent.append({"kind": "card", "image": image, "text": caption, "buttons": buttons})
+
+    def send_voice(self, chat_id, audio, duration, caption=""):
+        self.sent.append({"kind": "voice", "audio": audio, "duration": duration, "text": caption})
 
     def send_typing(self, chat_id, action="typing"):
         pass
@@ -310,3 +314,28 @@ def test_report_button_saves_report_and_asks_for_details():
     agent.tick(send_daily_pill=False)
     assert store.recent_events(1)[0]["message"] == "(sin descripción)"
     assert "/reportar" in messenger.sent[-1]["text"]
+
+
+def test_voice_note_follows_the_pill():
+    agent, store, messenger = make_agent(card=b"PNG")
+    spoken = []
+    agent.make_voice = lambda pill: spoken.append(pill) or Voice(audio=b"MP3", duration=40)
+    agent.tick(send_daily_pill=True)
+    kinds = [m["kind"] for m in messenger.sent]
+    assert kinds[-2:] == ["card", "voice"]
+    assert messenger.sent[-1]["audio"] == b"MP3" and messenger.sent[-1]["duration"] == 40
+    assert spoken[0].headline == "Titular <importante>"
+
+
+def test_voice_failure_does_not_block_the_lesson():
+    agent, store, messenger = make_agent(card=b"PNG")
+
+    def broken(pill):
+        raise RuntimeError("429 cuota de voz agotada")
+
+    agent.make_voice = broken
+    agent.tick(send_daily_pill=True)
+    assert messenger.sent[-1]["kind"] == "card"
+    assert store.open_lesson().state is LessonState.AWAITING_ANSWER
+    event = store.recent_events()[0]
+    assert event["kind"] == "aviso" and "cuota de voz" in event["detail"]

@@ -69,6 +69,18 @@ class TelegramClient:
         if not result.get("ok"):
             raise TelegramError(f"sendPhoto: {result.get('description', response.status_code)}")
 
+    def send_voice(self, chat_id: str, audio: bytes, duration: int, caption: str = "") -> None:
+        """Nota de voz en MP3 (Telegram la muestra con su reproductor de voz)."""
+        data = {"chat_id": chat_id, "duration": str(duration), "caption": caption[:MAX_CAPTION]}
+        response = self._http.post(
+            f"{self._base}/sendVoice",
+            data=data,
+            files={"voice": ("pildora.mp3", audio, "audio/mpeg")},
+        )
+        result = response.json()
+        if not result.get("ok"):
+            raise TelegramError(f"sendVoice: {result.get('description', response.status_code)}")
+
     def send_typing(self, chat_id: str, action: str = "typing") -> None:
         """Muestra "escribiendo…" mientras Gemini trabaja (solo se nota en modo webhook)."""
         try:

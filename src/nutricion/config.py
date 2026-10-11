@@ -15,6 +15,12 @@ class Settings(BaseSettings):
     gemini_api_key: str = ""
     gemini_model: str = "gemini-flash-latest"
     gemini_fallback_model: str = "gemini-flash-lite-latest"
+    # Nota de voz de cada píldora (v4.2); VOICE_NOTES=false la desactiva
+    voice_notes: bool = True
+    gemini_tts_model: str = "gemini-3.8-flash-tts"
+    gemini_tts_fallback_model: str = "gemini-3.8-flash-lite-tts"
+    # Voces: https://ai.google.dev/gemini-api/docs/speech-generation (Sulafat = cálida)
+    gemini_tts_voice: str = "Sulafat"
     telegram_bot_token: str = ""
     telegram_chat_id: str = ""
     # Postgres (Supabase) si está definida; si no, SQLite en database_path

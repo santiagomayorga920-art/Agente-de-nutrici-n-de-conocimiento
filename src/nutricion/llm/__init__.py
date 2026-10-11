@@ -18,6 +18,10 @@ class LLMClient(Protocol):
         """Devuelve una instancia de `schema` validada (p. ej. la nota de una evaluación)."""
         ...
 
+    def speak(self, text: str) -> bytes:
+        """Lee el texto en voz alta y devuelve el audio en WAV (PCM de 16 bits)."""
+        ...
+
 
 class MissingAPIKey(Exception):
     pass
@@ -32,4 +36,6 @@ def get_llm(settings: Settings) -> LLMClient:
         api_key=settings.gemini_api_key,
         model=settings.gemini_model,
         fallback_model=settings.gemini_fallback_model,
+        tts_models=(settings.gemini_tts_model, settings.gemini_tts_fallback_model),
+        voice=settings.gemini_tts_voice,
     )

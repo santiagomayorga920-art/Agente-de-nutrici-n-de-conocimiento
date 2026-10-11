@@ -3,6 +3,7 @@
 """
 
 import json
+import traceback
 from collections.abc import Callable
 from dataclasses import dataclass, field, replace
 from datetime import datetime
@@ -18,6 +19,7 @@ from nutricion.domain.lesson import Lesson, LessonState, Pill
 from nutricion.domain.progress import Profile, build_profile
 from nutricion.llm import LLMClient
 from nutricion.media import card
+from nutricion.media.voice import Voice
 from nutricion.memory.store import Store
 from nutricion.sources import feeds, images
 from nutricion.sources.catalog import category_of_the_day
@@ -43,6 +45,7 @@ WELCOME = (
     " daré feedback.\n\nComandos: /siguiente para una nueva píldora · /stats para tu perfil ·"
     " /reportar si algo falla."
 )
+VOICE_CAPTION = "🎧 Escucha la píldora"
 NO_PENDING = (
     "No tienes ningún desafío pendiente. Escribe /siguiente para recibir una nueva píldora."
 )
@@ -57,7 +60,9 @@ class Messenger(Protocol):
 
     def send_photo_file(self, chat_id: str, image: bytes, caption: str, buttons=None) -> None: ...
 
-    def send_typing(self, chat_id: str) -> None: ...
+    def send_voice(self, chat_id: str, audio: bytes, duration: int, caption: str = "") -> None: ...
+
+    def send_typing(self, chat_id: str, action: str = "typing") -> None: ...
 
     def answer_callback(self, callback_id: str, text: str = "") -> None: ...
 
@@ -73,6 +78,8 @@ class Agent:
     fetch_candidates: Callable[[set[str]], list[feeds.Candidate]] = feeds.fetch_candidates
     find_image: Callable[[str], str] = field(default=images.find_og_image)
     make_card: Callable[[Pill, str], bytes | None] = field(default=card.build_card)
+    # Nota de voz de la píldora; None la desactiva (la fábrica la conecta con Gemini)
+    make_voice: Callable[[Pill], Voice] | None = None
     timezone: str = "UTC"
 
     # --- entradas -------------------------------------------------------------------------
@@ -219,6 +226,10 @@ class Agent:
         self.store.move(lesson, LessonState.AWAITING_ANSWER)
 
     def _send_pill(self, lesson: Lesson) -> None:
+        self._send_pill_visual(lesson)
+        self._send_voice(lesson.pill)
+
+    def _send_pill_visual(self, lesson: Lesson) -> None:
         pill = lesson.pill
         buttons = [(o, f"{OPTION_PREFIX}:{lesson.id}:{i}") for i, o in enumerate(pill.options)]
         header, body = fmt.pill_header(pill), fmt.pill_body(pill)
@@ -237,6 +248,17 @@ class Agent:
                 self._send(body, buttons)
                 return
         self._send(full, buttons)
+
+    def _send_voice(self, pill: Pill) -> None:
+        """La nota de voz es un extra: si falla, se registra un aviso y la píldora sigue."""
+        if not self.make_voice:
+            return
+        self.messenger.send_typing(self.chat_id, "record_voice")
+        try:
+            voice = self.make_voice(pill)
+            self.messenger.send_voice(self.chat_id, voice.audio, voice.duration, VOICE_CAPTION)
+        except Exception:  # noqa: BLE001 - p. ej. cuota de voz agotada: no bloquea la lección
+            self.store.log_event("aviso", "nota de voz no enviada", traceback.format_exc())
 
     def _try_photo(self, photo: bytes | str, caption: str, buttons=None) -> bool:
         try:

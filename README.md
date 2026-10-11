@@ -28,7 +28,8 @@ src/nutricion/
   sources/         catálogo de fuentes (prensa, finanzas, arXiv, universidades) e imágenes
   agents/          investigador (elige y redacta) y tutor (reacciona y evalúa)
   app.py           orquestador: un "tick" procesa tus mensajes y envía la píldora
-  channels/        Telegram: HTML, fotos y botones (inline keyboards)
+  channels/        Telegram: HTML, fotos, notas de voz y botones (inline keyboards)
+  media/           tarjeta visual (Pillow) y nota de voz (voz de Gemini -> MP3)
   memory/          persistencia: SQLite (local/caché) o Postgres (Supabase)
   web.py           servidor del webhook de Telegram (Render)
 skills/            instrucciones .md que usan los agentes en tiempo de ejecución
@@ -102,3 +103,12 @@ en despertarlo; después todo es inmediato.
   el motivo en español y el bot sigue funcionando con SQLite.
 - **Render:** abre `https://<tu-servicio>.onrender.com/diagnostico?clave=<CRON_SECRET>` para ver
   qué variables faltan y si la base de datos conecta (protegido; nunca muestra claves).
+
+## Multimedia de la píldora
+
+- **Tarjeta visual (v4.1):** imagen de 1080×1080 con la categoría, el dato clave y el titular.
+- **Nota de voz (v4.2):** después de la tarjeta llega un audio de unos 40–60 s que lee la
+  píldora y el desafío, generado con los modelos de voz gratuitos de Gemini
+  (`GEMINI_TTS_MODEL`, con respaldo `GEMINI_TTS_FALLBACK_MODEL`) y la voz `GEMINI_TTS_VOICE`.
+  Si falla (p. ej. por cuota agotada), la píldora llega igual y se registra un evento
+  «aviso» visible en `/diagnostico`. Para desactivarla: `VOICE_NOTES=false`.
