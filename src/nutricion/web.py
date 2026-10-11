@@ -8,6 +8,7 @@ import hmac
 import json
 import logging
 import threading
+import time
 import traceback
 from contextlib import asynccontextmanager
 from datetime import UTC, datetime
@@ -51,6 +52,21 @@ def _warn(settings: Settings, text: str) -> None:
         log.exception("No se pudo avisar por Telegram")
 
 
+def _trace(agent, message: str) -> None:
+    """Rastro de cada acción completada, para revisar qué pasó si algo no llega."""
+    try:
+        agent.store.log_event("traza", message)
+    except Exception:  # noqa: BLE001
+        log.exception("No se pudo registrar la traza")
+
+
+def _describe(update: dict) -> str:
+    if "callback_query" in update:
+        return f"botón «{update['callback_query'].get('data', '')}»"
+    text = ((update.get("message") or {}).get("text") or "").strip()
+    return f"comando {text.split()[0]}" if text.startswith("/") else "mensaje de texto"
+
+
 def _record_error(agent, what: str) -> None:
     try:
         agent.store.log_event("error", what, traceback.format_exc())
@@ -80,9 +96,11 @@ def _run_locked(settings: Settings, what: str, job, agent_factory) -> None:
                 " en Render.",
             )
             return
+        started = time.monotonic()
         try:
             agent.store.set(BUSY_KEY, json.dumps({"tarea": what, "desde": _now()}))
             job(agent)
+            _trace(agent, f"{what}: ok en {time.monotonic() - started:.1f} s")
         except Exception as exc:
             log.exception("Error en %s", what)
             _record_error(agent, f"{what}: {exc.__class__.__name__}: {str(exc)[:300]}")
@@ -103,7 +121,7 @@ def _run_locked(settings: Settings, what: str, job, agent_factory) -> None:
 
 
 def process(update: dict, settings: Settings, agent_factory=build_agent) -> None:
-    what = f"actualización {update.get('update_id')}"
+    what = f"{_describe(update)} (actualización {update.get('update_id')})"
 
     def job(agent):
         try:

@@ -76,6 +76,7 @@ def test_webhook_processes_update_with_valid_secret():
     assert response.status_code == 200
     assert agent.handled == [{"update_id": 7}]
     assert agent.store.closed
+    assert agent.store.events[0][0] == "traza" and "ok en" in agent.store.events[0][1]
 
 
 def test_health_check():
