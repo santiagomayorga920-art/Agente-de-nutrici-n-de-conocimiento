@@ -1,6 +1,6 @@
 import pytest
 
-from nutricion.agents.researcher import _PillDraft
+from nutricion.agents.researcher import _GlossaryEntry, _PillDraft
 from nutricion.agents.tutor import Evaluation
 from nutricion.app import NEXT, NO_PENDING, OFFSET_KEY, Agent
 from nutricion.channels.telegram import TelegramError
@@ -34,6 +34,8 @@ class FakeLLM:
                 options=["Sí, de inmediato", "Esperaría", "No invertiría"],
                 key_figure="200 M USD",
                 key_figure_label="ronda Serie B",
+                angle="Inversión y financiación",
+                glossary=[_GlossaryEntry(term="Serie B", definition="Segunda gran ronda.")],
             )
         if self.fail_evaluation:
             raise RuntimeError("API caída")
@@ -339,3 +341,27 @@ def test_voice_failure_does_not_block_the_lesson():
     assert store.open_lesson().state is LessonState.AWAITING_ANSWER
     event = store.recent_events()[0]
     assert event["kind"] == "aviso" and "cuota de voz" in event["detail"]
+
+
+def test_pill_stores_angle_and_shows_glossary():
+    agent, store, messenger = make_agent(card=b"PNG")
+    agent.tick(send_daily_pill=True)
+    pill = store.open_lesson().pill
+    assert pill.angle == "inversión y financiación"
+    assert pill.glossary == (("Serie B", "Segunda gran ronda."),)
+    assert "📖 <b>Glosario rápido</b>\n• <b>Serie B</b>: Segunda gran ronda." in "".join(
+        m["text"] for m in messenger.sent
+    )
+
+
+def test_previous_pills_are_shown_to_the_researcher():
+    llm = FakeLLM()
+    agent, store, messenger = make_agent(llm=llm)
+    agent.tick(send_daily_pill=True)
+    messenger.receive("respuesta")
+    agent.tick(send_daily_pill=False)
+    messenger.receive("/siguiente")
+    agent.tick(send_daily_pill=False)
+    prompt = [p for p in llm.prompts if "candidatas" in p][-1]
+    assert "(inversión y financiación) Titular <importante>" in prompt
+    assert "VARIEDAD OBLIGATORIA" in prompt

@@ -218,7 +218,8 @@ class Agent:
             if not candidates:
                 raise feeds.NoNewsFound("Todas las noticias disponibles ya se enviaron")
             preferred = category_of_the_day(self.store.count_lessons())
-            pill, chosen = researcher.create_pill(self.llm, candidates, preferred)
+            recent = self.store.recent_pills(researcher.HISTORY)
+            pill, chosen = researcher.create_pill(self.llm, candidates, preferred, recent)
             if not pill.image_url:
                 pill = replace(pill, image_url=self.find_image(pill.source_url))
             lesson = self.store.add_lesson(pill, feeds.normalize_title(chosen.title))

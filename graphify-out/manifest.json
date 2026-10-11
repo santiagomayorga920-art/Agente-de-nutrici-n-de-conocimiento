@@ -42,9 +42,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/domain/lesson.py": {
-    "mtime": 1791675484.2921655,
-    "seen": 1791675821.7230873,
-    "ast_hash": "699999d8877287f66f67f7b5a28b581d",
+    "mtime": 1791723079.003677,
+    "seen": 1791723321.9115853,
+    "ast_hash": "dee5de16c1acb1c4d58f7ce036bb75c4",
     "semantic_hash": ""
   },
   "src/nutricion/main.py": {
@@ -84,9 +84,9 @@
     "semantic_hash": ""
   },
   "skills/researching-ai/SKILL.md": {
-    "mtime": 1791639878.4964006,
-    "seen": 1791640153.4326978,
-    "ast_hash": "6477dcee5d41b4df33a69fced93489d1",
+    "mtime": 1791723153.4674563,
+    "seen": 1791723321.9116335,
+    "ast_hash": "9ca49bc40bfea08d0e51580c26c67a5d",
     "semantic_hash": ""
   },
   ".claude/hooks/session-start.sh": {
@@ -114,9 +114,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/agents/researcher.py": {
-    "mtime": 1791675874.5670245,
-    "seen": 1791675877.7655637,
-    "ast_hash": "d6d153691ea3dd7fb58ea058d2bde93d",
+    "mtime": 1791723106.5415013,
+    "seen": 1791723321.9115717,
+    "ast_hash": "97bdc0a63d192dc9ac9c4830e4417641",
     "semantic_hash": ""
   },
   "src/nutricion/agents/skills.py": {
@@ -132,9 +132,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/app.py": {
-    "mtime": 1791680084.899211,
-    "seen": 1791680184.1142921,
-    "ast_hash": "77964fa38f725c3de22b69c96bc2e761",
+    "mtime": 1791723106.5420449,
+    "seen": 1791723321.9115765,
+    "ast_hash": "046f277eee44cfae65a639d7d93248ba",
     "semantic_hash": ""
   },
   "src/nutricion/channels/telegram.py": {
@@ -144,15 +144,15 @@
     "semantic_hash": ""
   },
   "src/nutricion/memory/store.py": {
-    "mtime": 1791677995.0756412,
-    "seen": 1791678029.077098,
-    "ast_hash": "aba7e8de3f0e58466b25eea4e1de46dc",
+    "mtime": 1791723079.0041864,
+    "seen": 1791723321.911601,
+    "ast_hash": "87678ca96cab2c5fc9f05b3e34763312",
     "semantic_hash": ""
   },
   "tests/test_app.py": {
-    "mtime": 1791680095.8307757,
-    "seen": 1791680184.114328,
-    "ast_hash": "825d8a3eee249cca28fae256a7fa57b0",
+    "mtime": 1791723132.2462976,
+    "seen": 1791723321.9116104,
+    "ast_hash": "2eb9db42733ad6880c2ef234d89a1333",
     "semantic_hash": ""
   },
   "tests/test_skills.py": {
@@ -174,9 +174,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/channels/formatting.py": {
-    "mtime": 1791642289.1632655,
-    "seen": 1791642336.0930336,
-    "ast_hash": "c7cee35618d348df37ec05885faa05be",
+    "mtime": 1791723106.542767,
+    "seen": 1791723321.9115798,
+    "ast_hash": "bc81d55d6e2c2374dc41e0c6376d59a7",
     "semantic_hash": ""
   },
   "src/nutricion/sources/__init__.py": {
@@ -303,6 +303,12 @@
     "mtime": 1791680104.9727697,
     "seen": 1791680184.1143384,
     "ast_hash": "436c7050ff0ad23e2eb95bb7ca30d200",
+    "semantic_hash": ""
+  },
+  "tests/test_researcher.py": {
+    "mtime": 1791723136.3375266,
+    "seen": 1791723321.9116182,
+    "ast_hash": "7fa39eefd5070e59f8472580f2533566",
     "semantic_hash": ""
   }
 }

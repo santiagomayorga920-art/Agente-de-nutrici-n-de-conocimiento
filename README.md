@@ -104,6 +104,15 @@ en despertarlo; después todo es inmediato.
 - **Render:** abre `https://<tu-servicio>.onrender.com/diagnostico?clave=<CRON_SECRET>` para ver
   qué variables faltan y si la base de datos conecta (protegido; nunca muestra claves).
 
+## Contenido de la píldora
+
+- **Variedad:** cada píldora declara su ángulo (inversión, caso de uso, regulación, herramienta,
+  mercado, investigación, infraestructura, talento o riesgos). La siguiente no puede repetir el
+  de la anterior: el código descarta de antemano las noticias evidentes del mismo ángulo (si
+  quedan al menos 3 alternativas) y el investigador ve las últimas 5 píldoras para no repetir
+  empresa ni tesis.
+- **Glosario rápido:** de 1 a 4 términos técnicos o de negocio explicados al final del texto.
+
 ## Multimedia de la píldora
 
 - **Tarjeta visual (v4.1):** imagen de 1080×1080 con la categoría, el dato clave y el titular.

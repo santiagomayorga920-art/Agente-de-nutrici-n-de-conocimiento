@@ -53,6 +53,8 @@ _MIGRATIONS = {
     "completed_at": "TEXT",
     "key_figure": "TEXT NOT NULL DEFAULT ''",
     "key_figure_label": "TEXT NOT NULL DEFAULT ''",
+    "angle": "TEXT NOT NULL DEFAULT ''",
+    "glossary": "TEXT NOT NULL DEFAULT '[]'",
 }
 
 _OPEN_STATES = (LessonState.PENDING, LessonState.AWAITING_ANSWER, LessonState.EVALUATING)
@@ -126,8 +128,8 @@ class Store:
         cursor = self._run(
             "INSERT INTO lessons (created_at, headline, what_happened, why_it_matters,"
             " source_url, challenge, state, source_name, category, image_url, options,"
-            " source_title, key_figure, key_figure_label)"
-            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id",
+            " source_title, key_figure, key_figure_label, angle, glossary)"
+            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id",
             (
                 _now(),
                 pill.headline,
@@ -143,6 +145,8 @@ class Store:
                 source_title,
                 pill.key_figure,
                 pill.key_figure_label,
+                pill.angle,
+                json.dumps([list(e) for e in pill.glossary], ensure_ascii=False),
             ),
         )
         lesson_id = cursor.fetchone()[0]
@@ -156,6 +160,11 @@ class Store:
             tuple(str(s) for s in _OPEN_STATES),
         )
         return _to_lesson(rows[0]) if rows else None
+
+    def recent_pills(self, limit: int = 5) -> list[Pill]:
+        """Las últimas píldoras enviadas o generadas, de la más reciente a la más antigua."""
+        rows = self._rows("SELECT * FROM lessons ORDER BY id DESC LIMIT ?", (limit,))
+        return [_to_lesson(r).pill for r in rows]
 
     def count_lessons(self) -> int:
         return self._run("SELECT COUNT(*) FROM lessons").fetchone()[0]
@@ -292,5 +301,7 @@ def _to_lesson(row: dict) -> Lesson:
         options=tuple(json.loads(row["options"])),
         key_figure=row.get("key_figure") or "",
         key_figure_label=row.get("key_figure_label") or "",
+        angle=row.get("angle") or "",
+        glossary=tuple(tuple(e) for e in json.loads(row.get("glossary") or "[]")),
     )
     return Lesson(id=row["id"], pill=pill, state=LessonState(row["state"]), choice=row["choice"])

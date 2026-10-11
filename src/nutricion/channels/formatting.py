@@ -18,7 +18,8 @@ def pill_body(pill: Pill) -> str:
     return (
         f"<b>Qué pasó</b>\n{escape(pill.what_happened)}\n\n"
         f"<b>Por qué importa</b>\n{escape(pill.why_it_matters)}\n\n"
-        f'🔗 <a href="{escape(pill.source_url, quote=True)}">Leer la fuente</a>\n\n'
+        + glossary(pill)
+        + f'🔗 <a href="{escape(pill.source_url, quote=True)}">Leer la fuente</a>\n\n'
         f"🧠 <b>Desafío</b>\n{escape(pill.challenge)}\n\n"
         + (
             "<i>Elige una postura con los botones o responde directamente por escrito.</i>"
@@ -26,6 +27,13 @@ def pill_body(pill: Pill) -> str:
             else "<i>Responde aquí con tu análisis (3–6 frases).</i>"
         )
     )
+
+
+def glossary(pill: Pill) -> str:
+    if not pill.glossary:
+        return ""
+    lines = "\n".join(f"• <b>{escape(t)}</b>: {escape(d)}" for t, d in pill.glossary)
+    return f"📖 <b>Glosario rápido</b>\n{lines}\n\n"
 
 
 def reminder(pill: Pill) -> str:

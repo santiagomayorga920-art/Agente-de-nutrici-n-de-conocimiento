@@ -45,6 +45,10 @@ class Pill:
     # Dato destacado de la tarjeta visual (p. ej. "200 M USD" / "ronda Serie B"); puede faltar
     key_figure: str = ""
     key_figure_label: str = ""
+    # Ángulo temático (p. ej. «inversión y financiación»): evita repetir el mismo tipo de noticia
+    angle: str = ""
+    # Glosario rápido: (término, explicación breve) de la jerga técnica o de negocio
+    glossary: tuple[tuple[str, str], ...] = ()
 
 
 @dataclass(frozen=True)
