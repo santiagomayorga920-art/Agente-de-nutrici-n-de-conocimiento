@@ -290,3 +290,23 @@ def test_daily_pill_is_sent_only_once_per_day():
     assert agent.daily_pill_if_due() is False  # el cron repetido no envía nada
     assert len(messenger.sent) == sent
     assert agent.daily_pill_if_due(force=True) is True
+
+
+def test_report_command_saves_description_and_context():
+    agent, store, messenger = make_agent()
+    agent.tick(send_daily_pill=True)
+    store.log_event("error", "create_pill: TimeoutException")
+    messenger.receive("/reportar pulsé Siguiente y no llegó nada")
+    agent.tick(send_daily_pill=False)
+    report = store.recent_events(1)[0]
+    assert report["kind"] == "reporte" and report["message"] == "pulsé Siguiente y no llegó nada"
+    assert "TimeoutException" in report["detail"] and "awaiting_answer" in report["detail"]
+    assert "Reporte recibido" in messenger.sent[-1]["text"]
+
+
+def test_report_button_saves_report_and_asks_for_details():
+    agent, store, messenger = make_agent()
+    messenger.press("report")
+    agent.tick(send_daily_pill=False)
+    assert store.recent_events(1)[0]["message"] == "(sin descripción)"
+    assert "/reportar" in messenger.sent[-1]["text"]

@@ -95,6 +95,9 @@ en despertarlo; después todo es inmediato.
 
 ### Si algo falla
 
+- **Telegram:** escribe `/reportar <qué pasó>` o pulsa «🛠 Reportar problema». Se guarda con el
+  estado del bot y los últimos errores; aparece en `/diagnostico` (`eventos_recientes`).
+
 - **GitHub Actions:** si `DATABASE_URL` está mal, el resumen de la ejecución muestra un aviso con
   el motivo en español y el bot sigue funcionando con SQLite.
 - **Render:** abre `https://<tu-servicio>.onrender.com/diagnostico?clave=<CRON_SECRET>` para ver

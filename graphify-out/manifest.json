@@ -66,15 +66,15 @@
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1791636655.7896516,
-    "seen": 1791636656.1811266,
-    "ast_hash": "dbc4f39aa92dc1a36db5dfa0d9e0c1f4",
+    "mtime": 1791678027.813142,
+    "seen": 1791678029.0771213,
+    "ast_hash": "2f2efbde6dd105a7ce1bd4054a2610cc",
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1791665909.5902655,
-    "seen": 1791665922.9312015,
-    "ast_hash": "6adbef7cbbfc93a77b22d033ada103a8",
+    "mtime": 1791678027.8135264,
+    "seen": 1791678029.0771222,
+    "ast_hash": "177576bdd94d6d92a20337cdb73f2acf",
     "semantic_hash": ""
   },
   "skills/evaluating-user/SKILL.md": {
@@ -132,9 +132,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/app.py": {
-    "mtime": 1791675627.3247774,
-    "seen": 1791675821.7230797,
-    "ast_hash": "4977f3c0195922d20006427622884259",
+    "mtime": 1791677975.1690788,
+    "seen": 1791678029.077068,
+    "ast_hash": "a9080aeafe913a338d5f92d34263ff1c",
     "semantic_hash": ""
   },
   "src/nutricion/channels/telegram.py": {
@@ -144,15 +144,15 @@
     "semantic_hash": ""
   },
   "src/nutricion/memory/store.py": {
-    "mtime": 1791675484.2925901,
-    "seen": 1791675821.7231,
-    "ast_hash": "ca2f2963ca085f027aa987c4845bfc13",
+    "mtime": 1791677995.0756412,
+    "seen": 1791678029.077098,
+    "ast_hash": "aba7e8de3f0e58466b25eea4e1de46dc",
     "semantic_hash": ""
   },
   "tests/test_app.py": {
-    "mtime": 1791675627.3251657,
-    "seen": 1791675821.7231073,
-    "ast_hash": "ec56162e72812492ad26c10ba4394c1b",
+    "mtime": 1791678014.1007512,
+    "seen": 1791678029.0771058,
+    "ast_hash": "6428022f03c1913f74cbff6d7608622f",
     "semantic_hash": ""
   },
   "tests/test_skills.py": {
@@ -216,9 +216,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/web.py": {
-    "mtime": 1791665909.5892324,
-    "seen": 1791665922.9311824,
-    "ast_hash": "51f7af3025dea47a9ee53ce290534ca6",
+    "mtime": 1791677995.0756412,
+    "seen": 1791678029.0771043,
+    "ast_hash": "5967aab0f198aa2d027155a9fd9969d0",
     "semantic_hash": ""
   },
   "tests/test_progress.py": {
@@ -228,15 +228,15 @@
     "semantic_hash": ""
   },
   "tests/test_store.py": {
-    "mtime": 1791642270.7144272,
-    "seen": 1791642336.0930588,
-    "ast_hash": "5ce6378fad16244e6be764ff8ccb7ef0",
+    "mtime": 1791678014.1011512,
+    "seen": 1791678029.0771143,
+    "ast_hash": "3cfdc3a631cca78b4b3b54b8cb9926a0",
     "semantic_hash": ""
   },
   "tests/test_web.py": {
-    "mtime": 1791665909.589642,
-    "seen": 1791665922.9311943,
-    "ast_hash": "42f72f17634c7112670b12c29e48ff64",
+    "mtime": 1791678014.10011,
+    "seen": 1791678029.0771153,
+    "ast_hash": "c53056498abd9e6830c2f5efa9eaa8ba",
     "semantic_hash": ""
   },
   "render.yaml": {
@@ -264,9 +264,9 @@
     "semantic_hash": ""
   },
   ".github/diagnostico.txt": {
-    "mtime": 1791675139.6454597,
-    "seen": 1791675821.7231178,
-    "ast_hash": "2471fb7de06c03a26ad7dfa53d9838f8",
+    "mtime": 1791677924.903637,
+    "seen": 1791678029.0771165,
+    "ast_hash": "ea0f0ca4041c92569c9c53ffa45b502f",
     "semantic_hash": ""
   },
   ".github/workflows/diagnostico.yml": {

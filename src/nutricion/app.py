@@ -2,6 +2,7 @@
 `handle_update`, venga del sondeo programado (`tick`) o del webhook en tiempo real.
 """
 
+import json
 from collections.abc import Callable
 from dataclasses import dataclass, field, replace
 from datetime import datetime
@@ -33,11 +34,14 @@ CAPTION_LIMIT = 1024
 COMMANDS = [
     ("siguiente", "Recibir una nueva píldora"),
     ("stats", "Ver tu perfil y estadísticas"),
+    ("reportar", "Reportar un problema (escribe qué pasó)"),
 ]
+REPORT_BUTTON = [("🛠 Reportar problema", "report")]
 WELCOME = (
     "¡Hola! Soy tu agente de nutrición de conocimiento. Cada día te enviaré una píldora sobre IA"
     " y negocios con un desafío. Elige una postura con los botones o respóndelo por escrito y te"
-    " daré feedback.\n\nComandos: /siguiente para una nueva píldora · /stats para tu perfil."
+    " daré feedback.\n\nComandos: /siguiente para una nueva píldora · /stats para tu perfil ·"
+    " /reportar si algo falla."
 )
 NO_PENDING = (
     "No tienes ningún desafío pendiente. Escribe /siguiente para recibir una nueva píldora."
@@ -127,6 +131,8 @@ class Agent:
             self._send(fmt.profile_card(self.profile()))
         elif command == "/stats":
             self._send(fmt.profile_card(self.profile()))
+        elif command == "/reportar":
+            self.report(text.partition(" ")[2].strip())
         elif command == "/siguiente":
             self._next_pill(lesson)
         elif lesson and lesson.state in _ANSWERABLE:
@@ -144,6 +150,8 @@ class Agent:
         lesson = self.store.open_lesson()
         if data == NEXT:
             self._next_pill(lesson)
+        elif data == "report":
+            self.report("")
         elif data.startswith(OPTION_PREFIX + ":"):
             _, lesson_id, index = data.split(":")
             if not (lesson and lesson.id == int(lesson_id) and lesson.state in _ANSWERABLE):
@@ -156,6 +164,30 @@ class Agent:
             self.messenger.send_typing(self.chat_id)
             reaction = tutor.react_to_choice(self.llm, lesson.pill, choice)
             self._send(fmt.choice_reaction(choice, reaction))
+
+    def report(self, description: str) -> None:
+        """Guarda un reporte con el contexto necesario para diagnosticarlo."""
+        lesson = self.store.open_lesson()
+        errors = [e for e in self.store.recent_events(10) if e["kind"] == "error"][:3]
+        context = {
+            "leccion_abierta": {"id": lesson.id, "estado": str(lesson.state)} if lesson else None,
+            "ultimos_errores": [f"{e['created_at']} {e['message']}" for e in errors],
+        }
+        self.store.log_event(
+            "reporte",
+            description or "(sin descripción)",
+            json.dumps(context, ensure_ascii=False),
+        )
+        if description:
+            self._send(
+                "🛠 <b>Reporte recibido.</b> Quedó guardado con el estado del bot y los últimos"
+                " errores para revisarlo. ¡Gracias!"
+            )
+        else:
+            self._send(
+                "🛠 Reporte guardado. Si quieres añadir detalles, escribe por ejemplo:\n"
+                "<code>/reportar pulsé Siguiente píldora y no llegó nada</code>"
+            )
 
     def _next_pill(self, lesson: Lesson | None) -> None:
         if lesson and lesson.state in _ANSWERABLE:

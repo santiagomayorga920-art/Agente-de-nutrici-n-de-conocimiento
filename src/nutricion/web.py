@@ -5,9 +5,12 @@ actualización en segundo plano, de una en una, para que Telegram no la reenvíe
 """
 
 import hmac
+import json
 import logging
 import threading
+import traceback
 from contextlib import asynccontextmanager
+from datetime import UTC, datetime
 
 from starlette.applications import Starlette
 from starlette.background import BackgroundTask
@@ -16,7 +19,7 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse, PlainTextResponse
 from starlette.routing import Route
 
-from nutricion.app import COMMANDS, OFFSET_KEY
+from nutricion.app import COMMANDS, OFFSET_KEY, REPORT_BUTTON
 from nutricion.channels.telegram import TelegramClient
 from nutricion.config import Settings, get_settings
 from nutricion.factory import build_agent
@@ -24,47 +27,107 @@ from nutricion.memory.diagnose import connection_summary
 from nutricion.memory.store import DatabaseConnectionError, Store
 
 log = logging.getLogger("nutricion.web")
+
+
+def _now() -> str:
+    return datetime.now(UTC).isoformat(timespec="seconds")
+
+
 WEBHOOK_PATH = "/telegram"
 _lock = threading.Lock()
 
 
-def process(update: dict, settings: Settings, agent_factory=build_agent) -> None:
-    with _lock:
+# Si un mensaje anterior sigue procesándose más de este tiempo, se considera atascado
+LOCK_TIMEOUT_S = 150
+BUSY_KEY = "procesando"
+
+
+def _warn(settings: Settings, text: str) -> None:
+    try:
+        TelegramClient(settings.telegram_bot_token).send_message(
+            settings.telegram_chat_id, text, REPORT_BUTTON
+        )
+    except Exception:  # noqa: BLE001 - avisar es lo último que se intenta
+        log.exception("No se pudo avisar por Telegram")
+
+
+def _record_error(agent, what: str) -> None:
+    try:
+        agent.store.log_event("error", what, traceback.format_exc())
+    except Exception:  # noqa: BLE001 - la base de datos puede ser la que falla
+        log.exception("No se pudo registrar el error")
+
+
+def _run_locked(settings: Settings, what: str, job, agent_factory) -> None:
+    """Ejecuta un trabajo de uno en uno. Si otro sigue atascado, avisa en vez de esperar
+    para siempre; los errores quedan registrados para /diagnostico y el usuario recibe aviso."""
+    if not _lock.acquire(timeout=LOCK_TIMEOUT_S):
+        log.error("Bloqueado: %s lleva más de %ss esperando", what, LOCK_TIMEOUT_S)
+        _warn(
+            settings,
+            "⏳ Sigo ocupado con una tarea anterior que está tardando demasiado (quizá Gemini"
+            " no responde). Vuelve a intentarlo en unos minutos.",
+        )
+        return
+    try:
         try:
             agent = agent_factory(settings)
         except DatabaseConnectionError as exc:
             log.error("%s", exc)
-            TelegramClient(settings.telegram_bot_token).send_message(
-                settings.telegram_chat_id,
-                "⚠️ El servidor no puede conectar con la base de datos. Revisa DATABASE_URL en"
-                " Render (abre /diagnostico en la URL del servidor para ver el motivo).",
+            _warn(
+                settings,
+                "⚠️ El servidor no puede conectar con la base de datos. Revisa DATABASE_URL"
+                " en Render.",
             )
             return
         try:
+            agent.store.set(BUSY_KEY, json.dumps({"tarea": what, "desde": _now()}))
+            job(agent)
+        except Exception as exc:
+            log.exception("Error en %s", what)
+            _record_error(agent, f"{what}: {exc.__class__.__name__}: {str(exc)[:300]}")
+            _warn(
+                settings,
+                "⚠️ Tuve un problema con tu última acción (quizá Gemini está saturado)."
+                " Vuelve a intentarlo en unos minutos. Si se repite, pulsa «Reportar problema».",
+            )
+            raise
+        finally:
+            try:
+                agent.store.set(BUSY_KEY, "")
+                agent.store.close()
+            except Exception:  # noqa: BLE001
+                log.exception("No se pudo cerrar el almacén")
+    finally:
+        _lock.release()
+
+
+def process(update: dict, settings: Settings, agent_factory=build_agent) -> None:
+    what = f"actualización {update.get('update_id')}"
+
+    def job(agent):
+        try:
             agent.handle_update(update)
         except Exception:
-            log.exception("Error procesando la actualización %s", update.get("update_id"))
-            # Telegram no la reenviará (ya respondimos 200): se avisa y se da por procesada
+            # Telegram no la reenviará (ya respondimos 200): se da por procesada
             agent.store.set(OFFSET_KEY, str(update["update_id"] + 1))
-            agent.messenger.send_message(
-                settings.telegram_chat_id,
-                "⚠️ Tuve un problema procesando tu mensaje (quizá Gemini está saturado)."
-                " Vuelve a enviarlo en unos minutos.",
-            )
-        finally:
-            agent.store.close()
+            raise
+
+    try:
+        _run_locked(settings, what, job, agent_factory)
+    except Exception:  # noqa: BLE001 - ya registrado y avisado
+        pass
 
 
 def run_daily_pill(settings: Settings, force: bool, agent_factory=build_agent) -> None:
-    with _lock:
-        agent = agent_factory(settings)
-        try:
-            sent = agent.daily_pill_if_due(force=force)
-            log.info("Píldora diaria %s", "enviada" if sent else "ya enviada hoy: se omite")
-        except Exception:
-            log.exception("Error enviando la píldora diaria")
-        finally:
-            agent.store.close()
+    def job(agent):
+        sent = agent.daily_pill_if_due(force=force)
+        log.info("Píldora diaria %s", "enviada" if sent else "ya enviada hoy: se omite")
+
+    try:
+        _run_locked(settings, "píldora diaria", job, agent_factory)
+    except Exception:  # noqa: BLE001 - ya registrado y avisado
+        pass
 
 
 def create_app(settings: Settings | None = None, agent_factory=build_agent) -> Starlette:
@@ -75,12 +138,18 @@ def create_app(settings: Settings | None = None, agent_factory=build_agent) -> S
 
     def diagnostics() -> dict:
         """Estado de la configuración, sin revelar claves ni contraseñas."""
+        events, busy = [], ""
         try:
-            Store(settings.database).close()
+            store = Store(settings.database)
             database = "ok" if settings.database_url else "SQLite local (falta DATABASE_URL)"
+            events = store.recent_events(15)
+            busy = store.get(BUSY_KEY) or ""
+            store.close()
         except DatabaseConnectionError as exc:
             database = str(exc)
         return {
+            "procesando_ahora": json.loads(busy) if busy else None,
+            "eventos_recientes": events,
             "base_de_datos": database,
             "conexion": connection_summary(settings.database) if settings.database_url else None,
             "database_password": bool(settings.database_password),

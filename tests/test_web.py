@@ -9,10 +9,17 @@ SECRET = "s3cr3t"
 class FakeStore:
     def __init__(self):
         self.kv = {}
+        self.events = []
         self.closed = False
 
     def set(self, key, value):
         self.kv[key] = value
+
+    def get(self, key):
+        return self.kv.get(key)
+
+    def log_event(self, kind, message, detail=""):
+        self.events.append((kind, message, detail))
 
     def close(self):
         self.closed = True
@@ -75,11 +82,37 @@ def test_health_check():
     assert TestClient(create_app(settings(), lambda s: FakeAgent())).get("/").text == "ok"
 
 
-def test_failed_update_warns_user_and_is_not_retried_forever():
+def test_failed_update_is_logged_warns_user_and_is_not_retried(monkeypatch):
+    sent = []
+    monkeypatch.setattr(
+        "nutricion.web.TelegramClient.send_message",
+        lambda self, chat, text, buttons=None: sent.append((text, buttons)),
+    )
     agent = FakeAgent(fail=True)
     process({"update_id": 9}, settings(), lambda s: agent)
     assert agent.store.kv["telegram_offset"] == "10"
-    assert "Vuelve a enviarlo" in agent.messenger.sent[0]
+    assert agent.store.kv["procesando"] == ""  # ya no está ocupado
+    kind, message, detail = agent.store.events[0]
+    assert kind == "error" and "Gemini 503" in message and "Traceback" in detail
+    assert "Reportar problema" in sent[0][0] and sent[0][1][0][1] == "report"
+
+
+def test_stuck_previous_job_warns_instead_of_waiting_forever(monkeypatch):
+    import nutricion.web as web
+
+    sent = []
+    monkeypatch.setattr(
+        "nutricion.web.TelegramClient.send_message",
+        lambda self, chat, text, buttons=None: sent.append(text),
+    )
+    monkeypatch.setattr(web, "LOCK_TIMEOUT_S", 0.05)
+    agent = FakeAgent()
+    web._lock.acquire()  # simula una tarea anterior colgada
+    try:
+        process({"update_id": 1}, settings(), lambda s: agent)
+    finally:
+        web._lock.release()
+    assert agent.handled == [] and "ocupado" in sent[0]
 
 
 def test_diagnostics_reports_configuration_without_secrets():
@@ -96,7 +129,8 @@ def test_unreachable_database_warns_user(monkeypatch):
 
     sent = []
     monkeypatch.setattr(
-        "nutricion.web.TelegramClient.send_message", lambda self, chat, text: sent.append(text)
+        "nutricion.web.TelegramClient.send_message",
+        lambda self, chat, text, buttons=None: sent.append(text),
     )
 
     def broken_factory(s):

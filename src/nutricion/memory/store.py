@@ -28,6 +28,11 @@ _COLUMNS = """
     scores TEXT
 """
 _KV = "CREATE TABLE IF NOT EXISTS kv (key TEXT PRIMARY KEY, value TEXT NOT NULL)"
+_EVENTS = (
+    "CREATE TABLE IF NOT EXISTS events (id {id_type} PRIMARY KEY, created_at TEXT NOT NULL,"
+    " kind TEXT NOT NULL, message TEXT NOT NULL, detail TEXT NOT NULL DEFAULT '')"
+)
+MAX_EVENTS = 200
 _LESSONS = "CREATE TABLE IF NOT EXISTS lessons (id {id_type} PRIMARY KEY, {columns})"
 _SCHEMAS = {
     "sqlite": _LESSONS.format(id_type="INTEGER", columns=_COLUMNS),
@@ -79,6 +84,7 @@ class Store:
             self._dialect = "sqlite"
         self._run(_SCHEMAS[self._dialect])
         self._run(_KV)
+        self._run(_EVENTS.format(id_type="INTEGER" if self._dialect == "sqlite" else "BIGSERIAL"))
         self._migrate()
 
     def close(self) -> None:
@@ -203,6 +209,25 @@ class Store:
         return {r["source_title"] for r in rows}
 
     # --- valores de control ---------------------------------------------------------------
+
+    # --- eventos (errores y reportes del usuario) -----------------------------------------
+
+    def log_event(self, kind: str, message: str, detail: str = "") -> None:
+        """Registra un error o un reporte; conserva solo los MAX_EVENTS más recientes."""
+        self._run(
+            "INSERT INTO events (created_at, kind, message, detail) VALUES (?, ?, ?, ?)",
+            (_now(), kind, message[:1000], detail[:8000]),
+        )
+        self._run(
+            "DELETE FROM events WHERE id NOT IN (SELECT id FROM events ORDER BY id DESC LIMIT ?)",
+            (MAX_EVENTS,),
+        )
+
+    def recent_events(self, limit: int = 15) -> list[dict]:
+        return self._rows(
+            "SELECT id, created_at, kind, message, detail FROM events ORDER BY id DESC LIMIT ?",
+            (limit,),
+        )
 
     def get(self, key: str) -> str | None:
         row = self._run("SELECT value FROM kv WHERE key = ?", (key,)).fetchone()

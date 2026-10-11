@@ -76,3 +76,13 @@ def test_old_database_scores_are_backfilled(tmp_path):
     db.close()
     store = Store(f"sqlite:///{path}")
     assert store.scores()[0][1] == Score(4, 3, 3)
+
+
+def test_events_are_kept_newest_first_and_capped(store, monkeypatch):
+    import nutricion.memory.store as module
+
+    monkeypatch.setattr(module, "MAX_EVENTS", 3)
+    for i in range(5):
+        store.log_event("error", f"e{i}", "detalle")
+    events = store.recent_events(10)
+    assert [e["message"] for e in events] == ["e4", "e3", "e2"]

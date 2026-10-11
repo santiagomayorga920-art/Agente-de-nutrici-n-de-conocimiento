@@ -8,6 +8,9 @@ de juicio crítico, espera la respuesta del usuario y la evalúa.
 - Comprobaciones antes de commitear: `ruff check . && ruff format --check . && pytest`.
 - El LLM se usa solo a través de `nutricion.llm.LLMClient` (hoy Gemini gratuito); no llamar SDKs
   de proveedores desde otros módulos.
+- Reportes y errores en producción: lanzar el workflow «Diagnóstico» (editar
+  `.github/diagnostico.txt` y hacer push) y leer `eventos_recientes` y `procesando_ahora` en la
+  respuesta de `/diagnostico`. Los reportes los crea el usuario con `/reportar` en Telegram.
 - Idioma de la documentación y los mensajes al usuario: español.
 
 ## graphify
