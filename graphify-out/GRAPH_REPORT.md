@@ -1,17 +1,17 @@
 # Graph Report - Agente-de-nutrici-n-de-conocimiento  (2026-10-11)
 
 ## Corpus Check
-- 46 files · ~14,799 words
+- 46 files · ~15,084 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 5 file(s) not represented in the graph (top: (none) 2, .ttf 2, .example 1)
 
 ## Summary
-- 516 nodes · 1173 edges · 20 communities (14 shown, 6 thin omitted)
-- Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 144 edges (avg confidence: 0.92)
+- 523 nodes · 1185 edges · 20 communities (14 shown, 6 thin omitted)
+- Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 145 edges (avg confidence: 0.92)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `9b62e4f6`
+- Built from commit: `5f41a91a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -25,15 +25,15 @@
 - test_app.py
 - TelegramClient
 - card.py
-- Messenger
-- nutricion
-- Score
-- session-start.sh
 - app.py
+- nutricion
+- Pill
+- session-start.sh
+- researcher.py
 - web.py
 - Agent
 - test_diagnose.py
-- gemini.py
+- voice.py
 
 ## God Nodes (most connected - your core abstractions)
 1. `Store` - 44 edges
@@ -65,12 +65,12 @@
 ## Communities (20 total, 6 thin omitted)
 
 ### Community 0 - "Settings"
-Cohesion: 0.10
-Nodes (15): get_settings(), Settings, build_agent(), get_llm(), MissingAPIKey, annotate(), _database_status(), main() (+7 more)
+Cohesion: 0.09
+Nodes (17): get_settings(), Settings, build_agent(), get_llm(), MissingAPIKey, annotate(), _database_status(), main() (+9 more)
 
 ### Community 1 - "feeds.py"
 Cohesion: 0.09
-Nodes (23): Category, category_of_the_day(), Source, Candidate, _clean(), _entry_image(), fetch_candidates(), fetch_source() (+15 more)
+Nodes (22): Category, category_of_the_day(), Source, Candidate, _clean(), _entry_image(), fetch_candidates(), fetch_source() (+14 more)
 
 ### Community 2 - "Agente de nutrición de conocimiento"
 Cohesion: 0.18
@@ -85,60 +85,60 @@ Cohesion: 0.33
 Nodes (5): Criterios de selección, Formato de la píldora, Investigar IA y negocios, Objetivo, Rigor de las fuentes (de más a menos peso)
 
 ### Community 5 - "Store"
-Cohesion: 0.11
-Nodes (10): Lesson, _migrate(), _now(), Store, diagnostics(), pill(), store(), test_import_from_sqlite_keeps_scores_and_skips_duplicates() (+2 more)
+Cohesion: 0.08
+Nodes (17): InvalidTransition, Lesson, LessonState, transition(), _migrate(), _now(), Store, _to_lesson() (+9 more)
 
 ### Community 6 - "test_app.py"
-Cohesion: 0.11
-Nodes (30): InvalidTransition, LessonState, transition(), FakeLLM, make_agent(), news(), test_answer_is_evaluated_and_offers_next_button(), test_button_choice_gets_a_reaction_and_is_used_in_evaluation() (+22 more)
+Cohesion: 0.09
+Nodes (25): FakeLLM, FakeMessenger, make_agent(), news(), test_answer_is_evaluated_and_offers_next_button(), test_button_choice_gets_a_reaction_and_is_used_in_evaluation(), test_button_from_finished_lesson_is_rejected(), test_daily_pill_is_sent_as_photo_with_option_buttons() (+17 more)
 
 ### Community 7 - "TelegramClient"
-Cohesion: 0.09
-Nodes (5): _keyboard(), TelegramClient, TelegramError, lifespan(), FakeMessenger
+Cohesion: 0.13
+Nodes (4): _keyboard(), TelegramClient, TelegramError, lifespan()
 
 ### Community 8 - "card.py"
 Cohesion: 0.14
 Nodes (17): _background(), build_card(), _ellipsize(), fetch_background(), _fit(), _font(), _gradient(), render_card() (+9 more)
 
-### Community 13 - "Score"
-Cohesion: 0.09
-Nodes (19): _bar(), _days(), feedback(), pill_body(), pill_header(), profile_card(), progress_line(), reminder() (+11 more)
+### Community 13 - "Pill"
+Cohesion: 0.10
+Nodes (20): _bar(), _days(), feedback(), pill_body(), pill_header(), profile_card(), progress_line(), reminder() (+12 more)
 
-### Community 15 - "app.py"
-Cohesion: 0.05
-Nodes (19): Agente de nutrición de conocimiento, graphify, create_pill(), _PillDraft, _shorten(), load_skill(), evaluate(), Evaluation (+11 more)
+### Community 15 - "researcher.py"
+Cohesion: 0.08
+Nodes (12): Agente de nutrición de conocimiento, graphify, create_pill(), _PillDraft, _shorten(), load_skill(), evaluate(), Evaluation (+4 more)
 
 ### Community 16 - "web.py"
 Cohesion: 0.06
 Nodes (33): DatabaseConnectionError, create_app(), authorized(), cron_daily_pill(), diagnose(), telegram(), _describe(), __getattr__() (+25 more)
 
 ### Community 18 - "test_diagnose.py"
-Cohesion: 0.16
-Nodes (13): connection_summary(), database_url_problems(), explain_connection_error(), _sanitized(), test_common_mistakes_are_explained(), test_connection_summary_hides_password(), test_correct_session_pooler_uri_has_no_problems(), test_password_variable_fills_the_supabase_template() (+5 more)
+Cohesion: 0.14
+Nodes (14): connection_summary(), database_url_problems(), explain_connection_error(), _sanitized(), test_common_mistakes_are_explained(), test_connection_summary_hides_password(), test_correct_session_pooler_uri_has_no_problems(), test_password_variable_fills_the_supabase_template() (+6 more)
 
-### Community 19 - "gemini.py"
-Cohesion: 0.10
-Nodes (10): as_wav(), GeminiClient, FakeSpeaker, pill(), test_build_voice_sends_only_the_script_to_the_model(), test_raw_pcm_from_gemini_is_wrapped_as_wav(), test_script_reads_the_pill_without_urls(), test_script_without_category() (+2 more)
+### Community 19 - "voice.py"
+Cohesion: 0.08
+Nodes (17): as_wav(), GeminiClient, retry_delay(), build_voice(), script(), _sentence(), to_mp3(), Voice (+9 more)
 
 ## Knowledge Gaps
 - **1 isolated node(s):** `nutricion`
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 172 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 176 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Store` connect `Store` to `Settings`, `feeds.py`, `test_app.py`, `Score`, `app.py`, `web.py`, `Agent`?**
-  _High betweenness centrality (0.151) - this node is a cross-community bridge._
+- **Why does `Store` connect `Store` to `Settings`, `feeds.py`, `test_app.py`, `app.py`, `Pill`, `web.py`, `Agent`, `test_diagnose.py`?**
+  _High betweenness centrality (0.148) - this node is a cross-community bridge._
 - **Are the 12 inferred relationships involving `Store` (e.g. with `Agent` and `Lesson`) actually correct?**
   _`Store` has 12 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `nutricion` to the rest of the system?**
   _1 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Settings` be split into smaller, more focused modules?**
-  _Cohesion score 0.09743589743589744 - nodes in this community are weakly interconnected._
-- **Why does `Pill` connect `app.py` to `Store`, `card.py`, `Score`, `Agent`, `gemini.py`?**
-  _High betweenness centrality (0.071) - this node is a cross-community bridge._
+  _Cohesion score 0.08668076109936575 - nodes in this community are weakly interconnected._
+- **Why does `Pill` connect `Pill` to `Store`, `card.py`, `app.py`, `researcher.py`, `Agent`, `voice.py`?**
+  _High betweenness centrality (0.070) - this node is a cross-community bridge._
 - **Are the 20 inferred relationships involving `Settings` (e.g. with `build_agent()` and `get_llm()`) actually correct?**
   _`Settings` has 20 INFERRED edges - model-reasoned connections that need verification._
 - **Should `feeds.py` be split into smaller, more focused modules?**
-  _Cohesion score 0.09090909090909091 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08792270531400966 - nodes in this community are weakly interconnected._

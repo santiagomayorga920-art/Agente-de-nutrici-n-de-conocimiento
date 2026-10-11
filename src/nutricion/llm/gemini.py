@@ -2,6 +2,7 @@
 
 import io
 import re
+import time
 import wave
 from typing import TypeVar
 
@@ -16,6 +17,15 @@ T = TypeVar("T", bound=BaseModel)
 _RETRYABLE = {429, 500, 503}
 # Límite por petición: sin él una llamada colgada bloquearía el bot indefinidamente
 TIMEOUT_MS = 60_000
+# Reintentos automáticos solo ante fallos pasajeros; con cuota agotada (429) reintentar el mismo
+# modelo solo hace esperar: se pasa directo al de respaldo
+_HTTP_RETRY = types.HttpRetryOptions(attempts=2, http_status_codes=[408, 500, 502, 503, 504])
+# Tiempo que se omite un modelo sin cuota si Google no indica cuándo se recupera
+DEFAULT_SKIP_S = 600
+MAX_SKIP_S = 24 * 3600
+# Modelo -> momento (time.monotonic) hasta el que se omite por cuota agotada. Es global porque
+# el servidor crea un cliente por mensaje y la cuota es de la clave, no del cliente
+_exhausted: dict[str, float] = {}
 
 
 class GeminiClient:
@@ -29,9 +39,7 @@ class GeminiClient:
     ) -> None:
         self._client = genai.Client(
             api_key=api_key,
-            http_options=types.HttpOptions(
-                timeout=TIMEOUT_MS, retry_options=types.HttpRetryOptions(attempts=2)
-            ),
+            http_options=types.HttpOptions(timeout=TIMEOUT_MS, retry_options=_HTTP_RETRY),
         )
         self._models = [m for m in (model, fallback_model) if m]
         self._tts_models = [m for m in tts_models if m]
@@ -69,18 +77,31 @@ class GeminiClient:
     ) -> types.GenerateContentResponse:
         if not models:
             raise ValueError("No hay modelo configurado")
+        now = time.monotonic()
+        # Los modelos sin cuota van al final (no se descartan: puede que ya se haya recuperado)
+        models = sorted(models, key=lambda m: _exhausted.get(m, 0) > now)
         for i, model in enumerate(models):
             try:
-                return self._client.models.generate_content(
+                response = self._client.models.generate_content(
                     model=model, contents=prompt, config=config
                 )
+                _exhausted.pop(model, None)
+                return response
             except errors.APIError as exc:
+                if exc.code == 429:
+                    _exhausted[model] = time.monotonic() + retry_delay(exc)
                 if exc.code not in _RETRYABLE or i == len(models) - 1:
                     raise
             except httpx.TimeoutException:
                 if i == len(models) - 1:
                     raise
         raise AssertionError("inalcanzable")
+
+
+def retry_delay(exc: errors.APIError) -> float:
+    """Segundos hasta que Google vuelve a dar cuota (p. ej. «retryDelay: 83071s»)."""
+    match = re.search(r"retryDelay['\"]?\s*:\s*['\"](\d+(?:\.\d+)?)s", str(exc))
+    return min(float(match.group(1)), MAX_SKIP_S) if match else DEFAULT_SKIP_S
 
 
 def as_wav(data: bytes, mime_type: str) -> bytes:

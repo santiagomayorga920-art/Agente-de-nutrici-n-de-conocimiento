@@ -102,15 +102,15 @@
     "semantic_hash": ""
   },
   "src/nutricion/llm/gemini.py": {
-    "mtime": 1791680084.9071639,
-    "seen": 1791680184.1143079,
-    "ast_hash": "e3c6017546875b7c350035b50d38d879",
+    "mtime": 1791681195.7093253,
+    "seen": 1791681209.5403078,
+    "ast_hash": "aef05d3eb101093c1ed63517262a3c4c",
     "semantic_hash": ""
   },
   "tests/test_llm.py": {
-    "mtime": 1791636616.255552,
-    "seen": 1791636643.510439,
-    "ast_hash": "153866bdc4cc69be6e3aaabe56233881",
+    "mtime": 1791681205.6546388,
+    "seen": 1791681209.5403302,
+    "ast_hash": "f18a4ad62260e202142547beb8da6e22",
     "semantic_hash": ""
   },
   "src/nutricion/agents/researcher.py": {
@@ -264,9 +264,9 @@
     "semantic_hash": ""
   },
   ".github/diagnostico.txt": {
-    "mtime": 1791680581.5690348,
-    "seen": 1791680628.4977343,
-    "ast_hash": "b5a7bdcd5da8cc97a6be83916ce8cbe1",
+    "mtime": 1791681128.053998,
+    "seen": 1791681209.5403385,
+    "ast_hash": "4ba694b5fddf14fbcd92b40d4a3d7e42",
     "semantic_hash": ""
   },
   ".github/workflows/diagnostico.yml": {
