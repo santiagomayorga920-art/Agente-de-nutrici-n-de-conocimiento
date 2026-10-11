@@ -80,7 +80,9 @@ class Agent:
     chat_id: str
     fetch_candidates: Callable[[set[str]], list[feeds.Candidate]] = feeds.fetch_candidates
     find_image: Callable[[str], str] = field(default=images.find_og_image)
-    make_card: Callable[[Pill, str], bytes | None] = field(default=card.build_card)
+    make_card: Callable[[Pill, str, bytes | None], bytes | None] = field(default=card.build_card)
+    # Ilustración IA de fondo para la tarjeta; None la desactiva (la fábrica la conecta)
+    make_illustration: Callable[[Pill], bytes] | None = None
     # Nota de voz de la píldora; None la desactiva (la fábrica la conecta con Gemini)
     make_voice: Callable[[Pill], Voice] | None = None
     timezone: str = "UTC"
@@ -240,18 +242,30 @@ class Agent:
 
     def _send_pill(self, lesson: Lesson, steps: "_Stopwatch | None" = None) -> None:
         steps = steps or _Stopwatch()
-        self._send_pill_visual(lesson)
+        background = self._illustrate(lesson.pill)
+        steps.lap("ilustración")
+        self._send_pill_visual(lesson, background)
         steps.lap("tarjeta y envío")
         self._send_voice(lesson.pill)
         steps.lap("voz")
 
-    def _send_pill_visual(self, lesson: Lesson) -> None:
+    def _illustrate(self, pill: Pill) -> bytes | None:
+        """La ilustración es un extra: si falla, la tarjeta usa la foto del artículo."""
+        if not self.make_illustration:
+            return None
+        try:
+            return self.make_illustration(pill)
+        except Exception:  # noqa: BLE001 - proveedor caído o lento: no bloquea la píldora
+            self.store.log_event("aviso", "ilustración no generada", traceback.format_exc())
+            return None
+
+    def _send_pill_visual(self, lesson: Lesson, background: bytes | None = None) -> None:
         pill = lesson.pill
         buttons = [(o, f"{OPTION_PREFIX}:{lesson.id}:{i}") for i, o in enumerate(pill.options)]
         header, body = fmt.pill_header(pill), fmt.pill_body(pill)
         full = f"{header}\n\n{body}"
         # 1) Tarjeta visual generada; 2) foto del artículo por URL; 3) solo texto
-        image = self.make_card(pill, self.timezone)
+        image = self.make_card(pill, self.timezone, background)
         photos = [image] if image else []
         if pill.image_url:
             photos.append(pill.image_url)

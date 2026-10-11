@@ -17,6 +17,7 @@ MAX_LABEL_LEN = 60
 MAX_GLOSSARY = 4
 MAX_TERM_LEN = 40
 MAX_DEFINITION_LEN = 140
+MAX_IMAGE_PROMPT_LEN = 400
 # Cuántas píldoras anteriores se muestran al LLM para que no repita tema ni enfoque
 HISTORY = 5
 # Mínimo de candidatas que deben quedar tras descartar las del mismo ángulo que la anterior
@@ -74,6 +75,7 @@ class _PillDraft(BaseModel):
     key_figure_label: str
     angle: str
     glossary: list[_GlossaryEntry]
+    image_prompt: str
 
 
 def keyword_angle(candidate: Candidate) -> str:
@@ -148,7 +150,11 @@ def create_pill(
         " IA o negocios que aparezcan en tu píldora (p. ej. LLM, GPU, inferencia, ARR,"
         " Serie B), cada uno con una explicación de máximo 15 palabras para alguien sin"
         " formación técnica; si es un acrónimo, empieza por su significado. Lista vacía solo"
-        " si la píldora no tiene ninguna jerga.\n\n" + listing
+        " si la píldora no tiene ninguna jerga."
+        " En `image_prompt` describe EN INGLÉS, en máximo 40 palabras, una escena para la"
+        " ilustración de fondo: una metáfora visual concreta de la noticia (objetos, lugar,"
+        " acción). Sin texto, letras, cifras, logotipos ni rostros de personas reales.\n\n"
+        + listing
     )
     draft = llm.generate_structured(system, prompt, _PillDraft)
     angle = draft.angle.strip().lower()
@@ -173,5 +179,6 @@ def create_pill(
         key_figure_label=_shorten(draft.key_figure_label, MAX_LABEL_LEN),
         angle=angle if angle in ANGLES else "",
         glossary=glossary[:MAX_GLOSSARY],
+        image_prompt=_shorten(draft.image_prompt, MAX_IMAGE_PROMPT_LEN),
     )
     return pill, chosen

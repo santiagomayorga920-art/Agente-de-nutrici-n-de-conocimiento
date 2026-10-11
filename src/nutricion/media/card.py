@@ -38,10 +38,15 @@ def _font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
 
 
 def render_card(
-    pill: Pill, background: bytes | None = None, today: datetime | None = None
+    pill: Pill,
+    background: bytes | None = None,
+    today: datetime | None = None,
+    vivid: bool = False,
 ) -> bytes:
+    """`vivid`: fondo ilustrado a propósito (no una foto cualquiera): se oscurece menos arriba
+    para que se vea, y se mantiene oscuro abajo, donde va el texto."""
     accent = ACCENTS.get(pill.category, DEFAULT_ACCENT)
-    image = _background(background, accent)
+    image = _background(background, accent, top=40 if vivid else 120)
     draw = ImageDraw.Draw(image)
     width = SIZE - 2 * MARGIN
 
@@ -130,7 +135,7 @@ def fetch_background(url: str, http: httpx.Client | None = None) -> bytes | None
             client.close()
 
 
-def _background(data: bytes | None, accent: tuple[int, int, int]) -> Image.Image:
+def _background(data: bytes | None, accent: tuple[int, int, int], top: int = 120) -> Image.Image:
     base = None
     if data:
         try:
@@ -142,7 +147,7 @@ def _background(data: bytes | None, accent: tuple[int, int, int]) -> Image.Image
     # Velo oscuro, más intenso abajo, para que el texto siempre se lea
     shade = Image.new("L", (1, SIZE))
     for y in range(SIZE):
-        shade.putpixel((0, y), int(120 + 125 * (y / SIZE)))
+        shade.putpixel((0, y), int(top + (245 - top) * (y / SIZE)))
     veil = Image.new("RGB", (SIZE, SIZE), BACKGROUND)
     return Image.composite(veil, base, shade.resize((SIZE, SIZE)))
 
@@ -189,10 +194,13 @@ def _ellipsize(draw: ImageDraw.ImageDraw, text: str, font, width: int) -> str:
     return text + "…"
 
 
-def build_card(pill: Pill, timezone: str = "UTC") -> bytes | None:
-    """Tarjeta lista para enviar, o None si algo falla (se envía el formato anterior)."""
+def build_card(pill: Pill, timezone: str = "UTC", background: bytes | None = None) -> bytes | None:
+    """Tarjeta lista para enviar, o None si algo falla (se envía el formato anterior).
+    `background` es la ilustración generada; sin ella se usa la foto del artículo."""
     try:
         today = datetime.now(ZoneInfo(timezone))
+        if background:
+            return render_card(pill, background, today, vivid=True)
         return render_card(pill, fetch_background(pill.image_url), today)
     except Exception:  # noqa: BLE001 - la tarjeta es un extra: nunca bloquea la píldora
         return None

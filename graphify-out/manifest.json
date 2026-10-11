@@ -30,9 +30,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/config.py": {
-    "mtime": 1791680084.9041603,
-    "seen": 1791680184.1142988,
-    "ast_hash": "dc3ad119d10a897508862963db8d6177",
+    "mtime": 1791724800.6060257,
+    "seen": 1791724856.1685686,
+    "ast_hash": "1167ff9c276b76edbb8d3bb9283c4ad7",
     "semantic_hash": ""
   },
   "src/nutricion/domain/__init__.py": {
@@ -42,15 +42,15 @@
     "semantic_hash": ""
   },
   "src/nutricion/domain/lesson.py": {
-    "mtime": 1791723079.003677,
-    "seen": 1791723321.9115853,
-    "ast_hash": "dee5de16c1acb1c4d58f7ce036bb75c4",
+    "mtime": 1791724776.6950376,
+    "seen": 1791724856.1685712,
+    "ast_hash": "ef40a4ff7e5973233569cd9e7c5d0a0c",
     "semantic_hash": ""
   },
   "src/nutricion/main.py": {
-    "mtime": 1791664532.510278,
-    "seen": 1791664549.7746544,
-    "ast_hash": "13493d0ec5720ba233f147af0b8ba696",
+    "mtime": 1791724844.9510584,
+    "seen": 1791724856.1685781,
+    "ast_hash": "07bb26fad9ac961263f57c7acd663e43",
     "semantic_hash": ""
   },
   "src/nutricion/memory/__init__.py": {
@@ -114,9 +114,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/agents/researcher.py": {
-    "mtime": 1791723106.5415013,
-    "seen": 1791723321.9115717,
-    "ast_hash": "97bdc0a63d192dc9ac9c4830e4417641",
+    "mtime": 1791724776.696029,
+    "seen": 1791724856.1685588,
+    "ast_hash": "7cc6d4b0f47b8f3c22c8125a38f986c6",
     "semantic_hash": ""
   },
   "src/nutricion/agents/skills.py": {
@@ -132,9 +132,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/app.py": {
-    "mtime": 1791724588.4632318,
-    "seen": 1791724610.800585,
-    "ast_hash": "651857decedd86b9c7513de503774044",
+    "mtime": 1791724800.605717,
+    "seen": 1791724856.1685634,
+    "ast_hash": "6fc13d3a18cc5bc35673283ca13d40ad",
     "semantic_hash": ""
   },
   "src/nutricion/channels/telegram.py": {
@@ -144,15 +144,15 @@
     "semantic_hash": ""
   },
   "src/nutricion/memory/store.py": {
-    "mtime": 1791723079.0041864,
-    "seen": 1791723321.911601,
-    "ast_hash": "87678ca96cab2c5fc9f05b3e34763312",
+    "mtime": 1791724776.6955276,
+    "seen": 1791724856.1685867,
+    "ast_hash": "71ec080c1cccbe8a8519b9d15147a50e",
     "semantic_hash": ""
   },
   "tests/test_app.py": {
-    "mtime": 1791724602.8674128,
-    "seen": 1791724610.8006268,
-    "ast_hash": "b896947a63c00cffe6b13caf4a214855",
+    "mtime": 1791724818.5282466,
+    "seen": 1791724856.1685944,
+    "ast_hash": "b6eb0899b6b031b3e3920f26d833c524",
     "semantic_hash": ""
   },
   "tests/test_skills.py": {
@@ -258,9 +258,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/factory.py": {
-    "mtime": 1791680095.8301384,
-    "seen": 1791680184.1143048,
-    "ast_hash": "b091549e6f8f6d88e920045e68d9bede",
+    "mtime": 1791724800.6063275,
+    "seen": 1791724856.168574,
+    "ast_hash": "3ec50a179b4d0ce5fc0e5dcd061cd33b",
     "semantic_hash": ""
   },
   ".github/diagnostico.txt": {
@@ -282,9 +282,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/media/card.py": {
-    "mtime": 1791675627.3244107,
-    "seen": 1791675821.7230961,
-    "ast_hash": "53fe5de6164277f95e495712f297ecec",
+    "mtime": 1791724800.6325035,
+    "seen": 1791724856.16858,
+    "ast_hash": "46bb301272fd304642a6a5a3bf79d375",
     "semantic_hash": ""
   },
   "tests/test_card.py": {
@@ -306,9 +306,33 @@
     "semantic_hash": ""
   },
   "tests/test_researcher.py": {
-    "mtime": 1791723136.3375266,
-    "seen": 1791723321.9116182,
-    "ast_hash": "7fa39eefd5070e59f8472580f2533566",
+    "mtime": 1791724800.606866,
+    "seen": 1791724856.1686018,
+    "ast_hash": "b4ae163a8df5d34fedbac082dec5ad56",
+    "semantic_hash": ""
+  },
+  "src/nutricion/media/illustration.py": {
+    "mtime": 1791724776.6797583,
+    "seen": 1791724856.168582,
+    "ast_hash": "c8650449f474750a71fa4d763d16c822",
+    "semantic_hash": ""
+  },
+  "tests/test_illustration.py": {
+    "mtime": 1791724818.5485046,
+    "seen": 1791724856.1685975,
+    "ast_hash": "d0841951315a130087e2183b1caa6661",
+    "semantic_hash": ""
+  },
+  ".github/ilustracion.txt": {
+    "mtime": 1791724844.956506,
+    "seen": 1791724856.1686094,
+    "ast_hash": "84cd15ad06f23b58dd42e694597065b7",
+    "semantic_hash": ""
+  },
+  ".github/workflows/ilustracion.yml": {
+    "mtime": 1791724844.9548573,
+    "seen": 1791724856.1686137,
+    "ast_hash": "05ad75001524d3a9d28ff79e4cdff134",
     "semantic_hash": ""
   }
 }

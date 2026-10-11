@@ -1,0 +1,31 @@
+name: Ilustración de prueba
+
+# Prueba los proveedores de imagen reales (desde aquí sí hay internet) y guarda la tarjeta
+# resultante como artefacto descargable. Se lanza editando .github/ilustracion.txt.
+on:
+  workflow_dispatch:
+  push:
+    paths: [".github/ilustracion.txt"]
+
+permissions:
+  contents: read
+
+jobs:
+  ilustrar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e .
+      - name: Generar ilustración y tarjeta
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: nutricion ilustrar --salida tarjeta-prueba.png
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tarjeta-prueba
+          path: tarjeta-prueba.png

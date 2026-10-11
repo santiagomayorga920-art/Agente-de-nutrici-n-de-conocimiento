@@ -1,4 +1,4 @@
-"""Punto de entrada: `nutricion [revisar|ping|fuentes|stats|migrar|tick [--enviar-pildora]]`."""
+"""Punto de entrada: `nutricion [revisar|ping|fuentes|stats|webhook|ilustrar|migrar|tick]`."""
 
 import argparse
 import os
@@ -21,6 +21,9 @@ def main() -> None:
     sub.add_parser("webhook", help="estado del webhook según Telegram (sin mostrar el token)")
     migrate = sub.add_parser("migrar", help="copia una base SQLite a la base configurada")
     migrate.add_argument("origen", help="ruta del archivo SQLite de origen")
+    draw = sub.add_parser("ilustrar", help="genera una ilustración y su tarjeta de prueba")
+    draw.add_argument("--escena", default="", help="escena en inglés (si no, una de ejemplo)")
+    draw.add_argument("--salida", default="tarjeta-prueba.png", help="archivo PNG de salida")
     tick = sub.add_parser("tick", help="procesa mensajes de Telegram y envía la píldora si toca")
     tick.add_argument("--enviar-pildora", action="store_true", help="enviar la píldora diaria")
     args = parser.parse_args()
@@ -40,6 +43,8 @@ def main() -> None:
         _print_webhook(settings)
     elif args.command == "migrar":
         _migrate(settings, args.origen)
+    elif args.command == "ilustrar":
+        _illustrate(settings, args.escena, args.salida)
     elif args.command == "tick":
         _require(settings)
         _run_tick(settings, args.enviar_pildora)
@@ -48,6 +53,45 @@ def main() -> None:
         print(f"Base de datos: {_database_status(settings)}")
         missing = [n.upper() for n in REQUIRED if not getattr(settings, n)]
         print("Faltan variables: " + ", ".join(missing) if missing else "Configuración completa.")
+
+
+def _illustrate(settings: Settings, scene: str, output: str) -> None:
+    """Prueba los proveedores de imagen reales y deja la tarjeta resultante en `output`."""
+    import time
+
+    from nutricion.domain.lesson import Pill
+    from nutricion.media import card, illustration
+
+    pill = Pill(
+        headline="Los costos de inferencia de la IA caen diez veces en 18 meses",
+        what_happened="",
+        why_it_matters="",
+        source_url="",
+        challenge="",
+        source_name="Prueba",
+        category="Negocios",
+        key_figure="-90 %",
+        key_figure_label="costo por token",
+        image_prompt=scene
+        or "A giant price tag melting over a field of glowing computer chips at dusk",
+    )
+    cloudflare = bool(settings.cloudflare_account_id and settings.cloudflare_api_token)
+    print(f"Proveedor: {'Cloudflare Workers AI' if cloudflare else 'Pollinations (sin cuenta)'}")
+    start = time.monotonic()
+    try:
+        image = illustration.generate(
+            illustration.prompt_for(pill),
+            settings.cloudflare_account_id,
+            settings.cloudflare_api_token,
+        )
+    except illustration.IllustrationError as exc:
+        print(f"::error title=Ilustración no generada::{exc}")
+        sys.exit(1)
+    print(f"Ilustración: {len(image) // 1024} KB en {time.monotonic() - start:.1f} s")
+    result = card.build_card(pill, settings.timezone, image)
+    with open(output, "wb") as f:
+        f.write(result or b"")
+    print(f"Tarjeta guardada en {output} ({len(result or b'') // 1024} KB)")
 
 
 def _database_status(settings: Settings) -> str:

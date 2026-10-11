@@ -36,6 +36,7 @@ class FakeLLM:
                 key_figure_label="ronda Serie B",
                 angle="Inversión y financiación",
                 glossary=[_GlossaryEntry(term="Serie B", definition="Segunda gran ronda.")],
+                image_prompt="A rocket made of coins",
             )
         if self.fail_evaluation:
             raise RuntimeError("API caída")
@@ -110,7 +111,7 @@ def make_agent(llm=None, messenger=None, image="", card=None):
         CHAT,
         fetch_candidates=news,
         find_image=lambda u: image,
-        make_card=lambda pill, tz: card,
+        make_card=lambda pill, tz, background=None: card,
     )
     return agent, store, messenger
 
@@ -390,3 +391,31 @@ def test_report_without_text_asks_and_saves_next_message():
     messenger.receive("mi respuesta")
     agent.tick(send_daily_pill=False)
     assert store.open_lesson() is None
+
+
+def test_illustration_is_passed_to_the_card():
+    agent, store, messenger = make_agent()
+    backgrounds = []
+
+    def make_card(pill, tz, background=None):
+        backgrounds.append(background)
+        return b"PNG"
+
+    agent.make_card = make_card
+    agent.make_illustration = lambda pill: b"ILUSTRACION"
+    agent.tick(send_daily_pill=True)
+    assert backgrounds == [b"ILUSTRACION"]
+    assert "ilustración" in [e for e in store.recent_events() if e["kind"] == "traza"][0]["message"]
+
+
+def test_illustration_failure_falls_back_to_plain_card():
+    agent, store, messenger = make_agent(card=b"PNG")
+
+    def broken(pill):
+        raise RuntimeError("Pollinations: HTTP 502")
+
+    agent.make_illustration = broken
+    agent.tick(send_daily_pill=True)
+    assert messenger.sent[-1]["kind"] == "card"
+    event = next(e for e in store.recent_events() if e["kind"] == "aviso")
+    assert event["message"] == "ilustración no generada" and "502" in event["detail"]

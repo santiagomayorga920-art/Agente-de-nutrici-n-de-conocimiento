@@ -55,6 +55,7 @@ _MIGRATIONS = {
     "key_figure_label": "TEXT NOT NULL DEFAULT ''",
     "angle": "TEXT NOT NULL DEFAULT ''",
     "glossary": "TEXT NOT NULL DEFAULT '[]'",
+    "image_prompt": "TEXT NOT NULL DEFAULT ''",
 }
 
 _OPEN_STATES = (LessonState.PENDING, LessonState.AWAITING_ANSWER, LessonState.EVALUATING)
@@ -128,8 +129,8 @@ class Store:
         cursor = self._run(
             "INSERT INTO lessons (created_at, headline, what_happened, why_it_matters,"
             " source_url, challenge, state, source_name, category, image_url, options,"
-            " source_title, key_figure, key_figure_label, angle, glossary)"
-            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id",
+            " source_title, key_figure, key_figure_label, angle, glossary, image_prompt)"
+            " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id",
             (
                 _now(),
                 pill.headline,
@@ -147,6 +148,7 @@ class Store:
                 pill.key_figure_label,
                 pill.angle,
                 json.dumps([list(e) for e in pill.glossary], ensure_ascii=False),
+                pill.image_prompt,
             ),
         )
         lesson_id = cursor.fetchone()[0]
@@ -303,5 +305,6 @@ def _to_lesson(row: dict) -> Lesson:
         key_figure_label=row.get("key_figure_label") or "",
         angle=row.get("angle") or "",
         glossary=tuple(tuple(e) for e in json.loads(row.get("glossary") or "[]")),
+        image_prompt=row.get("image_prompt") or "",
     )
     return Lesson(id=row["id"], pill=pill, state=LessonState(row["state"]), choice=row["choice"])

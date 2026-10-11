@@ -62,6 +62,7 @@ def draft(**overrides) -> _PillDraft:
         key_figure="",
         key_figure_label="",
         angle="Caso de uso real",
+        image_prompt="A hospital corridor",
         glossary=[
             _GlossaryEntry(term="LLM", definition="Large Language Model: IA que genera texto."),
             _GlossaryEntry(term=" ", definition="vacío"),

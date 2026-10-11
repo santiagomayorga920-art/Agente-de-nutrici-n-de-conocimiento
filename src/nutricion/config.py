@@ -21,6 +21,12 @@ class Settings(BaseSettings):
     gemini_tts_fallback_model: str = "gemini-3.8-flash-lite-tts"
     # Voces: https://ai.google.dev/gemini-api/docs/speech-generation (Sulafat = cálida)
     gemini_tts_voice: str = "Sulafat"
+    # Ilustración IA de fondo en la tarjeta (v4.3); ILLUSTRATIONS=false la desactiva.
+    # Con las credenciales de Cloudflare Workers AI (gratis) es más estable; sin ellas se usa
+    # Pollinations, que no necesita cuenta
+    illustrations: bool = True
+    cloudflare_account_id: str = ""
+    cloudflare_api_token: str = ""
     telegram_bot_token: str = ""
     telegram_chat_id: str = ""
     # Postgres (Supabase) si está definida; si no, SQLite en database_path

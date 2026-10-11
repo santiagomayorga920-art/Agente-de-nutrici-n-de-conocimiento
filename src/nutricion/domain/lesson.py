@@ -49,6 +49,8 @@ class Pill:
     angle: str = ""
     # Glosario rápido: (término, explicación breve) de la jerga técnica o de negocio
     glossary: tuple[tuple[str, str], ...] = ()
+    # Escena para la ilustración de la tarjeta (en inglés, sin texto); puede faltar
+    image_prompt: str = ""
 
 
 @dataclass(frozen=True)
