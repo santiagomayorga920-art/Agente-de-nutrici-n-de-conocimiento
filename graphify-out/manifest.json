@@ -30,9 +30,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/config.py": {
-    "mtime": 1791724800.6060257,
-    "seen": 1791724856.1685686,
-    "ast_hash": "1167ff9c276b76edbb8d3bb9283c4ad7",
+    "mtime": 1791902249.0588808,
+    "seen": 1791902305.446981,
+    "ast_hash": "e31b47eecbb341ce51d41a7ed12371d2",
     "semantic_hash": ""
   },
   "src/nutricion/domain/__init__.py": {
@@ -96,15 +96,15 @@
     "semantic_hash": ""
   },
   "src/nutricion/llm/__init__.py": {
-    "mtime": 1791679971.8695383,
-    "seen": 1791680184.114306,
-    "ast_hash": "7ca70c3b40d5d8705055ef2b8592a31b",
+    "mtime": 1791902249.0593119,
+    "seen": 1791902305.4469888,
+    "ast_hash": "5d789ad40a2ec922a94a56b7c774f922",
     "semantic_hash": ""
   },
   "src/nutricion/llm/gemini.py": {
-    "mtime": 1791723579.6302392,
-    "seen": 1791723583.6901162,
-    "ast_hash": "90847879d7aa587bbf85d7eda07b0462",
+    "mtime": 1791902249.0598443,
+    "seen": 1791902305.44699,
+    "ast_hash": "c908a2393d004cb017fab2bd7a6e2040",
     "semantic_hash": ""
   },
   "tests/test_llm.py": {
@@ -216,9 +216,9 @@
     "semantic_hash": ""
   },
   "src/nutricion/web.py": {
-    "mtime": 1791680624.087239,
-    "seen": 1791680628.4977124,
-    "ast_hash": "bcdfad882eb75cff5978e11547f550af",
+    "mtime": 1791902272.5619438,
+    "seen": 1791902305.4470072,
+    "ast_hash": "358cc60d75336d938f83497961118665",
     "semantic_hash": ""
   },
   "tests/test_progress.py": {
@@ -234,9 +234,9 @@
     "semantic_hash": ""
   },
   "tests/test_web.py": {
-    "mtime": 1791680624.0876958,
-    "seen": 1791680628.4977329,
-    "ast_hash": "9edd45a7672fb5483793aa01922b2220",
+    "mtime": 1791902289.242872,
+    "seen": 1791902305.447022,
+    "ast_hash": "15b6331b7d0f213b13cfcedc31a78770",
     "semantic_hash": ""
   },
   "render.yaml": {
@@ -264,9 +264,9 @@
     "semantic_hash": ""
   },
   ".github/diagnostico.txt": {
-    "mtime": 1791724521.8564868,
-    "seen": 1791724610.8006434,
-    "ast_hash": "787899c852c0f6cfb2d0723258f0c4ca",
+    "mtime": 1791902029.0268567,
+    "seen": 1791902305.4470234,
+    "ast_hash": "dac7bca2dc8c832e0751510c585183f7",
     "semantic_hash": ""
   },
   ".github/workflows/diagnostico.yml": {

@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     gemini_api_key: str = ""
     gemini_model: str = "gemini-flash-latest"
     gemini_fallback_model: str = "gemini-flash-lite-latest"
+    # Más respaldos (separados por comas) para cuando Google satura los anteriores (503)
+    gemini_extra_models: str = "gemini-3.1-flash-lite"
     # Nota de voz de cada píldora (v4.2); VOICE_NOTES=false la desactiva
     voice_notes: bool = True
     gemini_tts_model: str = "gemini-3.8-flash-tts"

@@ -20,8 +20,11 @@ _RETRYABLE = {429, 500, 502, 503, 504}
 TIMEOUT_MS = 60_000
 # Reintentos automáticos solo ante fallos pasajeros; con cuota agotada (429) reintentar el mismo
 # modelo solo hace esperar: se pasa directo al de respaldo
-# (tampoco 504: el modelo ya tardó todo su plazo y reintentarlo duplica la espera)
-_HTTP_RETRY = types.HttpRetryOptions(attempts=2, http_status_codes=[408, 500, 502, 503])
+# (tampoco 504: el modelo ya tardó todo su plazo y reintentarlo duplica la espera). Los picos
+# de demanda (503) suelen pasar en segundos: se reintenta con espera creciente
+_HTTP_RETRY = types.HttpRetryOptions(
+    attempts=3, initial_delay=2, max_delay=15, http_status_codes=[408, 500, 502, 503]
+)
 # Tiempo que se omite un modelo lento o sin cuota si Google no indica cuándo se recupera
 DEFAULT_SKIP_S = 600
 MAX_SKIP_S = 24 * 3600
@@ -36,6 +39,7 @@ class GeminiClient:
         api_key: str,
         model: str,
         fallback_model: str = "",
+        extra_models: tuple[str, ...] = (),
         tts_models: tuple[str, ...] = (),
         voice: str = "Sulafat",
     ) -> None:
@@ -43,7 +47,7 @@ class GeminiClient:
             api_key=api_key,
             http_options=types.HttpOptions(timeout=TIMEOUT_MS, retry_options=_HTTP_RETRY),
         )
-        self._models = [m for m in (model, fallback_model) if m]
+        self._models = list(dict.fromkeys(m for m in (model, fallback_model, *extra_models) if m))
         self._tts_models = [m for m in tts_models if m]
         self._voice = voice
 

@@ -182,3 +182,48 @@ def test_diagnostics_requires_the_cron_key():
     assert client.get("/diagnostico?clave=mal").status_code == 401
     assert client.get("/diagnostico", headers={"X-Cron-Secret": "Cron123"}).status_code == 200
     assert client.get("/").text == "ok"  # el ping de cron-job.org sigue siendo público
+
+
+class FlakyAgent(FakeAgent):
+    """Falla las primeras `failures` píldoras diarias (Gemini saturado) y luego funciona."""
+
+    def __init__(self, failures):
+        super().__init__()
+        self.failures = failures
+
+    def daily_pill_if_due(self, force=False):
+        self.pills.append(force)
+        if len(self.pills) <= self.failures:
+            raise RuntimeError("503 UNAVAILABLE")
+        return True
+
+
+def _run_with_fake_timer(agent, monkeypatch):
+    from nutricion.web import run_daily_pill
+
+    sent, delays = [], []
+    monkeypatch.setattr(
+        "nutricion.web.TelegramClient.send_message",
+        lambda self, chat, text, buttons=None: sent.append(text),
+    )
+
+    def schedule(delay, action):
+        delays.append(delay)
+        action()  # sin esperar de verdad
+
+    run_daily_pill(settings(), False, lambda s: agent, schedule=schedule)
+    return sent, delays
+
+
+def test_failed_daily_pill_is_retried_automatically(monkeypatch):
+    agent = FlakyAgent(failures=2)
+    sent, delays = _run_with_fake_timer(agent, monkeypatch)
+    assert len(agent.pills) == 3 and delays == [600, 600]
+    assert all("La reintentaré sola en 10 minutos" in t for t in sent) and len(sent) == 2
+
+
+def test_daily_pill_gives_up_after_the_retries(monkeypatch):
+    agent = FlakyAgent(failures=10)
+    sent, delays = _run_with_fake_timer(agent, monkeypatch)
+    assert len(agent.pills) == 4 and len(delays) == 3
+    assert "/siguiente" in sent[-1]

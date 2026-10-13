@@ -36,6 +36,7 @@ def get_llm(settings: Settings) -> LLMClient:
         api_key=settings.gemini_api_key,
         model=settings.gemini_model,
         fallback_model=settings.gemini_fallback_model,
+        extra_models=tuple(m.strip() for m in settings.gemini_extra_models.split(",")),
         tts_models=(settings.gemini_tts_model, settings.gemini_tts_fallback_model),
         voice=settings.gemini_tts_voice,
     )

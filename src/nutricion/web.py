@@ -42,6 +42,13 @@ _lock = threading.Lock()
 # Si un mensaje anterior sigue procesándose más de este tiempo, se considera atascado
 LOCK_TIMEOUT_S = 150
 BUSY_KEY = "procesando"
+# Si la píldora diaria falla (p. ej. Gemini saturado), se reintenta sola cada 10 minutos
+DAILY_RETRY_DELAY_S = 600
+DAILY_RETRIES = 3
+DEFAULT_FAILURE = (
+    "⚠️ Tuve un problema con tu última acción (quizá Gemini está saturado)."
+    " Vuelve a intentarlo en unos minutos. Si se repite, pulsa «Reportar problema»."
+)
 
 
 def _warn(settings: Settings, text: str) -> None:
@@ -75,7 +82,9 @@ def _record_error(agent, what: str) -> None:
         log.exception("No se pudo registrar el error")
 
 
-def _run_locked(settings: Settings, what: str, job, agent_factory) -> None:
+def _run_locked(
+    settings: Settings, what: str, job, agent_factory, failure_text: str = DEFAULT_FAILURE
+) -> None:
     """Ejecuta un trabajo de uno en uno. Si otro sigue atascado, avisa en vez de esperar
     para siempre; los errores quedan registrados para /diagnostico y el usuario recibe aviso."""
     if not _lock.acquire(timeout=LOCK_TIMEOUT_S):
@@ -105,11 +114,8 @@ def _run_locked(settings: Settings, what: str, job, agent_factory) -> None:
         except Exception as exc:
             log.exception("Error en %s", what)
             _record_error(agent, f"{what}: {exc.__class__.__name__}: {str(exc)[:300]}")
-            _warn(
-                settings,
-                "⚠️ Tuve un problema con tu última acción (quizá Gemini está saturado)."
-                " Vuelve a intentarlo en unos minutos. Si se repite, pulsa «Reportar problema».",
-            )
+            if failure_text:
+                _warn(settings, failure_text)
             raise
         finally:
             try:
@@ -138,15 +144,40 @@ def process(update: dict, settings: Settings, agent_factory=build_agent) -> None
         pass
 
 
-def run_daily_pill(settings: Settings, force: bool, agent_factory=build_agent) -> None:
+def run_daily_pill(
+    settings: Settings, force: bool, agent_factory=build_agent, attempt: int = 0, schedule=None
+) -> None:
+    """Envía la píldora diaria; si falla, la reintenta sola (hasta DAILY_RETRIES veces).
+    `schedule(delay, función)` permite sustituir el temporizador en las pruebas."""
+
     def job(agent):
         sent = agent.daily_pill_if_due(force=force)
         log.info("Píldora diaria %s", "enviada" if sent else "ya enviada hoy: se omite")
 
+    retries_left = DAILY_RETRIES - attempt
+    minutes = DAILY_RETRY_DELAY_S // 60
+    failure = (
+        f"⚠️ No pude preparar la píldora de hoy (Gemini está saturado). La reintentaré sola"
+        f" en {minutes} minutos; no tienes que hacer nada."
+        if retries_left > 0
+        else "⚠️ Hoy no pude preparar la píldora tras varios intentos (Gemini sigue saturado)."
+        " Escribe /siguiente más tarde para pedirla."
+    )
     try:
-        _run_locked(settings, "píldora diaria", job, agent_factory)
+        _run_locked(settings, "píldora diaria", job, agent_factory, failure)
     except Exception:  # noqa: BLE001 - ya registrado y avisado
-        pass
+        if retries_left > 0:
+            schedule = schedule or _start_timer
+            schedule(
+                DAILY_RETRY_DELAY_S,
+                lambda: run_daily_pill(settings, force, agent_factory, attempt + 1, schedule),
+            )
+
+
+def _start_timer(delay: float, action) -> None:
+    timer = threading.Timer(delay, action)
+    timer.daemon = True
+    timer.start()
 
 
 def create_app(settings: Settings | None = None, agent_factory=build_agent) -> Starlette:
